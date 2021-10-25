@@ -33,18 +33,17 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="login-wrap p-0">
                             <h3 class="mb-4 text-center">Ingresa tu usuario</h3>
-                            <form action="${pageContext.request.contextPath}/LoginServlet" method="POST" class="signin-form">
+                            <form action="${pageContext.request.contextPath}/LoginServelet" method="POST" class="signin-form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Usuario" name="txtUsuario" required>
+                                    <input type="text" class="form-control" placeholder="Usuario" name="txtUsuario" id="usuario" required>
                                 </div>
                                 <div class="form-group">
                                     <input id="password-field" type="password" class="form-control" placeholder="Password"
-                                           name="txtClave" required>
-                                    <span toggle="#password-field"
-                                          class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                           name="txtClave" id="contraseña" required>
+                                    <span class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary submit px-3" name="btnLogin">Sign In</button>
+                                    <button type="submit" class="form-control btn btn-primary submit px-3" name="btnLogin" id="boton" value="btnLogin">Sign In</button>
                                 </div>
                                 
                             </form>
@@ -53,6 +52,23 @@
                 </div>
             </div>
         </section>
+         <script>
+        $(document).ready(funtion(){
+            $("#boton").on("click",funtion(){
+                
+                alert("asdadsad");
+            });
+            
+            
+            var usuario = $("#usuario").val();
+            var contraseña = $("#contraseña").val();
+            
+            console.log(usuario);
+            console.log(contraseña);
+            
+        });
+        
+        </script>
 
         <script src="../recursos/JS/jquery.min.js"></script>
         <script src="../recursos/JS/popper.min.js"></script>
