@@ -14,7 +14,7 @@
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-3 bread">Blog</h1>
+                <h1 class="mb-3 bread">Our Blog</h1>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Raisa Ramírez
+ * @author Karsa
  */
 public class Conexion {
     private Connection conexion;
@@ -27,7 +27,7 @@ public class Conexion {
     public void conectar(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String db = "inventario";
+            String db = "carstoreto";
             String user = "root";
             String pass = "";
             String url = "jdbc:mysql://localhost/"+db+"?user="+user+"&password="+pass;

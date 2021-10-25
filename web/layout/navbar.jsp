@@ -1,5 +1,7 @@
 <body>
-
+    <%
+        HttpSession sesion = request.getSession();
+    %>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">Car<span>Book</span></a>
@@ -16,6 +18,15 @@
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/contacto.jsp" class="nav-link">Contact</a></li>
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/reportes.jsp" class="nav-link">Reportes</a></li>
+                        <%
+                            if (sesion.getAttribute("nivel") == null) {
+                                response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
+                            } else if ((Integer) sesion.getAttribute("nivel") == 1) {
+                        %>
+                    <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
+                        <%
+                            }
+                        %>
                 </ul>
             </div>
         </div>
