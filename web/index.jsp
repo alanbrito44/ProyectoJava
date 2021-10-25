@@ -57,12 +57,12 @@
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/reportes.jsp" class="nav-link">Reportes</a></li>
                             <%
-                                if (sesion.getAttribute("nivel") == null) {
-                                       response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
-                                } else if ((Integer) sesion.getAttribute("nivel") > 0) {
+                                if (sesion.getAttribute("nivel") != null) {
+                                if ((Integer) sesion.getAttribute("nivel") > 0) {
                             %>
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
                             <%
+                                }
                                 }
                             %>
                     </ul>
