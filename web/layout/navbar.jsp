@@ -24,6 +24,9 @@
                     %>                   
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/reportes.jsp" class="nav-link">Reportes</a></li> 
+                    <%
+                        }else if ((Integer) sesion.getAttribute("nivel") != null) {
+                    %>
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
                     <%
                         }

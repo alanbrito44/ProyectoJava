@@ -8,6 +8,14 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 
+<%    
+    if (sesion.getAttribute("nivel") == null) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }else if ((Integer) sesion.getAttribute("nivel") != 1){
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+%>
+
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">

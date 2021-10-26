@@ -8,6 +8,14 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 
+<%    
+    if (sesion.getAttribute("nivel") == null) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }else if ((Integer) sesion.getAttribute("nivel") != 1){
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+%>
+
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -26,7 +34,7 @@
             <div class="col-md-12 ftco-animate">
                 <h2 class="mb-3">It is a long established fact a reader be distracted</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
-                
+
 
             </div>
         </div>
