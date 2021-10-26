@@ -17,16 +17,6 @@
     ArrayList<Marca> listaMarca = new ArrayList<>();
 %>
 
-<!--AQUI ESTAMOS INVOCANDO AL MENSAJE QUE CREAMOS EN JQUERY-->
-<%    if (request.getAttribute("respuesta") != null) {
-        out.println(request.getAttribute("respuesta"));
-%>
-<!--AQUI ENVIAMOS EL MENSAJE PERO POR UN ALERT-->
-<script>alert('<%=request.getAttribute("respuesta")%>')</script>
-<%
-    }
-%>
-
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -108,8 +98,6 @@
 </section>             
 <%@include file="../layout/footer.jsp" %>
 
-
-
 <!-- Modal Tabla modelos -->
 <div class="modal fade" id="ModalTabla" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -179,8 +167,8 @@
             <form action="${pageContext.request.contextPath}/MarcaServlet" method="POST">
                 <div class="modal-body">
 
-                    ID
-                    <input type="text" class="form-control" name="txtIdMarca">
+                    
+                    <input type="hidden" class="form-control" name="txtIdMarca">
                     Marca
                     <input type="text" class="form-control" name="txtMarca">
                     Descripcion

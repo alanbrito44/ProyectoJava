@@ -19,12 +19,11 @@ public class MarcaDAO extends Conexion{
     public void insertarMarca(Marca m){
         try {
             this.conectar();
-            String sql = "INSERT INTO marca_automovil VALUES (?,?,?,?)";
+            String sql = "INSERT INTO marca_automovil (nombre_marca,descripcion,pais_marca) VALUES (?,?,?)";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
-            pre.setInt(1, m.getId_marca());
-            pre.setString(2, m.getNombre_marca());
-            pre.setString(3, m.getDescripcion());
-            pre.setString(4, m.getPais_marca());
+            pre.setString(1, m.getNombre_marca());
+            pre.setString(2, m.getDescripcion());
+            pre.setString(3, m.getPais_marca());
             pre.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: "+e.getMessage());

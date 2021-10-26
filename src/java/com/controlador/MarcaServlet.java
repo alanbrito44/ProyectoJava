@@ -33,32 +33,39 @@ public class MarcaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             Marca m = new Marca();
             MarcaDAO daoMarca = new MarcaDAO();
             String mensaje = "";
-            
-            m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
+
             m.setNombre_marca(request.getParameter("txtMarca"));
             m.setDescripcion(request.getParameter("txtDescripcion"));
-            m.setPais_marca(request.getParameter("txtPais"));           
-            
-            if(request.getParameter("btnAgregar")!=null){
-                daoMarca.insertarMarca(m);       
-                mensaje = "Producto Agregado";
-                response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-            }else if(request.getParameter("btnEditar")!=null){
-                daoMarca.modificarMarca(m);
-                mensaje = "Producto modificado";
-                response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-            }else if(request.getParameter("btnEliminar")!=null){
-                daoMarca.eliminarMarca(m);
-                mensaje = "Producto eliminado";
-                response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-            }    
+            m.setPais_marca(request.getParameter("txtPais"));
 
-            request.setAttribute("respuesta", mensaje);
-//            request.getRequestDispatcher("/vistas/cars.jsp").forward(request, response);
+            if (request.getParameter("btnAgregar") != null) {
+                daoMarca.insertarMarca(m);
+                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Modelo ingresado con exito');");
+                out.println("location='vistas/cars.jsp';");
+                out.println("</script>");
+            } else if (request.getParameter("btnEditar") != null) {
+                m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
+                daoMarca.modificarMarca(m);
+                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Modelo editado con exito');");
+                out.println("location='vistas/cars.jsp';");
+                out.println("</script>");
+            } else if (request.getParameter("btnEliminar") != null) {
+                m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
+                daoMarca.eliminarMarca(m);
+                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Modelo elimanado con exito');");
+                out.println("location='vistas/cars.jsp';");
+                out.println("</script>");
+            }
         }
     }
 
