@@ -9,5 +9,15 @@ and open the template in the editor.
 */
 
 .accionBlog{
-    width: 80px;
+    width: 250px;
+}
+
+#message-text{
+    height: 100px !important;
+}
+
+.ck-editor__editable 
+{
+    min-height: 360px !important;
+    color:black !important;
 }

@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="../recursos/CSS/bootstrap-datepicker.css">
         <link rel="stylesheet" href="../recursos/CSS/jquery.timepicker.css">
 
-
+        <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
         <link rel="stylesheet" href="../recursos/CSS/flaticon.css">
         <link rel="stylesheet" href="../recursos/CSS/icomoon.css">
         <link rel="stylesheet" href="../recursos/CSS/style.css">

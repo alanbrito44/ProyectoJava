@@ -55,9 +55,53 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      ...
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Entradas Blog</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Titulo Del Blog</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Descripción Corta Del Blog(Max 200 Caracteres)</label>
+                    <textarea class="form-control" id="message-text" maxlength="200"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
+                    <input type="file" class="form-control" id="recipient-name" accept=".jpg">
+                </div>
+                <div class="form-group">
+                    <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
+                    <textarea class="form-control" id="txtDescripcion" maxlength="200"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Imagen Adicional Blog (Solo JPG)</label>
+                    <input type="file" class="form-control" id="recipient-name" accept=".jpg">
+                   <small id="emailHelp" class="form-text text-muted">
+                      Esta Imagen Aparecerá Al Final Del Contenido Del Blog.
+                   </small>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-outline-success">Aceptar</button>
+        <button type="button" class="btn btn-outline-warning">Guardar</button>
+      </div>
     </div>
   </div>
 </div>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#txtDescripcion' ) )
+        .catch( error => {
+        console.error( error );
+        } );
+</script>
 
 <%@include file="../layout/footer.jsp" %>
