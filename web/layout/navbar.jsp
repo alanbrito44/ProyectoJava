@@ -19,7 +19,7 @@
 
                     <%
                         if (sesion.getAttribute("nivel") == null) {
-
+                           
                         } else if ((Integer) sesion.getAttribute("nivel") == 1) {
                     %>                   
                     <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
