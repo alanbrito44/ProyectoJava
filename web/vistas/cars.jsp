@@ -4,9 +4,28 @@
     Author     : KARSA
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.modelo.Marca" %>
+<%@page import="com.modelo.MarcaDAO" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
+
+<%!
+    MarcaDAO daoMarca = new MarcaDAO();
+    ArrayList<Marca> listaMarca = new ArrayList<>();
+%>
+
+<!--AQUI ESTAMOS INVOCANDO AL MENSAJE QUE CREAMOS EN JQUERY-->
+<%    if (request.getAttribute("respuesta") != null) {
+        out.println(request.getAttribute("respuesta"));
+%>
+<!--AQUI ENVIAMOS EL MENSAJE PERO POR UN ALERT-->
+<script>alert('<%=request.getAttribute("respuesta")%>')</script>
+<%
+    }
+%>
 
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
@@ -23,6 +42,23 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
+        <%
+            if (sesion.getAttribute("nivel") == null) {
+        %> 
+
+        <%
+        } else if ((Integer) sesion.getAttribute("nivel") == 1) {
+        %> 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary py-3 px-4 mb-5 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
+            Listado de vehiculos existentes
+        </button>
+        <button type="button" class="btn btn-primary py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
+            Listado marca de vehiculos
+        </button>
+        <%
+            }
+        %> 
         <div class="row">
             <div class="col-md-4">
                 <div class="car-wrap rounded ftco-animate">
@@ -67,22 +103,102 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
-                </div>
+
+    </div>
+</section>             
+<%@include file="../layout/footer.jsp" %>
+
+
+
+<!-- Modal Tabla modelos -->
+<div class="modal fade" id="ModalTabla" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Listado de modelos disponibles</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-dark text-center">
+
+                    <thead>
+                    <th>ID</th>
+                    <th>MARCA</th>
+                    <th>DESCRIPCION</th>
+                    <th>PAIS</th>
+                    <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        <%
+                            listaMarca = daoMarca.mostrarMarcas();
+                            for (Marca elem : listaMarca) {
+                        %>
+                        <tr>
+                            <td class="id_marca"><%=elem.getId_marca()%></td>
+                            <td class="nombre_marca"><%=elem.getNombre_marca()%></td>
+                            <td class="descripcion_marca"><%=elem.getDescripcion()%></td>
+                            <td class="pais_marca"><%=elem.getPais_marca()%></td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEditar">
+                                    Editar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEliminar">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAcciones" id="btnAgregar">
+                    Agregar
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<%@include file="../layout/footer.jsp" %>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAcciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modelo de vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="${pageContext.request.contextPath}/MarcaServlet" method="POST">
+                <div class="modal-body">
+
+                    ID
+                    <input type="text" class="form-control" name="txtIdMarca">
+                    Marca
+                    <input type="text" class="form-control" name="txtMarca">
+                    Descripcion
+                    <textarea class="form-control" name="txtDescripcion"></textarea>
+                    Pais
+                    <input type="text" class="form-control" name="txtPais">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="btnAgregar">Agregar</button>
+                    <button type="submit" class="btn btn-danger" name="btnEditar">Editar</button>
+                    <button type="submit" class="btn btn-danger" name="btnEliminar">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--SCRIPT PARA JQUERY-->    
+<script src="../recursos/JS/Marca.js"></script>

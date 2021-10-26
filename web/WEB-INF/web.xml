@@ -4,9 +4,17 @@
         <servlet-name>LoginServelet</servlet-name>
         <servlet-class>com.controlador.LoginServelet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarcaServlet</servlet-name>
+        <servlet-class>com.controlador.MarcaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServelet</servlet-name>
         <url-pattern>/LoginServelet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarcaServlet</servlet-name>
+        <url-pattern>/MarcaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

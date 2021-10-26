@@ -37,4 +37,27 @@ public class Login extends Conexion{
         }
         return nivel;
     }
+    
+    public int validarIdUusario(String usuario, String clave){
+        int id = 0;
+        try {
+            this.conectar();
+            String sql = "SELECT id_usuario FROM usuarios WHERE usuario=? AND contraseña=?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setString(1, usuario);
+            pre.setString(2, clave);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            //si el query coindice entonces en rs vendra el valor de nivel y entra al while
+            while(rs.next()){
+                //se le pone uno porque es el primer valor del query osea nivel
+                id = rs.getInt(1);
+            }          
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+        return id;
+    }
 }

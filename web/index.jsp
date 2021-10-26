@@ -55,20 +55,21 @@
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="nav-link">Blog</a></li>
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/contacto.jsp" class="nav-link">Contact</a></li>
 
-                    <%
-                        if (sesion.getAttribute("nivel") == null) {
+                        <%
+                            if (sesion.getAttribute("nivel") == null) {
 
-                        } else if ((Integer) sesion.getAttribute("nivel") == 1) {
-                    %>                  
-                    <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
-                    <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/reportes.jsp" class="nav-link">Reportes</a></li> 
-                    <%
-                        }   else if ((Integer) sesion.getAttribute("nivel") != null) {
-                    %>
-                    <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
-                    <%
-                        }
-                    %>                  
+                            } else if ((Integer) sesion.getAttribute("nivel") == 1) {
+                        %>                  
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/ventas.jsp" class="nav-link">Venta</a></li>
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/reportes.jsp" class="nav-link">Reportes</a></li> 
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
+                            <%
+                            } else if ((Integer) sesion.getAttribute("nivel") != null) {
+                            %>
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/login.jsp?cerrar=true" class="nav-link">Salir</a></li>
+                            <%
+                                }
+                            %>                  
                     </ul>
                 </div>
             </div>
@@ -101,7 +102,18 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12 heading-section text-center ftco-animate mb-5">
                         <span class="subheading">What we offer</span>
-                        <h2><%=sesion.getAttribute("usuario")%></h2>
+                        <%
+                            if (sesion.getAttribute("usuario") == null) {
+                        %> 
+
+                        <%
+                        } else if (sesion.getAttribute("usuario") != null) {
+                        %> 
+                        <h2>Bienvenido <%=sesion.getAttribute("usuario")%></h2>
+                        <h2>ID USUARIO <%=sesion.getAttribute("id")%></h2>
+                        <%
+                            }
+                        %> 
                         <h2 class="mb-2">Feeatured Vehicles</h2>
                     </div>
                 </div>

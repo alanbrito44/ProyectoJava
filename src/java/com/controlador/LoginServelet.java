@@ -31,7 +31,7 @@ public class LoginServelet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-                        Login login = new Login();
+            Login login = new Login();
             if(request.getParameter("btnLogin")!=null){
                 //recibiendo los valores que vengan del input
                 String usuario = request.getParameter("txtUsuario");
@@ -39,6 +39,7 @@ public class LoginServelet extends HttpServlet {
                 
                 //guardando el valor de nivel de la funcion validarLogin
                 int nivel = login.validarLogin(usuario, clave);
+                int id = login.validarIdUusario(usuario, clave);
                 
                 //evaluamos si los datos eran correctos, en caso no sean correctos (que devuelva
                 //0 filas entonces lo redirrecionamos al login nuevamente para que intente nuevamente
@@ -48,8 +49,8 @@ public class LoginServelet extends HttpServlet {
                 //caso contrario que si tenga fila tomamos los datos para la sesion y mandamos al login los datos
                 //Con esto estamos pasando del controlador a la vista login.jsp dos variables
                 request.setAttribute("usuario", usuario);
-                request.setAttribute("clave", clave);
                 request.setAttribute("nivel",nivel);
+                request.setAttribute("id", id);
                 
                 //aqui estamos redireccionando a login para realizar unas comprobaciones con las variables creadas de arriba
                 request.getRequestDispatcher("admin/login.jsp").forward(request, response);

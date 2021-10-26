@@ -73,6 +73,7 @@
             //la variable de nombre ususario del controlador LoginServlet
             sesion.setAttribute("usuario", request.getAttribute("usuario"));
             sesion.setAttribute("nivel", request.getAttribute("nivel"));
+            sesion.setAttribute("id", request.getAttribute("id"));
 
             //haciendo redireccionamieneto de vista login a vista home cuado se haya comprobado la condicion
             response.sendRedirect("index.jsp");
