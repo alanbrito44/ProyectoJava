@@ -96,4 +96,28 @@ public class MarcaDAO extends Conexion{
         }
         return lista;
     }
+    
+    //funcion que solamente sirve para obtener el nombre del proveedor
+    public Marca getMarca(int id){
+        Marca m = new Marca();
+        try{
+            this.conectar();
+            String sql = "SELECT * FROM marca_automovil WHERE id_marca=?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, id);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            while(rs.next()){
+                m.setId_marca(rs.getInt(1));
+                m.setNombre_marca(rs.getString(2));
+                m.setDescripcion(rs.getString(3));
+                m.setPais_marca(rs.getString(4));;
+            }
+        }catch(Exception e){
+            JOptionPane.showInputDialog(null, "Error: "+e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+        return m;
+    }
 }
