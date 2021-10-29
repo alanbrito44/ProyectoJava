@@ -4,6 +4,10 @@
     Author     : KARSA
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.modelo.Marca" %>
 <%@page import="com.modelo.MarcaDAO" %>
@@ -244,7 +248,7 @@
 
                             <td class="categoria"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
-                            <td class="imagen"><%=elem.getImagen_auto()%></td>
+                            <td class="imagen"><image src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
                             <td>
                                 <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
                                     Editar
@@ -338,6 +342,6 @@
         </div>
     </div>
 </div>
-
+                   
 <!--SCRIPT PARA JQUERY-->    
 <script src="../recursos/JS/Marca.js"></script>

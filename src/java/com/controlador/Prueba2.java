@@ -77,7 +77,7 @@ public class Prueba2 extends HttpServlet {
             auto.setColor(request.getParameter("txtColor"));
             auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
             auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
-            auto.setImagen_auto(savePath);
+            auto.setImagen_auto(dbFileName);
 
             if (request.getParameter("btnAgregarA") != null) {
                 daoAuto.insertarAutomovil(auto);

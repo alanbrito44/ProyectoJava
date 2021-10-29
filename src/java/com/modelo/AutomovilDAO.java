@@ -76,5 +76,36 @@ public class AutomovilDAO extends Conexion {
         }
         return lista;
     }
+    
+    public Automovil getImagen(int id){
+        Automovil a = new Automovil();
+        try{
+            this.conectar();
+            String sql = "SELECT * FROM automovil WHERE id_automovil=?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, id);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            while(rs.next()){
+                a.setId_automovil(rs.getInt(1));
+                a.setModelo_automovil(rs.getString(2));
+                a.setPrecio(rs.getDouble(3));
+                a.setPlaca(rs.getString(4));
+                a.setAno(rs.getInt(5));
+                a.setTransmision(rs.getString(6));
+                a.setPuertas(rs.getInt(7));
+                a.setKilometrage(rs.getDouble(8));
+                a.setColor(rs.getString(9));
+                a.setId_marca(rs.getInt(10));
+                a.setId_catAutomovil(rs.getInt(11));
+                a.setImagen_auto(rs.getString(12));
+            }
+        }catch(Exception e){
+            JOptionPane.showInputDialog(null, "Error: "+e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+        return a;
+    }
 
 }
