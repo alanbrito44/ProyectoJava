@@ -246,10 +246,10 @@
 
                             <td class="imagen"><%=elem.getImagen_auto()%></td>
                             <td>
-                                <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEditarA">
+                                <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
                                     Editar
                                 </button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEliminarA">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEliminarA">
                                     Eliminar
                                 </button>
                             </td>
@@ -275,12 +275,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modelo de vehiculo</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Informacion vehiculo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="${pageContext.request.contextPath}/MarcaServlet" method="POST">
+            <form action="${pageContext.request.contextPath}/Prueba2" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
 
                     <input type="hidden" class="form-control" name="txtIdAutomovil">
@@ -324,6 +324,8 @@
                             }
                         %>
                     </select>
+                    Imagen
+                    <input type="file" class="form-control" name="txtImagen">
 
                 </div>
                 <div class="modal-footer">

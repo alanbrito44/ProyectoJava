@@ -5,10 +5,13 @@
  */
 package com.controlador;
 
-import com.modelo.Marca;
-import com.modelo.MarcaDAO;
+import com.modelo.Automovil;
+import com.modelo.AutomovilDAO;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Karsa
  */
-public class MarcaServlet extends HttpServlet {
+public class AutoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,36 +35,28 @@ public class MarcaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
 
-            Marca m = new Marca();
-            MarcaDAO daoMarca = new MarcaDAO();
+            Automovil auto = new Automovil();
+            AutomovilDAO daoAuto = new AutomovilDAO();
 
-            m.setNombre_marca(request.getParameter("txtMarca"));
-            m.setDescripcion(request.getParameter("txtDescripcion"));
-            m.setPais_marca(request.getParameter("txtPais"));
+            auto.setModelo_automovil(request.getParameter("txtModelo"));
+            auto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
+            auto.setPlaca(request.getParameter("txtPlaca"));
+            auto.setAno(Integer.parseInt(request.getParameter("txtAno")));
+            auto.setTransmision(request.getParameter("txtTransmision"));
+            auto.setPuertas(Integer.parseInt(request.getParameter("txtPuerta")));
+            auto.setKilometrage(Double.parseDouble(request.getParameter("txtKilometrage")));
+            auto.setColor(request.getParameter("txtColor"));
+            auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
+            auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
+            auto.setImagen_auto(request.getParameter("txtImagen"));
 
-            if (request.getParameter("btnAgregar") != null) {
-                daoMarca.insertarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
+            if (request.getParameter("btnAgregarA") != null) {
+                daoAuto.insertarAutomovil(auto);
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('Modelo ingresado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
-            } else if (request.getParameter("btnEditar") != null) {
-                m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
-                daoMarca.modificarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo editado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
-            } else if (request.getParameter("btnEliminar") != null) {
-                m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
-                daoMarca.eliminarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo elimanado con exito');");
                 out.println("location='vistas/cars.jsp';");
                 out.println("</script>");
             }

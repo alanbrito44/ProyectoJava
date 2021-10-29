@@ -41,7 +41,7 @@ public class Automovil {
         this.id_catAutomovil = id_catAutomovil;
         this.imagen_auto = imagen_auto;
     }
-
+    
     public String getImagen_auto() {
         return imagen_auto;
     }

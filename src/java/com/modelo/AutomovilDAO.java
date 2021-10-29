@@ -6,6 +6,7 @@
 package com.modelo;
 
 import com.conexion.Conexion;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,12 +16,13 @@ import javax.swing.JOptionPane;
  *
  * @author Karsa
  */
-public class AutomovilDAO extends Conexion{
-    public void insertarAutomovil(Automovil a){
+public class AutomovilDAO extends Conexion {
+
+    public void insertarAutomovil(Automovil a) {
         try {
             this.conectar();
             String sql = "INSERT INTO automovil (modelo_automovil,precio,placa,año,transmision,puertas,kilometrage,color,id_marca,id_catAutomovil,imagen_auto) "
-                        + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setString(1, a.getModelo_automovil());
             pre.setDouble(2, a.getPrecio());
@@ -35,21 +37,21 @@ public class AutomovilDAO extends Conexion{
             pre.setString(11, a.getImagen_auto());
             pre.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
-        }finally{
+            System.out.println("Error: " + e.getMessage());
+        } finally {
             this.desconectar();
         }
     }
-    
-    public ArrayList<Automovil> mostrarAutomovil(){
+
+    public ArrayList<Automovil> mostrarAutomovil() {
         ArrayList<Automovil> lista = new ArrayList<>();
-        try{
+        try {
             this.conectar();
             String sql = "SELECT * FROM automovil";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             ResultSet rs;
             rs = pre.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Automovil a = new Automovil();
                 a.setId_automovil(rs.getInt(1));
                 a.setModelo_automovil(rs.getString(2));
@@ -63,16 +65,16 @@ public class AutomovilDAO extends Conexion{
                 a.setId_marca(rs.getInt(10));
                 a.setId_catAutomovil(rs.getInt(11));
                 a.setImagen_auto(rs.getString(12));
-                
+
                 //agrenado los valores a la lista
                 lista.add(a);
             }
-        }catch(Exception e){
-            JOptionPane.showInputDialog(null, "Error: "+e.getMessage());
-        }finally{
+        } catch (Exception e) {
+            JOptionPane.showInputDialog(null, "Error: " + e.getMessage());
+        } finally {
             this.desconectar();
         }
         return lista;
     }
-    
+
 }
