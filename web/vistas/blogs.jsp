@@ -11,8 +11,10 @@
 <%@page import="java.lang.Integer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
-<%@include file="../layout/navbar.jsp" %>
-<link rel="stylesheet" href="../recursos/CSS/blogStyle.css">
+<%@include file="../layout/navbar.jsp"%>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/blogStyle.css">
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -38,8 +40,7 @@
 
         <%
             }
-        %>
-
+        %>     
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
@@ -73,7 +74,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/blogControl" method="POST" enctype="multipart/form-data">
+                <form id="formulario" action="${pageContext.request.contextPath}/blogControl" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
                     </div>
@@ -110,7 +111,7 @@
                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <input type="submit" class="btn btn-outline-success" name="Accion" value="Ingresar">
+                    <input type="submit" class="btn btn-outline-success" id="btnCrear" name="Accion" value="Ingresar">
                     <input type="submit" class="btn btn-outline-warning" name="Accion" value="Guardar">
                 </div>
                 </form>
@@ -125,19 +126,4 @@
                 console.error(error);
             });
 </script>
-
-
-<%
-    String corecto = request.getParameter("Inertado");
-    if(request.getParameter("carga") != null){
-        if(corecto =="Ingresado Correctamente"){
- %>
- <script>alert("se ha insertado")</script>
- 
- <%
-        }
-    }
-
-
-%>
 <%@include file="../layout/footer.jsp" %>
