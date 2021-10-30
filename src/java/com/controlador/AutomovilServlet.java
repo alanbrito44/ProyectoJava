@@ -10,18 +10,24 @@ import com.modelo.AutomovilDAO;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Karsa
  */
-public class AutoServlet extends HttpServlet {
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)
+public class AutomovilServlet extends HttpServlet {
+
+    public static final String UPLOAD_DIR = "recursos/Multimedia/Imagenes";
+    public String dbFileName = "";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,8 +41,28 @@ public class AutoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
+            
+            Part part = request.getPart("txtImagen");//
+            String fileName = extractFileName(part);//file name
+
+            String applicationPath = getServletContext().getRealPath("");
+            String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+            System.out.println("applicationPath:" + applicationPath);
+            File fileUploadDirectory = new File(uploadPath);
+            if (!fileUploadDirectory.exists()) {
+                fileUploadDirectory.mkdirs();
+            }
+            String savePath = uploadPath + File.separator + fileName;
+            System.out.println("savePath: " + savePath);
+            String sRootPath = new File(savePath).getAbsolutePath();
+            System.out.println("sRootPath: " + sRootPath);
+            part.write(savePath + File.separator);
+            File fileSaveDir1 = new File(savePath);
+            /*if you may have more than one files with same name then you can calculate some random characters
+            and append that characters in fileName so that it will  make your each image name identical.*/
+            String dbFileName = UPLOAD_DIR + File.separator + fileName;
+            part.write(savePath + File.separator);
 
             Automovil auto = new Automovil();
             AutomovilDAO daoAuto = new AutomovilDAO();
@@ -51,7 +77,7 @@ public class AutoServlet extends HttpServlet {
             auto.setColor(request.getParameter("txtColor"));
             auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
             auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
-            auto.setImagen_auto(request.getParameter("txtImagen"));
+            auto.setImagen_auto(dbFileName);
 
             if (request.getParameter("btnAgregarA") != null) {
                 daoAuto.insertarAutomovil(auto);
@@ -60,6 +86,7 @@ public class AutoServlet extends HttpServlet {
                 out.println("location='vistas/cars.jsp';");
                 out.println("</script>");
             }
+            
         }
     }
 
@@ -102,4 +129,15 @@ public class AutoServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String extractFileName(Part part) {//This method will print the file name.
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+    
 }

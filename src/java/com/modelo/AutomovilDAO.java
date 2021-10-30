@@ -107,5 +107,19 @@ public class AutomovilDAO extends Conexion {
         }
         return a;
     }
+    
+    public void eliminarAutomobil(Automovil a){
+        try{
+            this.conectar();
+            String sql = "DELETE FROM automovil WHERE id_automovil=?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, a.getId_automovil());
+            pre.executeUpdate();
+        }catch(Exception e){
+            JOptionPane.showInputDialog(null, "Error: "+e.getMessage());
+        }finally{
+            this.desconectar();
+        }
+    }
 
 }

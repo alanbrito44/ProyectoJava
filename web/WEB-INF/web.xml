@@ -9,16 +9,16 @@
         <servlet-class>com.controlador.MarcaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AutoServlet</servlet-name>
-        <servlet-class>com.controlador.AutoServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Prueba2</servlet-name>
-        <servlet-class>com.controlador.Prueba2</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>blogControl</servlet-name>
         <servlet-class>com.controlador.blogControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutomovilServlet</servlet-name>
+        <servlet-class>com.controlador.AutomovilServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClientesServlet</servlet-name>
+        <servlet-class>com.controlador.ClientesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServelet</servlet-name>
@@ -29,16 +29,16 @@
         <url-pattern>/MarcaServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AutoServlet</servlet-name>
-        <url-pattern>/AutoServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Prueba2</servlet-name>
-        <url-pattern>/Prueba2</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>blogControl</servlet-name>
         <url-pattern>/blogControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutomovilServlet</servlet-name>
+        <url-pattern>/AutomovilServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientesServlet</servlet-name>
+        <url-pattern>/ClientesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

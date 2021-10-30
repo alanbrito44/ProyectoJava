@@ -4,10 +4,6 @@
     Author     : KARSA
 --%>
 
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.modelo.Marca" %>
 <%@page import="com.modelo.MarcaDAO" %>
@@ -284,7 +280,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="${pageContext.request.contextPath}/Prueba2" method="POST" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/AutomovilServlet" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
 
                     <input type="hidden" class="form-control" name="txtIdAutomovil">

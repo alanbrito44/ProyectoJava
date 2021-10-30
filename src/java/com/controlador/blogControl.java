@@ -5,7 +5,6 @@
  */
 package com.controlador;
 
-import static com.controlador.Prueba2.UPLOAD_DIR;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +23,8 @@ import javax.servlet.http.Part;
  */
 @MultipartConfig
 public class blogControl extends HttpServlet {
+
+    private String UPLOAD_DIR;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
