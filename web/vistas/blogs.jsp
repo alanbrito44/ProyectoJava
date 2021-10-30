@@ -4,6 +4,10 @@
     Author     : KARSA
 --%>
 
+<%@page import="com.modelo.CategoriaDao"%>
+<%@page import="com.modelo.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.lang.Integer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
@@ -22,19 +26,18 @@
 </section>
 <section class="ftco-section">
     <div class="container">
-        <%
-           if(sesion.getAttribute("nivel") != null) {
+        <%            if (sesion.getAttribute("nivel") != null) {
         %>
         <div class="row d-flex justify-content-center">
-             <div class="col-md-12 text-center d-flex ftco-animate justify-content-center my-3">
-                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
-                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
-                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Eliminar Entrada</button>
-             </div>
-         </div>
-        
-        <%   
-          }
+            <div class="col-md-12 text-center d-flex ftco-animate justify-content-center my-3">
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Eliminar Entrada</button>
+            </div>
+        </div>
+
+        <%
+            }
         %>
 
         <div class="row d-flex justify-content-center">
@@ -54,62 +57,87 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </section>
 
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Entradas Blog</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entradas Blog</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="${pageContext.request.contextPath}/blogControl" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Titulo Del Blog</label>
+                        <input type="text" class="form-control" id="recipient-name" name="txtTitulo">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Descripción Corta Del Blog(Max 200 Caracteres)</label>
+                        <textarea class="form-control" id="message-text" maxlength="200"  name="txtDescripcion"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
+                        <input type="file" class="form-control" id="recipient-name" accept=".jpg" name="imgDescripcion">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
+                        <textarea class="form-control" id="txtDescripcion" maxlength="200" name="txtContenido"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDescripcion" class="col-form-label">Categoria Del Blog</label>
+              <select class="form-control" name="sCategoria">
+                  <%
+                    CategoriaDao daoCat = new CategoriaDao();
+                    ArrayList<Categoria> listaCat = new ArrayList<>();
+                      listaCat = daoCat.mostrarCategorias();
+                      for (Categoria cat: listaCat) {
+                   %>
+                  <option value="<%= cat.getIdetCat()%>"> <%=cat.getNombreCat()%> </option>
+                  <%  
+                      }
+                  %>                  
+              </select>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <input type="submit" class="btn btn-outline-success" name="Accion" value="Ingresar">
+                    <input type="submit" class="btn btn-outline-warning" name="Accion" value="Guardar">
+                </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-            <form enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Titulo Del Blog</label>
-                    <input type="text" class="form-control" id="recipient-name">
-                </div>
-                <div class="form-group">
-                    <label for="message-text" class="col-form-label">Descripción Corta Del Blog(Max 200 Caracteres)</label>
-                    <textarea class="form-control" id="message-text" maxlength="200"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
-                    <input type="file" class="form-control" id="recipient-name" accept=".jpg">
-                </div>
-                <div class="form-group">
-                    <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
-                    <textarea class="form-control" id="txtDescripcion" maxlength="200"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Imagen Adicional Blog (Solo JPG)</label>
-                    <input type="file" class="form-control" id="recipient-name" accept=".jpg">
-                   <small id="emailHelp" class="form-text text-muted">
-                      Esta Imagen Aparecerá Al Final Del Contenido Del Blog.
-                   </small>
-                </div>
-            </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-outline-success">Aceptar</button>
-        <button type="button" class="btn btn-outline-warning">Guardar</button>
-      </div>
     </div>
-  </div>
 </div>
 <script>
     ClassicEditor
-        .create( document.querySelector( '#txtDescripcion' ) )
-        .catch( error => {
-        console.error( error );
-        } );
+            .create(document.querySelector('#txtDescripcion'))
+            .catch(error => {
+                console.error(error);
+            });
 </script>
 
+
+<%
+    String corecto = request.getParameter("Inertado");
+    if(request.getParameter("carga") != null){
+        if(corecto =="Ingresado Correctamente"){
+ %>
+ <script>alert("se ha insertado")</script>
+ 
+ <%
+        }
+    }
+
+
+%>
 <%@include file="../layout/footer.jsp" %>

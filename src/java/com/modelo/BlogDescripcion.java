@@ -5,6 +5,8 @@
  */
 package com.modelo;
 
+import java.io.InputStream;
+
 /**
  *
  * @author dougl
@@ -18,19 +20,22 @@ public class BlogDescripcion {
     private String imgPortada;
     private String contenido;
     private String imgContent;
+    private int idCat;
 
     public BlogDescripcion() {
         
     }
 
-    public BlogDescripcion(int idBlogDesc, int idBlog, String titulo, String descrip, String imgPortada, String contenido, String imgContent) {
-        this.idBlogDesc = idBlogDesc;
+    public BlogDescripcion( int idBlog, String titulo, String descrip, String imgPortada,
+            String contenido,String imgContent,int idCat) {
+
         this.idBlog = idBlog;
         this.titulo = titulo;
         this.descrip = descrip;
         this.imgPortada = imgPortada;
         this.contenido = contenido;
         this.imgContent = imgContent;
+        this.idCat= idCat;
     }
 
     public String getImgContent() {
@@ -87,6 +92,10 @@ public class BlogDescripcion {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+    }
+
+    public int getIdCat() {
+        return idCat;
     }
 
 

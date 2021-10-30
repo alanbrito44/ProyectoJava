@@ -39,7 +39,7 @@
                                     <input type="text" class="form-control" placeholder="Usuario" name="txtUsuario" id="usuario" required>
                                 </div>
                                 <div class="form-group">
-                                    <input id="password-field" type="password" class="form-control" placeholder="Password"
+                                    <input  type="password" class="form-control" placeholder="Password"
                                            name="txtClave" id="contraseña" required>
                                     <span class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>

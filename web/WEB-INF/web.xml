@@ -16,6 +16,10 @@
         <servlet-name>Prueba2</servlet-name>
         <servlet-class>com.controlador.Prueba2</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>blogControl</servlet-name>
+        <servlet-class>com.controlador.blogControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServelet</servlet-name>
         <url-pattern>/LoginServelet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Prueba2</servlet-name>
         <url-pattern>/Prueba2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>blogControl</servlet-name>
+        <url-pattern>/blogControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
