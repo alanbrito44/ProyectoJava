@@ -310,9 +310,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="btnAgregarA">Agregar</button>
-                    <button type="submit" class="btn btn-danger" name="btnEditarA">Editar</button>
-                    <button type="submit" class="btn btn-danger" name="btnEliminarA">Eliminar</button>
+                    <button type="submit" class="btn btn-primary" name="accion" value="agregar">Agregar</button>
+                    <button type="submit" class="btn btn-danger" name="accion" value="editar">Editar</button>
+                    <button type="submit" class="btn btn-danger" name="accion" value="eliminar">Eliminar</button>
                 </div>
             </form>
         </div>

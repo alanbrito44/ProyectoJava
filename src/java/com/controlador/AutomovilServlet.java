@@ -26,7 +26,9 @@ import javax.servlet.http.Part;
         maxRequestSize = 1024 * 1024 * 50)
 public class AutomovilServlet extends HttpServlet {
 
+    //variable global con la ruta donde se guardaran las imagens, la cual no cambiara de valor por el final
     public static final String UPLOAD_DIR = "recursos/Multimedia/Imagenes";
+    //variable donde se guarda el nombre de la imagen
     public String dbFileName = "";
 
     /**
@@ -42,64 +44,71 @@ public class AutomovilServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            Part part = request.getPart("txtImagen");//
-            String fileName = extractFileName(part);//file name
 
-            String applicationPath = getServletContext().getRealPath("");
-            String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
-            System.out.println("applicationPath:" + applicationPath);
-            File fileUploadDirectory = new File(uploadPath);
-            if (!fileUploadDirectory.exists()) {
-                fileUploadDirectory.mkdirs();
-            }
-            String savePath = uploadPath + File.separator + fileName;
-            System.out.println("savePath: " + savePath);
-            String sRootPath = new File(savePath).getAbsolutePath();
-            System.out.println("sRootPath: " + sRootPath);
-            part.write(savePath + File.separator);
-            File fileSaveDir1 = new File(savePath);
-            /*if you may have more than one files with same name then you can calculate some random characters
-            and append that characters in fileName so that it will  make your each image name identical.*/
-            String dbFileName = UPLOAD_DIR + File.separator + fileName;
-            part.write(savePath + File.separator);
-
+            String accion = request.getParameter("accion");
             Automovil auto = new Automovil();
             AutomovilDAO daoAuto = new AutomovilDAO();
 
-            auto.setModelo_automovil(request.getParameter("txtModelo"));
-            auto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
-            auto.setPlaca(request.getParameter("txtPlaca"));
-            auto.setAno(Integer.parseInt(request.getParameter("txtAno")));
-            auto.setTransmision(request.getParameter("txtTransmision"));
-            auto.setPuertas(Integer.parseInt(request.getParameter("txtPuerta")));
-            auto.setKilometrage(Double.parseDouble(request.getParameter("txtKilometrage")));
-            auto.setColor(request.getParameter("txtColor"));
-            auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
-            auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
-            auto.setImagen_auto(dbFileName);
+            switch (accion) {
+                case "agregar":
 
-            if (request.getParameter("btnAgregarA") != null) {
-                daoAuto.insertarAutomovil(auto);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Autmovil ingresado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
-            }else if (request.getParameter("btnEliminarA") != null) {
-                auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
-                daoAuto.eliminarAutomobil(auto);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Automovil eliminado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
+                    //partiendo los valores que vienen en el input txtImagen
+                    Part part = request.getPart("txtImagen");
+                    //extrayendo el nombre del archivo que viene en part
+                    String fileName = extractFileName(part);
+
+                    String applicationPath = getServletContext().getRealPath("");
+                    String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+                    System.out.println("applicationPath:" + applicationPath);
+                    File fileUploadDirectory = new File(uploadPath);
+                    if (!fileUploadDirectory.exists()) {
+                        fileUploadDirectory.mkdirs();
+                    }
+                    String savePath = uploadPath + File.separator + fileName;
+                    System.out.println("savePath: " + savePath);
+                    String sRootPath = new File(savePath).getAbsolutePath();
+                    System.out.println("sRootPath: " + sRootPath);
+                    part.write(savePath + File.separator);
+                    File fileSaveDir1 = new File(savePath);
+                    
+                    String dbFileName = UPLOAD_DIR + File.separator + fileName;
+                    part.write(savePath + File.separator);
+
+                    auto.setModelo_automovil(request.getParameter("txtModelo"));
+                    auto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
+                    auto.setPlaca(request.getParameter("txtPlaca"));
+                    auto.setAno(Integer.parseInt(request.getParameter("txtAno")));
+                    auto.setTransmision(request.getParameter("txtTransmision"));
+                    auto.setPuertas(Integer.parseInt(request.getParameter("txtPuerta")));
+                    auto.setKilometrage(Double.parseDouble(request.getParameter("txtKilometrage")));
+                    auto.setColor(request.getParameter("txtColor"));
+                    auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
+                    auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
+                    auto.setImagen_auto(dbFileName);
+
+                    daoAuto.insertarAutomovil(auto);
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Autmovil ingresado con exito');");
+                    out.println("location='vistas/cars.jsp';");
+                    out.println("</script>");
+
+                case "eliminar":
+
+                    auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
+                    daoAuto.eliminarAutomobil(auto);
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Automovil eliminado con exito');");
+                    out.println("location='vistas/cars.jsp';");
+                    out.println("</script>");
+
+                    break;
+
             }
-            
-            
-            
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -148,5 +157,4 @@ public class AutomovilServlet extends HttpServlet {
         }
         return "";
     }
-    
 }
