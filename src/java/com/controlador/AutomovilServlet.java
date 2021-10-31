@@ -54,23 +54,35 @@ public class AutomovilServlet extends HttpServlet {
 
                     //partiendo los valores que vienen en el input txtImagen
                     Part part = request.getPart("txtImagen");
-                    //extrayendo el nombre del archivo que viene en part
+                    //llamando al metodo que extrae el nombre y que recibe como parametro el part
                     String fileName = extractFileName(part);
 
+                    //obtiene la ruta absoluta de la aplicación web
+                    //tiene como objetivo convertir una ruta de contenido web (la ruta en la estructura de carpetas WAR expandida en el sistema 
+                    //de archivos de disco del servidor) en una ruta absoluta del sistema de archivos de disco.
                     String applicationPath = getServletContext().getRealPath("");
+                    //aqui estamos guardardano la ruta absoluta la separamos por pleca y le agregamos la direccion que hemos puesto en UPLOAD_DIR
                     String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
                     System.out.println("applicationPath:" + applicationPath);
+                    
+                    //Metodo que comprueba si la ruta que especificamos existe, si no existe esta ruta entonces la creamos en el proyecto
                     File fileUploadDirectory = new File(uploadPath);
+                    
                     if (!fileUploadDirectory.exists()) {
                         fileUploadDirectory.mkdirs();
                     }
+                    
+                    //variable donde guardara la direccion donde se almacenan los archivos, una vez comprobado que la direccion existe o no
                     String savePath = uploadPath + File.separator + fileName;
                     System.out.println("savePath: " + savePath);
+                    //guardando la ruta absoluta de la variable savePath
                     String sRootPath = new File(savePath).getAbsolutePath();
                     System.out.println("sRootPath: " + sRootPath);
+                    
                     part.write(savePath + File.separator);
                     File fileSaveDir1 = new File(savePath);
                     
+                    //variable que guarda el nombre del archivo que subimos
                     String dbFileName = UPLOAD_DIR + File.separator + fileName;
                     part.write(savePath + File.separator);
 
@@ -147,11 +159,17 @@ public class AutomovilServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String extractFileName(Part part) {//This method will print the file name.
+    //El código simplemente itera sobre todas las partes de la solicitud y guarda cada parte usando el método write (). El nombre del archivo se extrae 
+    private String extractFileName(Part part) {//funcion que recibe como parametro part para extraer el nombre del multipart
+        
+        //aqui devolvemos el valor que viene en content-disposition como string ya que viene form-data name="dataFile" filename="PHOTO.JPG"
         String contentDisp = part.getHeader("content-disposition");
+        //con esto haces un array donde guarda y separa lo que viene en content-disposition con ;
         String[] items = contentDisp.split(";");
-        for (String s : items) {
+        for (String s : items) {//luego recorremos el array
+            //con trim, eliminamos los espacios que vienen en el string, y con startwith, le decimos que del string queremos es lo viene en filename
             if (s.trim().startsWith("filename")) {
+                //con conseguimos el valor de filename
                 return s.substring(s.indexOf("=") + 2, s.length() - 1);
             }
         }
