@@ -57,48 +57,28 @@
             }
         %> 
         <div class="row">
+            <%
+                listaAuto = daoAutomovil.mostrarAutomovil();
+                for (Automovil elem : listaAuto) {
+            %>
             <div class="col-md-4">
                 <div class="car-wrap rounded ftco-animate">
-                    <div class="img rounded d-flex align-items-end" style="background-image: url(../recursos/Multimedia/Imagenes/car-1.jpg);">
+                    <div>
+                        <image class="img rounded d-flex align-items-end" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/>
                     </div>
                     <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+                        <h2 class="mb-0"><a href="car-single.html"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></a></h2>
                         <div class="d-flex mb-3">
-                            <span class="cat">Cheverolet</span>
-                            <p class="price ml-auto">$500 <span>/day</span></p>
+                            <span class="cat"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></span>
+                            <p class="price ml-auto">$<%=elem.getPrecio()%> <span>/day</span></p>
                         </div>
                         <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp" class="btn btn-secondary py-2 ml-1">Details</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="car-wrap rounded ftco-animate">
-                    <div class="img rounded d-flex align-items-end" style="background-image: url(../recursos/Multimedia/Imagenes/car-2.jpg);">
-                    </div>
-                    <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html">Range Rover</a></h2>
-                        <div class="d-flex mb-3">
-                            <span class="cat">Subaru</span>
-                            <p class="price ml-auto">$500 <span>/day</span></p>
-                        </div>
-                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="car-wrap rounded ftco-animate">
-                    <div class="img rounded d-flex align-items-end" style="background-image: url(../recursos/Multimedia/Imagenes/car-3.jpg);">
-                    </div>
-                    <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
-                        <div class="d-flex mb-3">
-                            <span class="cat">Cheverolet</span>
-                            <p class="price ml-auto">$500 <span>/day</span></p>
-                        </div>
-                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                    </div>
-                </div>
-            </div>
+            <%
+                }
+            %>
         </div>
 
     </div>
@@ -230,21 +210,21 @@
                         %>
                         <tr>
                             <!--LE AGREGAMOS LA CLASE CON ESE NOMBRE PARA UTILIZARLO EN JQUERY Y ASI SACAR SU VALOR-->
-                            <td class="id"><%=elem.getId_automovil()%></td>
-                            <td class="modelo"><%=elem.getModelo_automovil()%></td>
-                            <td class="precio"><%=elem.getPrecio()%></td>
-                            <td class="placa"><%=elem.getPlaca()%></td>
-                            <td class="ano"><%=elem.getAno()%></td>
-                            <td class="transmision"><%=elem.getTransmision()%></td>
-                            <td class="puerta"><%=elem.getPuertas()%></td>
-                            <td class="kilometrage"><%=elem.getKilometrage()%></td>
-                            <td class="color"><%=elem.getColor()%></td>
-     
-                            <td class="marca"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></td>
+                            <td class="id_auto"><%=elem.getId_automovil()%></td>
+                            <td class="modelo_auto"><%=elem.getModelo_automovil()%></td>
+                            <td class="precio_auto"><%=elem.getPrecio()%></td>
+                            <td class="placa_auto"><%=elem.getPlaca()%></td>
+                            <td class="ano_auto"><%=elem.getAno()%></td>
+                            <td class="transmision_auto"><%=elem.getTransmision()%></td>
+                            <td class="puerta_auto"><%=elem.getPuertas()%></td>
+                            <td class="kilometrage_auto"><%=elem.getKilometrage()%></td>
+                            <td class="color_auto"><%=elem.getColor()%></td>
 
-                            <td class="categoria"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
+                            <td class="marca_auto"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></td>
 
-                            <td class="imagen"><image src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
+
+                            <td class="imagen_auto"><image src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
                             <td>
                                 <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
                                     Editar
@@ -338,6 +318,7 @@
         </div>
     </div>
 </div>
-                   
+
 <!--SCRIPT PARA JQUERY-->    
 <script src="../recursos/JS/Marca.js"></script>
+<script src="../recursos/JS/automovil.js"></script>

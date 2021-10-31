@@ -82,10 +82,19 @@ public class AutomovilServlet extends HttpServlet {
             if (request.getParameter("btnAgregarA") != null) {
                 daoAuto.insertarAutomovil(auto);
                 out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo ingresado con exito');");
+                out.println("alert('Autmovil ingresado con exito');");
+                out.println("location='vistas/cars.jsp';");
+                out.println("</script>");
+            }else if (request.getParameter("btnEliminarA") != null) {
+                auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
+                daoAuto.eliminarAutomobil(auto);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Automovil eliminado con exito');");
                 out.println("location='vistas/cars.jsp';");
                 out.println("</script>");
             }
+            
+            
             
         }
     }
