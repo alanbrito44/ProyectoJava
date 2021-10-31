@@ -19,7 +19,6 @@ public class BlogDescripcion {
     private String descrip;
     private String imgPortada;
     private String contenido;
-    private String imgContent;
     private int idCat;
 
     public BlogDescripcion() {
@@ -27,23 +26,14 @@ public class BlogDescripcion {
     }
 
     public BlogDescripcion( int idBlog, String titulo, String descrip, String imgPortada,
-            String contenido,String imgContent,int idCat) {
+            String contenido,int idCat) {
 
         this.idBlog = idBlog;
         this.titulo = titulo;
         this.descrip = descrip;
         this.imgPortada = imgPortada;
         this.contenido = contenido;
-        this.imgContent = imgContent;
         this.idCat= idCat;
-    }
-
-    public String getImgContent() {
-        return imgContent;
-    }
-
-    public void setImgContent(String imgContent) {
-        this.imgContent = imgContent;
     }
 
     public int getIdBlogDesc() {

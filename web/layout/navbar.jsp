@@ -2,6 +2,9 @@
     <%
         HttpSession sesion = request.getSession();
     %>
+    <%!
+        private String UPLOAD_DIR = "recursos/multimedia/imagenesupload/";
+    %>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">Car<span>Book</span></a>

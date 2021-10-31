@@ -4,6 +4,8 @@
     Author     : KARSA
 --%>
 
+<%@page import="com.modelo.BlogDescripcionDao"%>
+<%@page import="com.modelo.BlogDescripcion"%>
 <%@page import="com.modelo.CategoriaDao"%>
 <%@page import="com.modelo.Categoria"%>
 <%@page import="java.util.ArrayList"%>
@@ -39,11 +41,19 @@
 
         <%
             }
-        %>     
+        %> 
+        <%
+           BlogDescripcionDao bdao = new BlogDescripcionDao();
+           ArrayList<BlogDescripcion> listaBlogs=  new ArrayList<BlogDescripcion>();
+           listaBlogs = bdao.mostrarBlogs();
+           
+           for (BlogDescripcion elem : listaBlogs) {
+         %>
+
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
-                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp" class="block-20 img" style="background-image: url('../recursos/Multimedia/Imagenes/image_1.jpg');">
+                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
                     <div class="text px-md-5 pt-4">
                         <div class="meta mb-3">
@@ -53,12 +63,17 @@
                         </div>
                         <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
                         <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                     </div>
                 </div>
             </div>
 
-        </div>
+        </div>  
+                 
+         <%
+               }
+            
+         %>
     </div>
 </section>
 
