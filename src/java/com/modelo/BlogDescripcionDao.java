@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class BlogDescripcionDao extends Conexion {
 
-    public void insertarBlog(BlogDescripcion b) {
+    public boolean insertarBlog(BlogDescripcion b) {
         try {
             this.conectar();
             String sql = "INSERT INTO blog_descripcion(id_blog,titulo,imagen_desc,"
@@ -35,9 +35,11 @@ public class BlogDescripcionDao extends Conexion {
             pre.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
         } finally {
             this.desconectar();
         }
+        return true;
 
     }
 
