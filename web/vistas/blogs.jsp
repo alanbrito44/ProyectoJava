@@ -31,14 +31,13 @@
     <div class="container">
         <%            if (sesion.getAttribute("nivel") != null) {
         %>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-12 text-center d-flex ftco-animate justify-content-center my-3">
+        <div class="row">
+            <div class="col-md-12 text-center ftco-animate">
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Eliminar Entrada</button>
             </div>
         </div>
-
         <%
             }
         %> 
