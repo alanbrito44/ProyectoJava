@@ -98,6 +98,10 @@ public class BlogDescripcion {
         return idCat;
     }
 
+    public void setIdCat(int idCat) {
+        this.idCat = idCat;
+    }
+
 
     
 }

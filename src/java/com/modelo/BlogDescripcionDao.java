@@ -19,8 +19,8 @@ public class BlogDescripcionDao extends Conexion {
         try {
             this.conectar();
             String sql = "INSERT INTO blog_descripcion(id_blog,titulo,imagen_desc,"
-                    + "descripcion,contenido,imagen_cont,id_cat)"
-                    + " VALUES(?,?,?,?,?,?,?)";
+                    + "descripcion,contenido,id_cat)"
+                    + " VALUES(?,?,?,?,?,?)";
             
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setInt(1, b.getIdBlog());
@@ -28,8 +28,7 @@ public class BlogDescripcionDao extends Conexion {
             pre.setString(3,b.getImgPortada());
             pre.setString(4, b.getDescrip());
             pre.setString(5,b.getContenido());
-            pre.setString(6, b.getImgContent());
-            pre.setInt(7, b.getIdCat());
+            pre.setInt(6,b.getIdCat());
             
             pre.executeUpdate();
         } catch (Exception e) {

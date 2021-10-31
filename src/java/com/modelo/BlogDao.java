@@ -8,6 +8,7 @@ package com.modelo;
 import com.conexion.Conexion;
 import com.conexion.Conexion;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,7 +39,10 @@ public class BlogDao extends Conexion{
             this.conectar();
             String sql = "SELECT MAX(id_blog) AS id FROM blog";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
-            pre.executeQuery();
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("id");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
         } finally {

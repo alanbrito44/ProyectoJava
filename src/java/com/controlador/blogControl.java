@@ -5,6 +5,10 @@
  */
 package com.controlador;
 
+import com.modelo.Blog;
+import com.modelo.BlogDao;
+import com.modelo.BlogDescripcion;
+import com.modelo.BlogDescripcionDao;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +21,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -26,8 +31,9 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class blogControl extends HttpServlet {
 
-    private String UPLOAD_DIR = "recursos/multimedia/imagenesupload";
-
+    private String UPLOAD_DIR = "recursos/multimedia/imagenesupload/";
+  
+ 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,28 +50,42 @@ public class blogControl extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            String accion = request.getParameter("Accion");
-
-            
-            switch(accion){
+            String accion = request.getParameter("Accion");            
+                       
+          switch(accion){
                 case "Ingresar":
                     String imgNombre = request.getPart("imgDescripcion").getSubmittedFileName();
                     Part imagen = request.getPart("imgDescripcion");
                     InputStream is = imagen.getInputStream();
-                    
-                    
-                    
+
                     boolean resp = subirImagen(imgNombre, is);
                     
                     if(resp){
+
+                        BlogDao blogDao = new BlogDao();
+                        int idUser = Integer.parseInt(request.getParameter("txtUsuario"));
+                        blogDao.crearBlog(idUser);
+                        
+                        int blogId=blogDao.obtenerIdBlog();
+                        
+                        BlogDescripcion blogModel = new BlogDescripcion();
+                        blogModel.setIdBlog(blogId);
+                        blogModel.setTitulo(request.getParameter("txtTitulo"));
+                        blogModel.setDescrip(request.getParameter("txtDescripcion"));
+                        blogModel.setImgPortada(imgNombre);
+                        blogModel.setContenido(request.getParameter("txtContenido"));
+                        blogModel.setIdCat(Integer.parseInt(request.getParameter("sCategoria")));
+                        
+                        BlogDescripcionDao blogDescDao = new BlogDescripcionDao();
+                        blogDescDao.insertarBlog(blogModel);
+                        
                         out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Blog ingresado con exito');");
+                        out.println("alert('Blog Creado con exito');");
                         out.println("location='vistas/blogs.jsp';");
                         out.println("</script>");
-                        //response.sendRedirect(request.getContextPath() + "/vistas/blogs.jsp");
+                       
                     }else{
-                        out.print("<script>Alert('error');</script>");
-                        response.sendRedirect(request.getContextPath() + "/vistas/blogs.jsp");
+   
                     }
                     
                 break;
@@ -77,8 +97,8 @@ public class blogControl extends HttpServlet {
     }
   
     private boolean subirImagen(String imgNombre, InputStream is) throws FileNotFoundException, IOException{
-        String ruta1 = getServletContext().getRealPath("");
-        String uploadPath = ruta1 + File.separator + UPLOAD_DIR + "\\";
+       
+        String uploadPath =getServletContext().getRealPath("") + "\\"+ File.separator + UPLOAD_DIR + "\\";
         File f = new File(uploadPath + imgNombre);
         FileOutputStream ous = new FileOutputStream(f);
         int datoImg = is.read();

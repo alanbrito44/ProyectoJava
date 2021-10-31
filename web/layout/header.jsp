@@ -27,4 +27,5 @@
         <link rel="stylesheet" href="../recursos/CSS/style.css">
         
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
     </head>

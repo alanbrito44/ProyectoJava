@@ -12,7 +12,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp"%>
-
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/blogStyle.css">
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
@@ -119,6 +118,7 @@
         </div>
     </div>
 </div>
+<script src="../recursos/JS/blogScript.js"></script>
 <script>
     ClassicEditor
             .create(document.querySelector('#txtDescripcion'))
