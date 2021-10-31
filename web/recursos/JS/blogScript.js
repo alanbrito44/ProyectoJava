@@ -5,3 +5,11 @@
  */
 
 
+$(document).ready(function(){
+    
+    $("#SelectBlogAction").toggle();
+    $("#btnDelBlog").on("click",function(){
+        $("#SelectBlogAction").toggle();
+    });
+    
+});

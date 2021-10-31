@@ -35,10 +35,10 @@
             <div class="col-md-12 text-center ftco-animate">
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
-                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Eliminar Entrada</button>
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnDelBlog">Eliminar Entrada</button>
             </div>
         </div>
-        <div class="row mt-5 mb-5" id="comboDelBlog">
+        <div class="row mt-5 mb-5" id="SelectBlogAction">
             <div class="col-md-12 text-center ftco-animate">
                 <div class="form-group ">
                     <form action="" method="POST">
@@ -56,8 +56,8 @@
                         %>                  
                     </select>
                     <small class="col-form-label mt-5"><span class="badge badge-danger">No Podrás Deshacer Los Cambios</span> Una Vez Realiazados,<br>Asegurate De Que
-                        En Verdad Deseas Elimnar La Entrada.</small><br>
-                        <button type="submit" name="btnDelBlog" class="btn btn-outline-danger" value="EliminarEntrada" style="margin: 0 auto; width: 300px; margin-top: 0.5em;">Eliminar</button>
+                        En Verdad Deseas <span id="txtAccion">Elimnar La Entrada.</span></small><br>
+                        <button type="submit" name="btnDelBlog" class="btn btn-outline-danger" value="EliminarEntrada" id="btnSelectBlog" style="margin: 0 auto; width: 500px; margin-top: 0.5em;">Eliminar</button>
                     </form>
                 </div>
             </div>
@@ -157,7 +157,8 @@
         </div>
     </div>
 </div>
-<script src="../recursos/JS/blogScript.js"></script>
+
+
 <script>
     ClassicEditor
             .create(document.querySelector('#txtDescripcion'))
@@ -165,4 +166,5 @@
                 console.error(error);
             });
 </script>
+<script src="../recursos/JS/blogScript.js"></script>
 <%@include file="../layout/footer.jsp" %>

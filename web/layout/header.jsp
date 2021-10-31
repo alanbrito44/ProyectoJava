@@ -4,7 +4,7 @@
         <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <script src="../recursos/JS/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="../recursos/CSS/open-iconic-bootstrap.min.css">
@@ -25,7 +25,8 @@
         <link rel="stylesheet" href="../recursos/CSS/flaticon.css">
         <link rel="stylesheet" href="../recursos/CSS/icomoon.css">
         <link rel="stylesheet" href="../recursos/CSS/style.css">
-        
+      
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
         
     </head>
