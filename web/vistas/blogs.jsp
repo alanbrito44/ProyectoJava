@@ -31,13 +31,38 @@
     <div class="container">
         <%            if (sesion.getAttribute("nivel") != null) {
         %>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-md-12 text-center ftco-animate">
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Eliminar Entrada</button>
             </div>
         </div>
+        <div class="row mt-5 mb-5" id="comboDelBlog">
+            <div class="col-md-12 text-center ftco-animate">
+                <div class="form-group ">
+                    <form action="" method="POST">
+                    <label for="txtDescripcion" class="col-form-label">Selecciona La Entada Del Blog A <span class="badge badge-danger">ELiminar</span></label>
+                    <select class="form-control" name="sCategoria" style="max-width: 500px; margin: 0 auto;">
+                        <%
+                            BlogDescripcionDao bdao = new BlogDescripcionDao();
+                            ArrayList<BlogDescripcion> listab=  new ArrayList<BlogDescripcion>();
+                            listab = bdao.mostrarBlogs();
+                            for (BlogDescripcion elem : listab) {
+                        %>
+                        <option value="<%= elem.getIdBlogDesc()%>"> <%=elem.getTitulo()%> </option>
+                        <%
+                            }
+                        %>                  
+                    </select>
+                    <small class="col-form-label mt-5"><span class="badge badge-danger">No Podrás Deshacer Los Cambios</span> Una Vez Realiazados,<br>Asegurate De Que
+                        En Verdad Deseas Elimnar La Entrada.</small><br>
+                        <button type="submit" name="btnDelBlog" class="btn btn-outline-danger" value="EliminarEntrada" style="margin: 0 auto; width: 300px; margin-top: 0.5em;">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
         <%
             }
         %> 
