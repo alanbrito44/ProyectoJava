@@ -61,8 +61,8 @@
                             <div><a href="#">Admin</a></div>
                             <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                         </div>
-                        <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                        <h3 class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
+                        <p><%=elem.getDescrip()%></p>
                         <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                     </div>
                 </div>

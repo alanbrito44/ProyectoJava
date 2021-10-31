@@ -31,7 +31,7 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class blogControl extends HttpServlet {
 
-    private String UPLOAD_DIR = "recursos/multimedia/imagenesupload/";
+    private String UPLOAD_DIR = "recursos/Multimedia/imagenesupload/";
   
  
     /**
