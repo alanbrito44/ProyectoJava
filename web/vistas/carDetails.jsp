@@ -3,10 +3,24 @@
     Created on : 24-oct-2021, 17:30:41
     Author     : KARSA
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.modelo.Automovil" %>
+<%@page import="com.modelo.AutomovilDAO" %>
+<%@page import="com.modelo.Marca" %>
+<%@page import="com.modelo.MarcaDAO" %>
+<%@page import="com.modelo.CategoriaAutomovil" %>
+<%@page import="com.modelo.CategoriaAutomovilDAO" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
+
+<%!    
+    AutomovilDAO daoAutomovil = new AutomovilDAO();
+    MarcaDAO daoMarca = new MarcaDAO();
+    CategoriaAutomovilDAO daoCate = new CategoriaAutomovilDAO();
+    ArrayList<Automovil> listaAuto = new ArrayList<>();
+%>
 
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
@@ -23,13 +37,21 @@
 
 <section class="ftco-section ftco-car-details">
     <div class="container">
+        <%  
+            int id = Integer.parseInt(request.getParameter("id"));
+            listaAuto = daoAutomovil.mostrarAutomovilID(id);
+            for (Automovil elem : listaAuto) {
+        %>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="car-details">
-                    <div class="img rounded" style="background-image: url(../recursos/Multimedia/Imagenes/bg_1.jpg);"></div>
+                    <div>
+                        <image class="img rounded" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>"/>
+                    </div>
                     <div class="text text-center">
-                        <span class="subheading">Cheverolet</span>
-                        <h2>Mercedes Grand Sedan</h2>
+                        <span class="subheading"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
+                        <h2><%=elem.getModelo_automovil()%></h2>
+                        <span class="subheading">Precio $<%=elem.getPrecio()%></span>
                     </div>
                 </div>
             </div>
@@ -42,8 +64,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-dashboard"></span></div>
                             <div class="text">
                                 <h3 class="heading mb-0 pl-3">
-                                    Mileage
-                                    <span>40,000</span>
+                                    Kilometrage
+                                    <span><%=elem.getKilometrage()%></span>
                                 </h3>
                             </div>
                         </div>
@@ -57,8 +79,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
                             <div class="text">
                                 <h3 class="heading mb-0 pl-3">
-                                    Transmission
-                                    <span>Manual</span>
+                                    Transmision
+                                    <span><%=elem.getTransmision()%></span>
                                 </h3>
                             </div>
                         </div>
@@ -72,8 +94,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
                             <div class="text">
                                 <h3 class="heading mb-0 pl-3">
-                                    Seats
-                                    <span>5 Adults</span>
+                                    Puertas
+                                    <span><%=elem.getPuertas()%></span>
                                 </h3>
                             </div>
                         </div>
@@ -87,8 +109,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
                             <div class="text">
                                 <h3 class="heading mb-0 pl-3">
-                                    Luggage
-                                    <span>4 Bags</span>
+                                    Equipaje
+                                    <span>hasta 2 bolsas</span>
                                 </h3>
                             </div>
                         </div>
@@ -102,8 +124,8 @@
                             <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
                             <div class="text">
                                 <h3 class="heading mb-0 pl-3">
-                                    Fuel
-                                    <span>Petrol</span>
+                                    Combustible
+                                    <span>Petroleo</span>
                                 </h3>
                             </div>
                         </div>
@@ -118,10 +140,10 @@
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
+                                <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Extras</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
+                                <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Descripcion</a>
                             </li>
                         </ul>
                     </div>
@@ -131,11 +153,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="features">
-                                        <li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
-                                        <li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
+                                        <li class="check"><span class="ion-ios-checkmark"></span>Aire acondicionado</li>
+                                        <li class="check"><span class="ion-ios-checkmark"></span>Silla para nino</li>
                                         <li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
-                                        <li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
-                                        <li class="check"><span class="ion-ios-checkmark"></span>Music</li>
+                                        <li class="check"><span class="ion-ios-checkmark"></span>Equipaje</li>
+                                        <li class="check"><span class="ion-ios-checkmark"></span>Musica</li>
                                     </ul>
                                 </div>
                             </div>
@@ -145,11 +167,14 @@
                             <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
                             <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
+        <%
+            }
+        %>
     </div>
 </section>
 

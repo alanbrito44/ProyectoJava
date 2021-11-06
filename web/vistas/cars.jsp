@@ -74,7 +74,7 @@
                             <span class="cat"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></span>
                             <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                         </div>
-                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Details</a></p>
                     </div>
                 </div>
             </div>
