@@ -4,37 +4,37 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){
-    
+$(document).ready(function () {
+
     //aqui le decimos que cuando precionen el boton eliminar buscara el tr mas cercano a ese boton presionado
     //y llamara a la funcion eliminar
-    $('body').on('click','#btnEditarA', function(){
-       let fila = $(this).closest('tr');
+    $('body').on('click', '#btnEditarA', function () {
+        let fila = $(this).closest('tr');
         llenarFormulario(fila);
-        $('button[name=btnAgregarA]').hide();
-       $('button[name=btnEditarA]').show();
-       $('button[name=btnEliminarA]').hide();
+        $('button[value="agregar"]').hide();
+        $('button[value="editar"]').show();
+        $('button[value="eliminar"]').hide();
     });
-    
-    $('body').on('click','#btnEliminarA', function(){
-       let fila = $(this).closest('tr');
+
+    $('body').on('click', '#btnEliminarA', function () {
+        let fila = $(this).closest('tr');
         llenarFormulario(fila);
-        $('button[name=btnAgregarA]').hide();
-       $('button[name=btnEditarA]').hide();
-       $('button[name=btnEliminarA]').show();
+        $('button[value="agregar"]').hide();
+        $('button[value="editar"]').hide();
+        $('button[value="eliminar"]').show();
     });
-    
+
     $('#btnAgregarA').click(function (){
         //limpiando el formulario
-       $('form')[0].reset();
-       //ocultando y mostrando botones del modal
-       $('button[name=btnAgregarA]').show();
-       $('button[name=btnEditarA]').hide();
-       $('button[name=btnEliminarA]').hide();
+        $('form').trigger("reset");
+        //ocultando y mostrando botones del modal
+        $('button[value="agregar"]').show();
+        $('button[value="editar"]').hide();
+        $('button[value="eliminar"]').hide();
     });
-    
+
     //funcion para llenar le formulario
-    function llenarFormulario(fila){
+    function llenarFormulario(fila) {
         //la variable tomara el valor, segun el valor de la fila y buscara lo que se encuentre en el id codigo
         //y extraera su texto
         let id_auto = fila.find('.id_auto').text();
@@ -48,8 +48,10 @@ $(document).ready(function(){
         let color_auto = fila.find('.color_auto').text();
         let marca_auto = fila.find('.marca_auto').text();
         let categoria_auto = fila.find('.categoria_auto').text();
-        let imagen_auto = fila.find('.imagen_auto').text();
-        
+        //capturando la ruta de la imagen que se encuentra adentro del td, ya qye img esta adentro de los td, el replace 
+        //lo ocupamos para eliminar el ../ para que asi la imagen se muestre sin problemas sin cambios en su ruta
+        let imagen_auto = fila.find('.imagen_auto').children('img').attr('src').replace('../','');
+
         //aqui le decimos que al imput con el name txtcodigo, le asignaremos el valor de la variable codigo
         $('input[name=txtIdAutomovil]').val(id_auto);
         $('input[name=txtModelo]').val(modelo_auto);
@@ -60,8 +62,9 @@ $(document).ready(function(){
         $('input[name=txtPuerta]').val(puerta_auto);
         $('input[name=txtKilometrage]').val(kilometrage_auto);
         $('input[name=txtColor]').val(color_auto);
-        $('select[name=sMarca]').find('option:contains('+marca_auto+')').prop('selected',true);
-        $('select[name=sCategoria]').find('option:contains('+categoria_auto+')').prop('selected',true);
+        $('select[name=sMarca]').find('option:contains(' + marca_auto + ')').prop('selected', true);
+        $('select[name=sCategoria]').find('option:contains(' + categoria_auto + ')').prop('selected', true);
+        $('input[name=txtRutaImg]').val(imagen_auto);
     }
 });
 

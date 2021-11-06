@@ -24,6 +24,10 @@
         <servlet-name>prueba</servlet-name>
         <servlet-class>com.controlador.prueba</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CatAutoServlet</servlet-name>
+        <servlet-class>com.controlador.CatAutoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServelet</servlet-name>
         <url-pattern>/LoginServelet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>prueba</servlet-name>
         <url-pattern>/prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatAutoServlet</servlet-name>
+        <url-pattern>/CatAutoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

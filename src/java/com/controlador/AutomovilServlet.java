@@ -49,8 +49,19 @@ public class AutomovilServlet extends HttpServlet {
             Automovil auto = new Automovil();
             AutomovilDAO daoAuto = new AutomovilDAO();
 
+            auto.setModelo_automovil(request.getParameter("txtModelo"));
+            auto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
+            auto.setPlaca(request.getParameter("txtPlaca"));
+            auto.setAno(Integer.parseInt(request.getParameter("txtAno")));
+            auto.setTransmision(request.getParameter("txtTransmision"));
+            auto.setPuertas(Integer.parseInt(request.getParameter("txtPuerta")));
+            auto.setKilometrage(Double.parseDouble(request.getParameter("txtKilometrage")));
+            auto.setColor(request.getParameter("txtColor"));
+            auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
+            auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
+
             switch (accion) {
-                case "agregar":
+                case "agregar": {
 
                     //partiendo los valores que vienen en el input txtImagen
                     Part part = request.getPart("txtImagen");
@@ -64,47 +75,37 @@ public class AutomovilServlet extends HttpServlet {
                     //aqui estamos guardardano la ruta absoluta la separamos por pleca y le agregamos la direccion que hemos puesto en UPLOAD_DIR
                     String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
                     System.out.println("applicationPath:" + applicationPath);
-                    
+
                     //Metodo que comprueba si la ruta que especificamos existe, si no existe esta ruta entonces la creamos en el proyecto
                     File fileUploadDirectory = new File(uploadPath);
-                    
+
                     if (!fileUploadDirectory.exists()) {
                         fileUploadDirectory.mkdirs();
                     }
-                    
+
                     //variable donde guardara la direccion donde se almacenan los archivos, una vez comprobado que la direccion existe o no
                     String savePath = uploadPath + File.separator + fileName;
                     System.out.println("savePath: " + savePath);
                     //guardando la ruta absoluta de la variable savePath
                     String sRootPath = new File(savePath).getAbsolutePath();
                     System.out.println("sRootPath: " + sRootPath);
-                    
+
                     part.write(savePath + File.separator);
                     File fileSaveDir1 = new File(savePath);
-                    
+
                     //variable que guarda el nombre del archivo que subimos
                     String dbFileName = UPLOAD_DIR + File.separator + fileName;
                     part.write(savePath + File.separator);
 
-                    auto.setModelo_automovil(request.getParameter("txtModelo"));
-                    auto.setPrecio(Double.parseDouble(request.getParameter("txtPrecio")));
-                    auto.setPlaca(request.getParameter("txtPlaca"));
-                    auto.setAno(Integer.parseInt(request.getParameter("txtAno")));
-                    auto.setTransmision(request.getParameter("txtTransmision"));
-                    auto.setPuertas(Integer.parseInt(request.getParameter("txtPuerta")));
-                    auto.setKilometrage(Double.parseDouble(request.getParameter("txtKilometrage")));
-                    auto.setColor(request.getParameter("txtColor"));
-                    auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
-                    auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
                     auto.setImagen_auto(dbFileName);
-
                     daoAuto.insertarAutomovil(auto);
                     out.println("<script type=\"text/javascript\">");
                     out.println("alert('Autmovil ingresado con exito');");
                     out.println("location='vistas/cars.jsp';");
                     out.println("</script>");
-
-                case "eliminar":
+                }
+                break;
+                case "eliminar": {
 
                     auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                     daoAuto.eliminarAutomobil(auto);
@@ -112,8 +113,30 @@ public class AutomovilServlet extends HttpServlet {
                     out.println("alert('Automovil eliminado con exito');");
                     out.println("location='vistas/cars.jsp';");
                     out.println("</script>");
+                }
+                break;
+                case "editar": {
+                    
+                    String archivo = request.getParameter("txtImagen");
 
-                    break;
+                    if (archivo == null) {
+                        auto.setImagen_auto(request.getParameter("txtRutaImg"));
+                        auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
+                        daoAuto.modificarAutomovil(auto);
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Automovil CON IMAGEN modificado con exito');");
+                        out.println("location='vistas/cars.jsp';");
+                        out.println("</script>");
+                    } else {
+                        
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Automovil SIN IMAGEN modificado con exito');");
+                        out.println("location='vistas/cars.jsp';");
+                        out.println("</script>");
+                        
+                    }
+                }
+                break;
 
             }
         }
@@ -161,7 +184,7 @@ public class AutomovilServlet extends HttpServlet {
 
     //El código simplemente itera sobre todas las partes de la solicitud y guarda cada parte usando el método write (). El nombre del archivo se extrae 
     private String extractFileName(Part part) {//funcion que recibe como parametro part para extraer el nombre del multipart
-        
+
         //aqui devolvemos el valor que viene en content-disposition como string ya que viene form-data name="dataFile" filename="PHOTO.JPG"
         String contentDisp = part.getHeader("content-disposition");
         //con esto haces un array donde guarda y separa lo que viene en content-disposition con ;

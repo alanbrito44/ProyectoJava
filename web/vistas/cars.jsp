@@ -16,8 +16,7 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 
-<%!
-    MarcaDAO daoMarca = new MarcaDAO();
+<%!    MarcaDAO daoMarca = new MarcaDAO();
     ArrayList<Marca> listaMarca = new ArrayList<>();
     AutomovilDAO daoAutomovil = new AutomovilDAO();
     ArrayList<Automovil> listaAuto = new ArrayList<>();
@@ -53,6 +52,9 @@
         <button type="button" class="btn btn-primary py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
             Listado marca de vehiculos
         </button>
+        <button type="button" class="btn btn-primary py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalCategoria" data-backdrop="static" data-keyboard="false">
+            Listado categoria de vehiculos
+        </button>
         <%
             }
         %> 
@@ -70,7 +72,7 @@
                         <h2 class="mb-0"><a href="car-single.html"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></a></h2>
                         <div class="d-flex mb-3">
                             <span class="cat"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></span>
-                            <p class="price ml-auto">$<%=elem.getPrecio()%> <span>/day</span></p>
+                            <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                         </div>
                         <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp" class="btn btn-secondary py-2 ml-1">Details</a></p>
                     </div>
@@ -83,7 +85,7 @@
 
     </div>
 </section>             
-<%@include file="../layout/footer.jsp" %>
+
 
 <!-- Modal Tabla marca -->
 <div class="modal fade" id="ModalTabla" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
@@ -224,7 +226,7 @@
 
                             <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
-                            <td class="imagen_auto"><image src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="imagen_auto"><img id="ruta" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
                             <td>
                                 <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
                                     Editar
@@ -306,6 +308,7 @@
                     </select>
                     Imagen
                     <input type="file" class="form-control" name="txtImagen">
+                    <input type="hidden" class="form-control" name="txtRutaImg">
 
                 </div>
                 <div class="modal-footer">
@@ -318,7 +321,97 @@
         </div>
     </div>
 </div>
+                    
+                    
+<!-- Modal Tabla categoria -->
+<div class="modal fade" id="ModalCategoria" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Listado categoria vehiculos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-dark text-center">
+
+                    <thead>
+                    <th>ID</th>
+                    <th>CATEGORIA</th>
+                    <th>DESCRIPCION</th>
+                    <th>ACCIONES</th>
+                    </thead>
+                    <tbody>
+                        <%
+                            listaCate = daoCate.mostrarCategoriaAuto();
+                            for (CategoriaAutomovil elem : listaCate) {
+                        %>
+                        <tr>
+                            <td class="id_categoria"><%=elem.getId_catAutomovil()%></td>
+                            <td class="nombre_categoria"><%=elem.getNombre_categoria()%></td>
+                            <td class="descripcion_categoria"><%=elem.getDescripcion()%></td>
+                            <td>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEditarC">
+                                    Editar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEliminarC">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAccionesc" id="btnAgregarC">
+                    Agregar
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal crud categoria-->
+<div class="modal fade" id="modalAccionesc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Categoria de vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="${pageContext.request.contextPath}/CatAutoServlet" method="POST">
+                <div class="modal-body">
+
+
+                    <input type="hidden" class="form-control" name="txtIdCategotria">
+                    Categoria
+                    <input type="text" class="form-control" name="txtCategoria">
+                    Descripcion
+                    <textarea class="form-control" name="txtDescripCat"></textarea>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="btnAgregarC">Agregar</button>
+                    <button type="submit" class="btn btn-danger" name="btnEditarC">Editar</button>
+                    <button type="submit" class="btn btn-danger" name="btnEliminarC">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>                    
 
 <!--SCRIPT PARA JQUERY-->    
 <script src="../recursos/JS/Marca.js"></script>
 <script src="../recursos/JS/automovil.js"></script>
+<script src="../recursos/JS/CatAutomovil.js"></script>
+
+<%@include file="../layout/footer.jsp" %>
