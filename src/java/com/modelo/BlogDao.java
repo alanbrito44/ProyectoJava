@@ -52,19 +52,22 @@ public class BlogDao extends Conexion{
         return id;
     }
     
-    public void eliminarBlog(Blog b){
+    public boolean eliminarBlog(int id){
         try {
             this.conectar();
             String sql = "DELETE from BLOG where id_blog=?";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
-            pre.setInt(1, b.getIdBlog());           
+            pre.setInt(1,id);           
             pre.executeUpdate();
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+            return false;
         } finally {
             this.desconectar();
         }
+        
+        return true;
     }
     
     

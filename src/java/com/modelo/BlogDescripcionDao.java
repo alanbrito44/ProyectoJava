@@ -21,8 +21,8 @@ public class BlogDescripcionDao extends Conexion {
         try {
             this.conectar();
             String sql = "INSERT INTO blog_descripcion(id_blog,titulo,imagen_desc,"
-                    + "descripcion,contenido,id_cat)"
-                    + " VALUES(?,?,?,?,?,?)";
+                    + "descripcion,contenido,id_cat,fecha_creacion)"
+                    + " VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setInt(1, b.getIdBlog());
@@ -31,6 +31,7 @@ public class BlogDescripcionDao extends Conexion {
             pre.setString(4, b.getDescrip());
             pre.setString(5, b.getContenido());
             pre.setInt(6, b.getIdCat());
+            pre.setString(7, b.getFecha());
 
             pre.executeUpdate();
         } catch (Exception e) {
@@ -60,6 +61,7 @@ public class BlogDescripcionDao extends Conexion {
                 b.setDescrip(rs.getString(5));
                 b.setContenido(rs.getString(6));
                 b.setIdCat(rs.getInt(7));
+                b.setFecha(rs.getString(8));
                 lista.add(b);
             }
         } catch (Exception e) {
@@ -70,18 +72,18 @@ public class BlogDescripcionDao extends Conexion {
         return lista;
     }
     
-    public Categoria cargarCategoria(int id){
-       Categoria cat = new Categoria();
+    public String cargarCategoria(int id){
+       String cat = "";
         try {
             this.conectar();
-            String sql = "SELECT * FROM blog_categoria WHERE id_categoria=?";
+            String sql = "select a.catergoriat from blog_categoria a inner join blog_descripcion b on a.id_cat = b.id_cat\n" +
+                            "where b.id_cat = ? ";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setInt(1, id);
             ResultSet rs;
             rs = pre.executeQuery();
             while (rs.next()) {
-               cat.setIdCat(rs.getInt(1));
-               cat.setNombreCat(rs.getString(2));
+                cat = rs.getString(1);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -91,5 +93,45 @@ public class BlogDescripcionDao extends Conexion {
        
        
        return cat;
+    }
+    
+    public String usuarioBlog(int idBlog){
+        String nombre = "";
+        try {
+            this.conectar();
+            String sql = "select a.usuario from usuarios a inner join blog b on a.id_usuario = b.id_usuario\n" +
+            "where b.id_blog = ?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, idBlog);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                nombre = rs.getString(1);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+       
+        return nombre;
+    }
+    
+    
+    public boolean eliminarBlogContenido(int id){
+        try {
+            this.conectar();
+            String sql = "delete from blog_descripcion where id_blog = ?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, id);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
+        }finally{
+            this.desconectar();
+        }
+        
+        return true;
     }
 }

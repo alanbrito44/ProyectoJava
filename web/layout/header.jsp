@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <script src="../recursos/JS/jquery.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"  crossorigin="anonymous"/>
         <link rel="stylesheet" href="../recursos/CSS/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="../recursos/CSS/animate.css">
 

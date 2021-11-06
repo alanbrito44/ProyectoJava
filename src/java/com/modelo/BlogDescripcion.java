@@ -20,13 +20,14 @@ public class BlogDescripcion {
     private String imgPortada;
     private String contenido;
     private int idCat;
+    private String fecha ;
 
     public BlogDescripcion() {
         
     }
 
     public BlogDescripcion( int idBlog, String titulo, String descrip, String imgPortada,
-            String contenido,int idCat) {
+            String contenido,int idCat, String fecha) {
 
         this.idBlog = idBlog;
         this.titulo = titulo;
@@ -34,6 +35,7 @@ public class BlogDescripcion {
         this.imgPortada = imgPortada;
         this.contenido = contenido;
         this.idCat= idCat;
+        this.fecha = fecha;
     }
 
     public int getIdBlogDesc() {
@@ -90,6 +92,14 @@ public class BlogDescripcion {
 
     public void setIdCat(int idCat) {
         this.idCat = idCat;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
 

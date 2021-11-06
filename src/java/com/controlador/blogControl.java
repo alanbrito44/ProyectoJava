@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -87,8 +89,27 @@ public class blogControl extends HttpServlet {
                         blogModel.setContenido(request.getParameter("txtContenido"));
                         blogModel.setIdCat(Integer.parseInt(request.getParameter("sCategoria")));
                         
+                        //creamos instancia calendar para crear la fecha del momento en que se crea el blog
+                        
+                        Calendar fecha = new GregorianCalendar();
+                        
+                        //obtenemos el día del mes
+                          int dia = fecha.get(Calendar.DAY_OF_MONTH);
+                        //obtenemos el mes del año
+                          int mes = fecha.get(Calendar.MONTH);
+                        //obtenemos el año
+                         int año = fecha.get(Calendar.YEAR);
+                        
+                         //armamos la estructura de la fecha
+                         
+                         String fechaActual = String.valueOf(dia)+ "/"+String.valueOf(mes)+"/"+String.valueOf(año);
+                         
+                         //seteamos la hora al objeto
+                         
+                         blogModel.setFecha(fechaActual);
                         //hago el insert del blog y su contenido
                         BlogDescripcionDao blogDescDao = new BlogDescripcionDao();
+                        
                         if(blogDescDao.insertarBlog(blogModel)){
                             //si se inserto mandamos alerta y redireccionamos
                             out.println("<script type=\"text/javascript\">");
@@ -110,6 +131,30 @@ public class blogControl extends HttpServlet {
                         out.println("</script>");
                     }
                     
+                break;
+                case "Eliminar":
+                    int id = Integer.parseInt(request.getParameter("actionId"));
+
+                    BlogDescripcionDao bdo = new BlogDescripcionDao();
+                    if (bdo.eliminarBlogContenido(id)) {
+                        BlogDao bdao = new BlogDao();
+                        if (bdao.eliminarBlog(id)) {
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('Entada Eliminada');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                        } else {
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('No Se Pudo Eliminar La Entrada, Intenta de Nuevo');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                        }
+                    } else {
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('No Se Pudo Eliminar La Entrada, Intenta de Nuevo');");
+                        out.println("location='vistas/blogs.jsp';");
+                        out.println("</script>");
+                    }
                 break;
                 
             }

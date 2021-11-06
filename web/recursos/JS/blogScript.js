@@ -11,5 +11,40 @@ $(document).ready(function(){
     $("#btnDelBlog").on("click",function(){
         $("#SelectBlogAction").toggle();
     });
+
+    $("#delete").on("click", function () {
+        Swal.fire({
+            title: 'Estas Seguro De Eliminar Esta Entrada?',
+            text: "No Podrás Deshacer Los Cambios!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Borrarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id = $("#idBlog").val();
+                 $(location).attr('href','http://localhost:8080/ProyectoFinal/blogControl?Accion=Eliminar&actionId='+id);
+            }
+        })
+    });
     
+    
+        $("#mod").on("click", function () {
+        Swal.fire({
+            title: 'Estas Seguro De Modificar Esta Entrada?',
+            text: "No Podrás Deshacer Los Cambios!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Modificar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                  alert("se muestra modal");
+            }
+        })
+    });
+
 });
+

@@ -34,8 +34,7 @@
         <div class="row mb-2">
             <div class="col-md-12 text-center ftco-animate">
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
-                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Editar Entrada</button>
-                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnDelBlog">Eliminar Entrada</button>
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnDelBlog">Categorias Blogs</button>
             </div>
         </div>
         <div class="row mt-5 mb-5" id="SelectBlogAction">
@@ -70,6 +69,8 @@
            BlogDescripcionDao bdao = new BlogDescripcionDao();
            ArrayList<BlogDescripcion> listaBlogs=  new ArrayList<BlogDescripcion>();
            listaBlogs = bdao.mostrarBlogs();
+           ArrayList<Categoria> listacat = new ArrayList<Categoria>();
+           
            
            for (BlogDescripcion elem : listaBlogs) {
          %>
@@ -81,9 +82,14 @@
                     </a>
                     <div class="text px-md-5 pt-4">
                         <div class="meta mb-3">
-                            <div><a href="#">Oct. 29, 2019</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            <div><a href="#"><%=elem.getFecha()%></a></div>
+                            <input type="text" id="idBlog" value="<%=elem.getIdBlog()%>" hidden>
+                            <div><a id="enlace" class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
+                                    <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
+                                    <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
+                                    <i id="mod" class="mx-1 text-white btn btn-warning far fa-edit"></i>
+                                </a>
+                            </div>
                         </div>
                         <h3 class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
                         <p><%=elem.getDescrip()%></p>
@@ -117,23 +123,23 @@
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Titulo Del Blog</label>
-                        <input type="text" class="form-control" id="recipient-name" name="txtTitulo">
+                        <label for="tituloBlog" class="col-form-label">Titulo Del Blog</label>
+                        <input type="text" class="form-control" id="tituloBlog" name="txtTitulo">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Descripción Corta Del Blog(Max 200 Caracteres)</label>
-                        <textarea class="form-control" id="message-text" maxlength="200"  name="txtDescripcion"></textarea>
+                        <label for="descripcionBlog" class="col-form-label">Descripción Corta Del Blog(Max 200 Caracteres)</label>
+                        <textarea class="form-control" id="descripcionBlog" maxlength="200"  name="txtDescripcion"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
-                        <input type="file" class="form-control" id="recipient-name" accept=".jpg" name="imgDescripcion">
+                        <label for="imagenBlog" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
+                        <input type="file" class="form-control" id="imagenBlog" accept=".jpg" name="imgDescripcion">
                     </div>
                     <div class="form-group">
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
                         <textarea class="form-control" id="txtDescripcion" maxlength="200" name="txtContenido"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="txtDescripcion" class="col-form-label">Categoria Del Blog</label>
+                        <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
               <select class="form-control" name="sCategoria">
                   <%
                     CategoriaDao daoCat = new CategoriaDao();
@@ -149,8 +155,8 @@
                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <input type="submit" class="btn btn-outline-success" id="btnCrear" name="Accion" value="Ingresar">
-                    <input type="submit" class="btn btn-outline-warning" name="Accion" value="Guardar">
+                    <input type="submit" id="ingresarBlog" class="btn btn-outline-success" id="btnCrear" name="Accion" value="Ingresar">
+                    <input type="submit" id="guardarBlog" class="btn btn-outline-warning" name="Accion" value="Guardar">
                 </div>
                 </form>
             </div>
