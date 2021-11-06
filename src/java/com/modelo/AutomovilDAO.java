@@ -182,5 +182,39 @@ public class AutomovilDAO extends Conexion {
         }
         return lista;
     }
+    
+    public ArrayList<Automovil> mostrarAutomovilTop() {
+        ArrayList<Automovil> lista = new ArrayList<>();
+        try {
+            this.conectar();
+            String sql = "SELECT * FROM automovil ORDER BY ID_AUTOMOVIL DESC LIMIT 5";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Automovil a = new Automovil();
+                a.setId_automovil(rs.getInt(1));
+                a.setModelo_automovil(rs.getString(2));
+                a.setPrecio(rs.getDouble(3));
+                a.setPlaca(rs.getString(4));
+                a.setAno(rs.getInt(5));
+                a.setTransmision(rs.getString(6));
+                a.setPuertas(rs.getInt(7));
+                a.setKilometrage(rs.getDouble(8));
+                a.setColor(rs.getString(9));
+                a.setId_marca(rs.getInt(10));
+                a.setId_catAutomovil(rs.getInt(11));
+                a.setImagen_auto(rs.getString(12));
+
+                //agrenado los valores a la lista
+                lista.add(a);
+            }
+        } catch (Exception e) {
+            JOptionPane.showInputDialog(null, "Error: " + e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
 
 }

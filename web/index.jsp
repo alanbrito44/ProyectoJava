@@ -4,11 +4,19 @@
     Author     : KARSA
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.modelo.Marca" %>
+<%@page import="com.modelo.MarcaDAO" %>
+<%@page import="com.modelo.Automovil" %>
+<%@page import="com.modelo.AutomovilDAO" %>
+<%@page import="com.modelo.CategoriaAutomovil" %>
+<%@page import="com.modelo.CategoriaAutomovilDAO" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+        <title>Cars Toreto - venta de automoviles</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -42,18 +50,18 @@
         %>
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">Car<span>Book</span></a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">Cars<span>Toreto</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
                 </button>
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/about.jsp" class="nav-link">About</a></li>
-                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/cars.jsp" class="nav-link">Cars</a></li>
+                        <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">Inicio</a></li>
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/about.jsp" class="nav-link">Nosotros</a></li>
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/cars.jsp" class="nav-link">Carros</a></li>
                         <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="nav-link">Blog</a></li>
-                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/contacto.jsp" class="nav-link">Contact</a></li>
+                        <li class="nav-item"><a href="${pageContext.request.contextPath}/vistas/contacto.jsp" class="nav-link">Contacto</a></li>
 
                         <%
                             if (sesion.getAttribute("nivel") == null) {
@@ -81,8 +89,8 @@
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
                     <div class="col-lg-8 ftco-animate">
                         <div class="text w-100 text-center mb-md-5 pb-md-5">
-                            <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car</h1>
-                            <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
+                            <h1 class="mb-4">Compra rapida y facil de tu automovil</h1>
+                            <p style="font-size: 18px;">Somos tu empresa de confianza con la que puedes contar para la compra de tu primer vehiculo, ya sea nuevo modelo o modelos anteriores</p>
                             <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
                                 <div class="icon d-flex align-items-center justify-content-center">
                                     <span class="ion-ios-play"></span>
@@ -97,11 +105,20 @@
             </div>
         </div>
 
+        <%!
+            MarcaDAO daoMarca = new MarcaDAO();
+            ArrayList<Marca> listaMarca = new ArrayList<>();
+            AutomovilDAO daoAutomovil = new AutomovilDAO();
+            ArrayList<Automovil> listaAuto = new ArrayList<>();
+            CategoriaAutomovilDAO daoCate = new CategoriaAutomovilDAO();
+            ArrayList<CategoriaAutomovil> listaCate = new ArrayList<>();
+        %>
+
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-                        <span class="subheading">What we offer</span>
+                        <span class="subheading">Que te ofrecemos</span>
                         <%
                             if (sesion.getAttribute("usuario") == null) {
                         %> 
@@ -114,68 +131,34 @@
                         <%
                             }
                         %> 
-                        <h2 class="mb-2">Feeatured Vehicles</h2>
+                        <h2 class="mb-2">Ultimos vehiculos ingresados</h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="carousel-car owl-carousel">
+                            <%
+                                listaAuto = daoAutomovil.mostrarAutomovilTop();
+                                for (Automovil elem : listaAuto) {
+                            %>
                             <div class="item">
                                 <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(recursos/Multimedia/Imagenes/car-1.jpg);">
+                                    <div>
+                                        <image class="img rounded d-flex align-items-end" src="<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>"/>
                                     </div>
                                     <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                        <h2 class="mb-0"><a href="#"><%=elem.getModelo_automovil()%></a></h2>
                                         <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
+                                            <span class="cat"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
+                                            <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                                         </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(recursos/Multimedia/Imagenes/car-2.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(recursos/Multimedia/Imagenes/car-3.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="car-wrap rounded ftco-animate">
-                                    <div class="img rounded d-flex align-items-end" style="background-image: url(recursos/Multimedia/Imagenes/car-4.jpg);">
-                                    </div>
-                                    <div class="text">
-                                        <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
-                                        <div class="d-flex mb-3">
-                                            <span class="cat">Cheverolet</span>
-                                            <p class="price ml-auto">$500 <span>/day</span></p>
-                                        </div>
-                                        <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>

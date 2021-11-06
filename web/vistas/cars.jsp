@@ -69,12 +69,12 @@
                         <image class="img rounded d-flex align-items-end" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/>
                     </div>
                     <div class="text">
-                        <h2 class="mb-0"><a href="car-single.html"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></a></h2>
+                        <h2 class="mb-0"><a href="car-single.html"><%=elem.getModelo_automovil()%></a></h2>
                         <div class="d-flex mb-3">
-                            <span class="cat"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></span>
+                            <span class="cat"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
                             <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                         </div>
-                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a></p>
                     </div>
                 </div>
             </div>
