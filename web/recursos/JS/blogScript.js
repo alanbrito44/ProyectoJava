@@ -6,13 +6,19 @@
 
 
 $(document).ready(function(){
+
     
     $("#SelectBlogAction").toggle();
     $("#btnDelBlog").on("click",function(){
         $("#SelectBlogAction").toggle();
     });
 
-    $("#delete").on("click", function () {
+
+    $('body').on('click', '#delete', function () {
+
+        let fila = $(this).closest('.padre');
+        var codigo = fila.find('#idBlog').val();
+
         Swal.fire({
             title: 'Estas Seguro De Eliminar Esta Entrada?',
             text: "No Podrás Deshacer Los Cambios!",
@@ -24,13 +30,14 @@ $(document).ready(function(){
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $("#idBlog").val();
-                 $(location).attr('href','http://localhost:8085/ProyectoFinal/blogControl?Accion=Eliminar&actionId='+id);
+                $(location).attr('href', 'http://localhost:8080/ProyectoFinal/blogControl?Accion=Eliminar&actionId=' + codigo);
             }
         })
+
     });
+
     
-    
-        $("#mod").on("click", function () {
+    $('body').on('click', '#mod', function () {
         Swal.fire({
             title: 'Estas Seguro De Modificar Esta Entrada?',
             text: "No Podrás Deshacer Los Cambios!",
@@ -40,11 +47,27 @@ $(document).ready(function(){
             cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, Modificar!'
         }).then((result) => {
-            if (result.isConfirmed) {
-                  alert("se muestra modal");
-            }
+            
+        let fila = $(this).closest('.padre');
+        cargarDatosModal(fila);
+        
+        $("#miModal").modal("show");
         })
     });
 
 });
 
+function cargarDatosModal(fila){
+       
+        var idBlog = fila.find('#idBlog').val();        
+        var titulo = fila.find("#titleBlog").text();
+        var descripcion = fila.find("#descBlog").text();
+        var categoria = fila.find("#categoriaBlog").text();
+        
+
+        $("#codigoBlog").val(idBlog);
+        $("#tituloBlog").val(titulo);
+        $("#descripcionBlog").val(descripcion);
+        
+        $('#sCategoria').find('option:contains('+categoria+')').prop('selected', true);
+}

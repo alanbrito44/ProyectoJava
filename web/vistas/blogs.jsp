@@ -80,20 +80,21 @@
                 <div class="blog-entry justify-content-end mb-md-5">
                     <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
-                    <div class="text px-md-5 pt-4">
+                    <div class="text px-md-5 pt-4 padre">
                         <div class="meta mb-3">
                             <div><a href="#"><%=elem.getFecha()%></a></div>
                             <input type="text" id="idBlog" value="<%=elem.getIdBlog()%>" hidden>
-                            <div><a id="enlace" class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
+                            <div><a class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
                                     <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                                     <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
                                     <i id="mod" class="mx-1 text-white btn btn-warning far fa-edit"></i>
                                 </a>
                             </div>
                         </div>
-                        <h3 class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
-                        <p><%=elem.getDescrip()%></p>
+                        <h3 id="titleBlog" class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
+                        <p id="descBlog"><%=elem.getDescrip()%></p>
                         <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                        <div id="contenido"><%=elem.getContenido()%></div>
                     </div>
                 </div>
             </div>
@@ -108,7 +109,7 @@
 </section>
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="miModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -121,6 +122,7 @@
                 <form id="formulario" action="${pageContext.request.contextPath}/blogControl" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
+                        <input type="text" class="form-control" id="codigoBlog" name="txtUsuario" value="" hidden>
                     </div>
                     <div class="form-group">
                         <label for="tituloBlog" class="col-form-label">Titulo Del Blog</label>
@@ -140,7 +142,7 @@
                     </div>
                     <div class="form-group">
                         <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
-              <select class="form-control" name="sCategoria">
+              <select class="form-control" name="sCategoria" id="sCategoria">
                   <%
                     CategoriaDao daoCat = new CategoriaDao();
                     ArrayList<Categoria> listaCat = new ArrayList<>();
