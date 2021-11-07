@@ -24,7 +24,7 @@ $(document).ready(function(){
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $("#idBlog").val();
-                 $(location).attr('href','http://localhost:8080/ProyectoFinal/blogControl?Accion=Eliminar&actionId='+id);
+                 $(location).attr('href','http://localhost:8085/ProyectoFinal/blogControl?Accion=Eliminar&actionId='+id);
             }
         })
     });

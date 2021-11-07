@@ -116,24 +116,48 @@ public class AutomovilServlet extends HttpServlet {
                 }
                 break;
                 case "editar": {
-                    
-                    String archivo = request.getParameter("txtImagen");
 
-                    if (archivo == null) {
+                    if (request.getPart("txtImagen").getSize() <= 0) {
                         auto.setImagen_auto(request.getParameter("txtRutaImg"));
+                        auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
+                        daoAuto.modificarAutomovil(auto);
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Automovil SIN IMAGEN modificado con exito');");
+                        out.println("location='vistas/cars.jsp';");
+                        out.println("</script>");
+                    } else if (request.getPart("txtImagen").getSize() > 0) {
+
+                        Part part = request.getPart("txtImagen");
+                        String fileName = extractFileName(part);
+
+                        String applicationPath = getServletContext().getRealPath("");
+                        String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+                        System.out.println("applicationPath:" + applicationPath);
+
+                        File fileUploadDirectory = new File(uploadPath);
+
+                        if (!fileUploadDirectory.exists()) {
+                            fileUploadDirectory.mkdirs();
+                        }
+
+                        String savePath = uploadPath + File.separator + fileName;
+                        System.out.println("savePath: " + savePath);
+                        String sRootPath = new File(savePath).getAbsolutePath();
+                        System.out.println("sRootPath: " + sRootPath);
+                        part.write(savePath + File.separator);
+                        File fileSaveDir1 = new File(savePath);
+
+                        String dbFileName = UPLOAD_DIR + File.separator + fileName;
+                        part.write(savePath + File.separator);
+
+                        auto.setImagen_auto(dbFileName);
                         auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                         daoAuto.modificarAutomovil(auto);
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('Automovil CON IMAGEN modificado con exito');");
                         out.println("location='vistas/cars.jsp';");
                         out.println("</script>");
-                    } else {
-                        
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Automovil SIN IMAGEN modificado con exito');");
-                        out.println("location='vistas/cars.jsp';");
-                        out.println("</script>");
-                        
+
                     }
                 }
                 break;
