@@ -7,6 +7,8 @@
 
 $(document).ready(function(){
 
+
+$("#txtDescripcion").val(contenido);
     
     $("#SelectBlogAction").toggle();
     $("#btnDelBlog").on("click",function(){
@@ -50,6 +52,11 @@ $(document).ready(function(){
             
         let fila = $(this).closest('.padre');
         cargarDatosModal(fila);
+        
+        fila.find("#contenido").each(function(){
+          
+            
+        });
         
         $("#miModal").modal("show");
         })
