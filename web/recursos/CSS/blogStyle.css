@@ -12,6 +12,7 @@ and open the template in the editor.
     width: 250px;
 }
 
+/*ESTILOS PARA EL TEXAREA*/
 #message-text{
     height: 110px !important;
 }
@@ -22,6 +23,10 @@ and open the template in the editor.
     color:black !important;
 }
 
-#contenido > p{
-   display: none;
+/*PARA OCULTAR EL CONTENIDO DE BLOG EN LA PAGINA BLOG
+YA QUE SOLO SE REQUIERE PARA CARGAR EL TEXTAREA*/
+#contenido{
+    display: none;
 }
+
+

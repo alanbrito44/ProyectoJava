@@ -70,5 +70,26 @@ public class BlogDao extends Conexion{
         return true;
     }
     
+
+    
+    public boolean modificarBlog(int idBlog, int idUser){
+        try {
+            this.conectar();
+            String sql = "UPDATE BLOG SET id_usuario=? where id_blog=?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1,idUser);
+            pre.setInt(2,idBlog);
+            pre.executeUpdate();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+        
+        return true;
+    }
+    
     
 }

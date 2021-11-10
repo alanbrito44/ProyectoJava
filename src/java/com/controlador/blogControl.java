@@ -63,8 +63,9 @@ public class blogControl extends HttpServlet {
                     Part imagen = request.getPart("imgDescripcion");
                     InputStream is = imagen.getInputStream();
                     
-                    
-                    //llamo a la funcion que cree para subir imagen y lo seteo a un booleano
+                    //comprobamos si viene imagen o no.
+                   if(imagen.getSize()>0){
+                        //llamo a la funcion que cree para subir imagen y lo seteo a un booleano
                     boolean resp = subirImagen(imgNombre, is);
                     
                     //si la carga de la imagen es verddera proceso a insertar los datos a la BD
@@ -130,6 +131,13 @@ public class blogControl extends HttpServlet {
                         out.println("location='vistas/blogs.jsp';");
                         out.println("</script>");
                     }
+                   }else{
+                       //si no viene imagen redireecionamos con alerta
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('No Se Selecciono Ninguna Imagen');");
+                        out.println("location='vistas/blogs.jsp';");
+                        out.println("</script>");
+                   }
                     
                 break;
                 case "Eliminar":
@@ -156,18 +164,67 @@ public class blogControl extends HttpServlet {
                         out.println("</script>");
                     }
                 break;
-                
+                case "Guardar":
+                        int codigoUsuario = Integer.parseInt(request.getParameter("txtUsuario"));
+                        int codigoBlog = Integer.parseInt(request.getParameter("txtIdBlog"));
+                        String tituloBlog = request.getParameter("txtTitulo");
+                        String descripcionBlog = request.getParameter("txtDescripcion");
+                        String nombreImagen = request.getPart("imgDescripcion").getSubmittedFileName();   
+                        String contenidoBlog = request.getParameter("txtContenido");
+                        int codigoCategoria = Integer.parseInt(request.getParameter("sCategoria"));
+                        
+                        if(nombreImagen.length()>0){
+                           Part imagenBlog = request.getPart("imgDescripcion");
+                           InputStream isBlog = imagenBlog.getInputStream();
+
+                           boolean subidaFile = subirImagen(nombreImagen, isBlog);
+                           if(subidaFile){
+                              BlogDao bdao = new BlogDao();
+                              if(bdao.modificarBlog(codigoBlog,codigoUsuario)){
+                                 Calendar fecha = new GregorianCalendar();
+                        
+                                //obtenemos el día del mes
+                                  int dia = fecha.get(Calendar.DAY_OF_MONTH);
+                                //obtenemos el mes del año
+                                  int mes = fecha.get(Calendar.MONTH);
+                                //obtenemos el año
+                                 int año = fecha.get(Calendar.YEAR);
+                                 String fechaActual = String.valueOf(dia)+ "/"+String.valueOf(mes)+"/"+String.valueOf(año);
+                                 
+                                 BlogDescripcion b= new BlogDescripcion();
+                                 b.setTitulo(tituloBlog);
+                                 b.setImgPortada(nombreImagen);
+                                 b.setDescrip(descripcionBlog);
+                                 b.setContenido(contenidoBlog);
+                                 b.setFecha(fechaActual);
+                                 b.setIdCat(codigoCategoria);
+                                 b.setIdBlog(codigoBlog);
+                                 
+                                 BlogDescripcionDao bd = new BlogDescripcionDao();
+                                 if(bd.modificarBlogImg(b)){
+                                     out.println("blog editado");
+                                 }
+                              }
+                           }else{
+                               out.println("no se subio la imagen putaaaaaamadre");
+                           }
+                        }else{
+                            out.println("llego sin imagen");
+                        }
+                        
+                break;
+
             }
-            
 
         }
     }
+
     /**
-    
-    *funcion que sube imagen a carpeta del servidor
-    *recive un string con el nombre y el inputstream de la imagen para escribirla en la carpeta
-    * retorna un booleano segun tenga exito o no
-    
+     *
+     * funcion que sube imagen a carpeta del servidor recive un string con el
+     * nombre y el inputstream de la imagen para escribirla en la carpeta
+     * retorna un booleano segun tenga exito o no
+     *
     
     */
     private boolean subirImagen(String imgNombre, InputStream is) throws FileNotFoundException, IOException{

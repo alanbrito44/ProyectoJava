@@ -134,4 +134,57 @@ public class BlogDescripcionDao extends Conexion {
         
         return true;
     }
+    
+    
+   
+    public boolean modificarBlogImg(BlogDescripcion b){
+        try {
+            this.conectar();
+            String sql = "UPDATE blog_descripcion SET titulo=?,imagen_desc=?,"
+                    + "descripcion =?,contenido=?,id_cat=?,fecha_creacion=? WHERE id_blog =?";
+
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setString(1, b.getTitulo());
+            pre.setString(2, b.getImgPortada());
+            pre.setString(3, b.getDescrip());
+            pre.setString(4, b.getContenido());
+            pre.setInt(5, b.getIdCat());
+            pre.setString(6, b.getFecha());
+            pre.setInt(7, b.getIdBlog());
+
+            pre.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+ 
+        return true;
+    }
+    
+    public boolean modificarBlogNoImg(BlogDescripcion b){
+        try {
+            this.conectar();
+            String sql = "UPDATE blog_descripcion SET titulo=?,"
+                    + "descripcion =?,contenido=?,id_cat=?,fecha_creacion=? WHERE id_blog =?";
+
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setString(1, b.getTitulo());
+            pre.setString(2, b.getDescrip());
+            pre.setString(3, b.getContenido());
+            pre.setInt(4, b.getIdCat());
+            pre.setString(5, b.getFecha());
+            pre.setInt(6, b.getIdBlog());
+
+            pre.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+ 
+        return true;
+    }
 }

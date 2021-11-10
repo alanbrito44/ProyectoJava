@@ -33,7 +33,7 @@
         %>
         <div class="row mb-2">
             <div class="col-md-12 text-center ftco-animate">
-                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
+                <button id="newEntry" type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
                 <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnDelBlog">Categorias Blogs</button>
             </div>
         </div>
@@ -122,7 +122,7 @@
                 <form id="formulario" action="${pageContext.request.contextPath}/blogControl" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
-                        <input type="text" class="form-control" id="codigoBlog" name="txtUsuario" value="" hidden>
+                        <input type="text" class="form-control" id="codigoBlog" name="txtIdBlog" value="" hidden>
                     </div>
                     <div class="form-group">
                         <label for="tituloBlog" class="col-form-label">Titulo Del Blog</label>
@@ -136,9 +136,13 @@
                         <label for="imagenBlog" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
                         <input type="file" class="form-control" id="imagenBlog" accept=".jpg" name="imgDescripcion">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="areaEdit">
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
-                        <textarea class="form-control" id="txtDescripcion" maxlength="250" name="txtContenido"></textarea>
+                        <textarea form="formulario" class="form-control" id="txtDescripcion" maxlength="250" name="txtContenido"></textarea>
+                    </div>
+                    <div class="form-group" id="areaNew">
+                        <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
+                        <textarea form="formulario" class="form-control" id="txtNewContent" maxlength="250" name="txtContenido"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
@@ -165,14 +169,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    ClassicEditor
-            .create(document.querySelector('#txtDescripcion'))
-            .catch(error => {
-                console.error(error);
-            });
-</script>
 <script src="../recursos/JS/blogScript.js"></script>
 <%@include file="../layout/footer.jsp" %>
