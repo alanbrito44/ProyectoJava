@@ -59,6 +59,8 @@ public class AutomovilServlet extends HttpServlet {
             auto.setColor(request.getParameter("txtColor"));
             auto.setId_marca(Integer.parseInt(request.getParameter("sMarca")));
             auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
+            auto.setStock(Integer.parseInt(request.getParameter("txtStock")));
+            auto.setDescripcion(request.getParameter("txtDescripcion"));
 
             switch (accion) {
                 case "agregar": {

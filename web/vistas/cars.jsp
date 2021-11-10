@@ -46,13 +46,13 @@
         } else if ((Integer) sesion.getAttribute("nivel") == 1) {
         %> 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-secondary py-3 px-4 mb-5 rounded ftco-animate" data-toggle="modal" data-target="#ModalAuto" data-backdrop="static" data-keyboard="false">
+        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 rounded ftco-animate" data-toggle="modal" data-target="#ModalAuto" data-backdrop="static" data-keyboard="false">
             Listado de vehiculos existentes
         </button>
-        <button type="button" class="btn btn-primary py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
+        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
             Listado marca de vehiculos
         </button>
-        <button type="button" class="btn btn-primary py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalCategoria" data-backdrop="static" data-keyboard="false">
+        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalCategoria" data-backdrop="static" data-keyboard="false">
             Listado categoria de vehiculos
         </button>
         <%
@@ -159,11 +159,11 @@
 
                     <input type="hidden" class="form-control" name="txtIdMarca">
                     Marca
-                    <input type="text" class="form-control" name="txtMarca">
+                    <input type="text" class="form-control" name="txtMarca" required="">
                     Descripcion
-                    <textarea class="form-control" name="txtDescripcion"></textarea>
+                    <textarea class="form-control" name="txtDescripcion" required=""></textarea>
                     Pais
-                    <input type="text" class="form-control" name="txtPais">
+                    <input type="text" class="form-control" name="txtPais" required="">
 
                 </div>
                 <div class="modal-footer">
@@ -203,6 +203,7 @@
                     <th>MARCA</th>
                     <th>CATEGORIA</th>
                     <th>IMAGEN</th>
+                    <th>STOCK</th>
                     <th>ACCIONES</th>
                     </thead>
                     <tbody>
@@ -227,6 +228,8 @@
                             <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
                             <td class="imagen_auto"><img id="ruta" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="stock"><%=elem.getStock()%></td>
+                            <td class="descripcion" style="display:none;"><%=elem.getDescripcion()%></td>
                             <td>
                                 <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
                                     Editar
@@ -267,21 +270,21 @@
 
                     <input type="hidden" class="form-control" name="txtIdAutomovil">
                     Modelo
-                    <input type="text" class="form-control" name="txtModelo">
+                    <input type="text" class="form-control" name="txtModelo" required="">
                     Precio
-                    <input type="text" class="form-control" name="txtPrecio">
+                    <input type="number" class="form-control" name="txtPrecio" required="">
                     Placa
-                    <input type="text" class="form-control" name="txtPlaca">
+                    <input type="text" class="form-control" name="txtPlaca" required="">
                     Ano
-                    <input type="number" class="form-control" name="txtAno">
+                    <input type="number" class="form-control" name="txtAno" required="">
                     Transmision
-                    <input type="text" class="form-control" name="txtTransmision">
+                    <input type="text" class="form-control" name="txtTransmision" required="">
                     Numero de puertas
-                    <input type="number" class="form-control" name="txtPuerta">
+                    <input type="number" class="form-control" name="txtPuerta" required="">
                     Kilometrage
-                    <input type="text" class="form-control" name="txtKilometrage">
+                    <input type="number" class="form-control" name="txtKilometrage" required="">
                     Color
-                    <input type="text" class="form-control" name="txtColor">
+                    <input type="text" class="form-control" name="txtColor" required="">
                     Marca
                     <select class="form-control" name="sMarca">
                         <%
@@ -309,6 +312,10 @@
                     Imagen
                     <input type="file" class="form-control" name="txtImagen">
                     <input type="hidden" class="form-control" name="txtRutaImg">
+                    Stock 
+                    <input type="number" class="form-control" name="txtStock" required="">
+                    Descripcion
+                    <textarea class="form-control" name="txtDescripcion" required=""></textarea>
 
                 </div>
                 <div class="modal-footer">
@@ -393,9 +400,9 @@
 
                     <input type="hidden" class="form-control" name="txtIdCategotria">
                     Categoria
-                    <input type="text" class="form-control" name="txtCategoria">
+                    <input type="text" class="form-control" name="txtCategoria" required="">
                     Descripcion
-                    <textarea class="form-control" name="txtDescripCat"></textarea>
+                    <textarea class="form-control" name="txtDescripCat" required=""></textarea>
 
                 </div>
                 <div class="modal-footer">

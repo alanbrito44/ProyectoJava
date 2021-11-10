@@ -23,11 +23,14 @@ public class Automovil {
     private int id_marca;
     private int id_catAutomovil;
     private String imagen_auto;
+    private int stock;
+    private String descripcion;
 
     public Automovil() {
     }
 
-    public Automovil(int id_automovil, String modelo_automovil, Double precio, String placa, int ano, String transmision, int puertas, Double kilometrage, String color, int id_marca, int id_catAutomovil, String imagen_auto) {
+    public Automovil(int id_automovil, String modelo_automovil, Double precio, String placa, int ano, String transmision, int puertas, Double kilometrage, String color, 
+                     int id_marca, int id_catAutomovil, String imagen_auto, int stock, String descripcion) {
         this.id_automovil = id_automovil;
         this.modelo_automovil = modelo_automovil;
         this.precio = precio;
@@ -40,6 +43,8 @@ public class Automovil {
         this.id_marca = id_marca;
         this.id_catAutomovil = id_catAutomovil;
         this.imagen_auto = imagen_auto;
+        this.stock = stock;
+        this.descripcion = descripcion;
     }
     
     public String getImagen_auto() {
@@ -136,6 +141,22 @@ public class Automovil {
 
     public void setId_catAutomovil(int id_catAutomovil) {
         this.id_catAutomovil = id_catAutomovil;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
     
     

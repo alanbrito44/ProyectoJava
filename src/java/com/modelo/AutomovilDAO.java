@@ -21,8 +21,8 @@ public class AutomovilDAO extends Conexion {
     public void insertarAutomovil(Automovil a) {
         try {
             this.conectar();
-            String sql = "INSERT INTO automovil (modelo_automovil,precio,placa,año,transmision,puertas,kilometrage,color,id_marca,id_catAutomovil,imagen_auto) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO automovil (modelo_automovil,precio,placa,año,transmision,puertas,kilometrage,color,id_marca,id_catAutomovil,stock,descripcion,imagen_auto) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setString(1, a.getModelo_automovil());
             pre.setDouble(2, a.getPrecio());
@@ -34,7 +34,9 @@ public class AutomovilDAO extends Conexion {
             pre.setString(8, a.getColor());
             pre.setInt(9, a.getId_marca());
             pre.setInt(10, a.getId_catAutomovil());
-            pre.setString(11, a.getImagen_auto());
+            pre.setInt(11, a.getStock());
+            pre.setString(12, a.getDescripcion());
+            pre.setString(13, a.getImagen_auto());
             pre.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -65,6 +67,8 @@ public class AutomovilDAO extends Conexion {
                 a.setId_marca(rs.getInt(10));
                 a.setId_catAutomovil(rs.getInt(11));
                 a.setImagen_auto(rs.getString(12));
+                a.setStock(rs.getInt(13));
+                a.setDescripcion(rs.getString(14));
 
                 //agrenado los valores a la lista
                 lista.add(a);
@@ -126,7 +130,7 @@ public class AutomovilDAO extends Conexion {
         try{
             this.conectar();
             String sql = "UPDATE automovil SET modelo_automovil=?, precio=?, placa=?, año=?, transmision=?, puertas=?, kilometrage=?,"
-                          + "color=?, id_marca=?, id_catAutomovil=?, imagen_auto=? WHERE id_automovil=? ";
+                          + "color=?, id_marca=?, id_catAutomovil=?, stock=?, descripcion=?, imagen_auto=? WHERE id_automovil=? ";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setString(1, a.getModelo_automovil());
             pre.setDouble(2, a.getPrecio());
@@ -138,8 +142,10 @@ public class AutomovilDAO extends Conexion {
             pre.setString(8, a.getColor());
             pre.setInt(9, a.getId_marca());
             pre.setInt(10, a.getId_catAutomovil());
-            pre.setString(11, a.getImagen_auto());
-            pre.setInt(12,a.getId_automovil());
+            pre.setInt(11, a.getStock());
+            pre.setString(12, a.getDescripcion());
+            pre.setString(13, a.getImagen_auto());
+            pre.setInt(14,a.getId_automovil());
             //en este caso como se esta realizando un update se ocupa el executeUpdate, para ejecutar la consulta
             pre.executeUpdate();
         }catch(Exception e){
@@ -172,6 +178,8 @@ public class AutomovilDAO extends Conexion {
                 a.setId_marca(rs.getInt(10));
                 a.setId_catAutomovil(rs.getInt(11));
                 a.setImagen_auto(rs.getString(12));
+                a.setStock(rs.getInt(13));
+                a.setDescripcion(rs.getString(14));
 
                 lista.add(a);
             }

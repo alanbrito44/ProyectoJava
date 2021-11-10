@@ -27,12 +27,13 @@
             </div>
             <div class="col-md-6 wrap-about ftco-animate">
                 <div class="heading-section heading-section-white pl-md-5">
-                    <span class="subheading">About us</span>
-                    <h2 class="mb-4">Welcome to Carbook</h2>
+                    <span class="subheading">Sobre nosotros</span>
+                    <h2 class="mb-4">Bienvenido a Cars Toreto</h2>
 
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
+                    <p>Somos una empresa especialida en la venta de vehiculos nuevos y usados, contamos con un alto catalogo de vehiculos por los cuales puedes elegir.</p>
+                    <p>Como empresa estamos comprometidos a brindar el mejor servicio a nuestros clientes, por lo que contamos con garantia en todos nuestros vehiculos, 
+                    por lo que nuestro clientes nose deben preocupar por algun desperfecto en los vehiculos usados ya que nos aseguramos de su funcionalidad completa antes de hacer la entrega del vehiculo</p>
+                    <p><a href="${pageContext.request.contextPath}/vistas/cars.jsp" class="btn btn-primary py-3 px-4">Buscar un vehiculo</a></p>
                 </div>
             </div>
         </div>
@@ -43,8 +44,8 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
-                <span class="subheading">Testimonial</span>
-                <h2 class="mb-3">Happy Clients</h2>
+                <span class="subheading">Personal</span>
+                <h2 class="mb-3">CEOS de la empresa</h2>
             </div>
         </div>
         <div class="row ftco-animate">

@@ -32,7 +32,7 @@ $("#txtDescripcion").val(contenido);
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $("#idBlog").val();
-                $(location).attr('href', 'http://localhost:8080/ProyectoFinal/blogControl?Accion=Eliminar&actionId=' + codigo);
+                $(location).attr('href', 'http://localhost:8085/ProyectoFinal/blogControl?Accion=Eliminar&actionId=' + codigo);
             }
         })
 
