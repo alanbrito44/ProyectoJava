@@ -202,11 +202,17 @@ public class blogControl extends HttpServlet {
                                  
                                  BlogDescripcionDao bd = new BlogDescripcionDao();
                                  if(bd.modificarBlogImg(b)){
-                                     out.println("blog editado");
+                                    out.println("<script type=\"text/javascript\">");
+                                    out.println("alert('Entada Editada');");
+                                    out.println("location='vistas/blogs.jsp';");
+                                    out.println("</script>");
                                  }
                               }
                            }else{
-                               out.println("no se subio la imagen putaaaaaamadre");
+                                    out.println("<script type=\"text/javascript\">");
+                                    out.println("alert('No Se Pudo Subir La Imagen Al Servidor, Intenta De Nuevo');");
+                                    out.println("location='vistas/blogs.jsp';");
+                                    out.println("</script>");
                            }
                         }else{
                             out.println("llego sin imagen");

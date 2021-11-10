@@ -84,6 +84,7 @@
                         <div class="meta mb-3">
                             <div><a href="#"><%=elem.getFecha()%></a></div>
                             <input type="text" id="idBlog" value="<%=elem.getIdBlog()%>" hidden>
+                            <input type="text" id="nombreImgActual" name ="nombreImgBlog" value="<%=elem.getImgPortada()%>" hidden>
                             <div><a class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
                                     <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                                     <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
