@@ -187,4 +187,32 @@ public class BlogDescripcionDao extends Conexion {
  
         return true;
     }
+    
+    public ArrayList<BlogDescripcion> mostrarBlogRecientes() {
+        ArrayList<BlogDescripcion> lista = new ArrayList<>();
+        try {
+            this.conectar();
+            String sql = "SELECT * FROM blog_descripcion ORDER BY id_blog DESC LIMIT 3";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            ResultSet rs;
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                BlogDescripcion b = new BlogDescripcion();
+                b.setIdBlogDesc(rs.getInt(1));
+                b.setIdBlog(rs.getInt(2));
+                b.setTitulo(rs.getString(3));
+                b.setImgPortada(rs.getString(4));
+                b.setDescrip(rs.getString(5));
+                b.setContenido(rs.getString(6));
+                b.setIdCat(rs.getInt(7));
+                b.setFecha(rs.getString(8));
+                lista.add(b);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
 }

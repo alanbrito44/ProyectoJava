@@ -15,8 +15,7 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 
-<%!    
-    AutomovilDAO daoAutomovil = new AutomovilDAO();
+<%!    AutomovilDAO daoAutomovil = new AutomovilDAO();
     MarcaDAO daoMarca = new MarcaDAO();
     CategoriaAutomovilDAO daoCate = new CategoriaAutomovilDAO();
     ArrayList<Automovil> listaAuto = new ArrayList<>();
@@ -37,8 +36,7 @@
 
 <section class="ftco-section ftco-car-details">
     <div class="container">
-        <%  
-            int id = Integer.parseInt(request.getParameter("id"));
+        <%            int id = Integer.parseInt(request.getParameter("id"));
             listaAuto = daoAutomovil.mostrarAutomovilID(id);
             for (Automovil elem : listaAuto) {
         %>
@@ -174,6 +172,42 @@
         <%
             }
         %>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                <span class="subheading">Choose Car</span>
+                <h2 class="mb-2">Related Cars</h2>
+            </div>
+        </div>
+        <div class="row">
+            <%
+                listaAuto = daoAutomovil.mostrarAutomovilTopDescrip();
+                for (Automovil elem : listaAuto) {
+            %>
+            <div class="col-md-4">
+                <div class="car-wrap rounded ftco-animate">
+                    <div>
+                        <image class="img rounded d-flex align-items-end" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/>
+                    </div>
+                    <div class="text">
+                        <h2 class="mb-0"><a href="car-single.html"><%=elem.getModelo_automovil()%></a></h2>
+                        <div class="d-flex mb-3">
+                            <span class="cat"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
+                            <p class="price ml-auto">$<%=elem.getPrecio()%></p>
+                        </div>
+                        <p class="d-flex mb-0 d-block"> <a class="btn btn-primary py-2 mr-1">Stock (<%=elem.getStock()%>)</a> <a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a></p>
+                        
+                    </div>
+                </div>
+            </div>
+            <%
+                }
+            %>
+        </div>
     </div>
 </section>
 

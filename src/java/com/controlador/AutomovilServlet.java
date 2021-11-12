@@ -27,7 +27,7 @@ import javax.servlet.http.Part;
 public class AutomovilServlet extends HttpServlet {
 
     //variable global con la ruta donde se guardaran las imagens, la cual no cambiara de valor por el final
-    public static final String UPLOAD_DIR = "recursos/Multimedia/Imagenes";
+    public static final String UPLOAD_DIR = "recursos/Multimedia/ImagenesUpload";
     //variable donde se guarda el nombre de la imagen
     public String dbFileName = "";
 

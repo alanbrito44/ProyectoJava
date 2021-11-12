@@ -45,7 +45,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
                 <span class="subheading">Personal</span>
-                <h2 class="mb-3">CEOS de la empresa</h2>
+                <h2 class="mb-3">Encargadores del proyecto</h2>
             </div>
         </div>
         <div class="row ftco-animate">
@@ -56,20 +56,20 @@
                             <div class="user-img mb-2" style="background-image: url(../recursos/Multimedia/Imagenes/person_1.jpg)">
                             </div>
                             <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">Marketing Manager</span>
+                                <p class="mb-4">Encargado de la supervision del proyecto del backend y frontend, por lo que debe dar el visto bueno de ambas partes.</p>
+                                <p class="name">Douglas Figueroa</p>
+                                <span class="position">Backend Disigner</span>
                             </div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="testimony-wrap rounded text-center py-4 pb-5">
-                            <div class="user-img mb-2" style="background-image: url(../recursos/Multimedia/Imagenes/person_2.jpg)">
+                            <div class="user-img mb-2" style="background-image: url(../recursos/Multimedia/Imagenes/person_2.jpeg)">
                             </div>
                             <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">Interface Designer</span>
+                                <p class="mb-4">Encargo del frontend para darle un aspecto amigable a la pagna hacia el usuario, para ser llamativos hacia los usuarios</p>
+                                <p class="name">Alan Castillo</p>
+                                <span class="position">Frontend Disigner</span>
                             </div>
                         </div>
                     </div>
@@ -78,9 +78,9 @@
                             <div class="user-img mb-2" style="background-image: url(../recursos/Multimedia/Imagenes/person_3.jpg)">
                             </div>
                             <div class="text pt-4">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Roger Scott</p>
-                                <span class="position">UI Designer</span>
+                                <p class="mb-4">Encargado de realizar avances en el backend, siguendo las indicaciones o cambios que douglas solicite o requeira.</p>
+                                <p class="name">Javier Amaya</p>
+                                <span class="position">Backend Disigner</span>
                             </div>
                         </div>
                     </div>

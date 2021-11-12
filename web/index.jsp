@@ -11,6 +11,8 @@
 <%@page import="com.modelo.AutomovilDAO" %>
 <%@page import="com.modelo.CategoriaAutomovil" %>
 <%@page import="com.modelo.CategoriaAutomovilDAO" %>
+<%@page import="com.modelo.BlogDescripcionDao"%>
+<%@page import="com.modelo.BlogDescripcion"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -83,7 +85,7 @@
             </div>
         </nav>
         <!-- END nav -->
-        <div class="hero-wrap ftco-degree-bg" style="background-image: url('recursos/Multimedia/Imagenes/bg_1.jpg');" data-stellar-background-ratio="0.5">
+        <div class="hero-wrap ftco-degree-bg" style="background-image: url('recursos/Multimedia/Imagenes/bg_2.jpg');" data-stellar-background-ratio="0.5">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
@@ -112,6 +114,8 @@
             ArrayList<Automovil> listaAuto = new ArrayList<>();
             CategoriaAutomovilDAO daoCate = new CategoriaAutomovilDAO();
             ArrayList<CategoriaAutomovil> listaCate = new ArrayList<>();
+            BlogDescripcionDao bdao = new BlogDescripcionDao();
+            ArrayList<BlogDescripcion> listaBlogs = new ArrayList<>();
         %>
 
         <section class="ftco-section ftco-no-pt bg-light">
@@ -152,7 +156,10 @@
                                             <span class="cat"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
                                             <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                                         </div>
-                                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a></p>
+                                        <p class="d-flex mb-0 d-block">
+                                            <a class="btn btn-primary py-2 mr-1">Stock (<%=elem.getStock()%>)</a> 
+                                            <a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -172,12 +179,12 @@
                     </div>
                     <div class="col-md-6 wrap-about ftco-animate">
                         <div class="heading-section heading-section-white pl-md-5">
-                            <span class="subheading">About us</span>
-                            <h2 class="mb-4">Welcome to Carbook</h2>
+                            <h2 class="mb-4">Bienvenido a Cars Toreto</h2>
 
-                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
+                            <p>Somos una empresa especialida en la venta de vehiculos nuevos y usados, contamos con un alto catalogo de vehiculos por los cuales puedes elegir.</p>
+                            <p>Como empresa estamos comprometidos a brindar el mejor servicio a nuestros clientes, por lo que contamos con garantia en todos nuestros vehiculos, 
+                                por lo que nuestro clientes nose deben preocupar por algun desperfecto en los vehiculos usados ya que nos aseguramos de su funcionalidad completa antes de hacer la entrega del vehiculo</p>
+                            <p><a href="${pageContext.request.contextPath}/vistas/cars.jsp" class="btn btn-primary py-3 px-4">Buscar un vehiculo</a></p>
                         </div>
                     </div>
                 </div>
@@ -188,8 +195,8 @@
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-7 text-center heading-section ftco-animate">
-                        <span class="subheading">Testimonial</span>
-                        <h2 class="mb-3">Happy Clients</h2>
+                        <span class="subheading">Comentarios</span>
+                        <h2 class="mb-3">Clientes satisfechos</h2>
                     </div>
                 </div>
                 <div class="row ftco-animate">
@@ -197,56 +204,56 @@
                         <div class="carousel-testimony owl-carousel ftco-owl">
                             <div class="item">
                                 <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/person_1.jpg)">
+                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/comentario1.jpg)">
                                     </div>
                                     <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
+                                        <p class="mb-4">Estoy complacida con mi vehiculo, muy atentos siempre en resolver mis dudas sobre el vehiculo.</p>
+                                        <p class="name">Isela Zelaya</p>
+                                        <span class="position">Cliente Nuevo</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/person_2.jpg)">
+                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/comentario2.jpg)">
                                     </div>
                                     <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Interface Designer</span>
+                                        <p class="mb-4">Siempre complacido con el servicio que bridan en cars toreto, recomendados para personas que buscan un vehiculo.</p>
+                                        <p class="name">Eduardo Ingles</p>
+                                        <span class="position">Cliente frecuente</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/person_3.jpg)">
+                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/comentario3.jpg)">
                                     </div>
                                     <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">UI Designer</span>
+                                        <p class="mb-4">Siempre que alguien me consulta en donde comprar un vehiculo no dudo en recomendar a cars toreto, 100% recomendado su servicio.</p>
+                                        <p class="name">Juan Portillo</p>
+                                        <span class="position">Cliente frecuente</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/person_1.jpg)">
+                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/comentario4.jpg)">
                                     </div>
                                     <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Web Developer</span>
+                                        <p class="mb-4">Gracias a cars toreto pude comprar el carro que tanto habia estado buscando, para futuras compras siempre contare con ellos.</p>
+                                        <p class="name">Oscar Sanchez</p>
+                                        <span class="position">Ciente nuevo</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="testimony-wrap rounded text-center py-4 pb-5">
-                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/person_1.jpg)">
+                                    <div class="user-img mb-2" style="background-image: url(recursos/Multimedia/Imagenes/comentario5.jpg)">
                                     </div>
                                     <div class="text pt-4">
-                                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">System Analyst</span>
+                                        <p class="mb-4">Cars toreto siempre ofrece un gran servicio hacia sus clientes, gracias a un conocido los conoci y ahora estoy mas que contento con mi carro.</p>
+                                        <p class="name">Claudia Granados</p>
+                                        <span class="position">Cliente nuevo</span>
                                     </div>
                                 </div>
                             </div>
@@ -260,56 +267,32 @@
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-7 heading-section text-center ftco-animate">
-                        <span class="subheading">Blog</span>
-                        <h2>Recent Blog</h2>
+                        <span class="subheading">Blogs</span>
+                        <h2>Blogs recientes</h2>
                     </div>
                 </div>
                 <div class="row d-flex">
+                    <%
+                        listaBlogs = bdao.mostrarBlogRecientes();
+                        for (BlogDescripcion elem : listaBlogs) {
+                    %>
                     <div class="col-md-4 d-flex ftco-animate">
                         <div class="blog-entry justify-content-end">
-                            <a href="blog-single.html" class="block-20" style="background-image: url('recursos/Multimedia/Imagenes/image_1.jpg');">
+                            <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="block-20" style="background-image: url('recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                             </a>
                             <div class="text pt-4">
                                 <div class="meta mb-3">
-                                    <div><a href="#">Oct. 29, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                                    <div><a href="#"><%=elem.getFecha()%></a></div>
+                                    <div><a href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%></a></div>
                                 </div>
-                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                                <p><a href="#" class="btn btn-primary">Read more</a></p>
+                                <h3 class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
+                                <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Leer mas</a></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 d-flex ftco-animate">
-                        <div class="blog-entry justify-content-end">
-                            <a href="blog-single.html" class="block-20" style="background-image: url('recursos/Multimedia/Imagenes/image_2.jpg');">
-                            </a>
-                            <div class="text pt-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Oct. 29, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                                <p><a href="#" class="btn btn-primary">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 d-flex ftco-animate">
-                        <div class="blog-entry">
-                            <a href="blog-single.html" class="block-20" style="background-image: url('recursos/Multimedia/Imagenes/image_3.jpg');">
-                            </a>
-                            <div class="text pt-4">
-                                <div class="meta mb-3">
-                                    <div><a href="#">Oct. 29, 2019</a></div>
-                                    <div><a href="#">Admin</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                                </div>
-                                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                                <p><a href="#" class="btn btn-primary">Read more</a></p>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </section>	
@@ -358,8 +341,8 @@
                 <div class="row mb-5">
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>book</span></a></h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                            <h2 class="ftco-heading-2"><a href="#" class="logo">Cars<span>Toreto</span></a></h2>
+                            <p>Somos tu empresa de confianza con la que puedes contar para la compra de tu primer vehiculo, ya sea nuevo modelo o modelos anteriores</p>
                             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -369,36 +352,30 @@
                     </div>
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4 ml-md-5">
-                            <h2 class="ftco-heading-2">Information</h2>
+                            <h2 class="ftco-heading-2">Informacion</h2>
                             <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">About</a></li>
-                                <li><a href="#" class="py-2 d-block">Services</a></li>
-                                <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                                <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                                <li><a href="#" class="py-2 d-block">Privacy &amp; Cookies Policy</a></li>
+                                <li><a href="${pageContext.request.contextPath}/vistas/about.jsp" class="py-2 d-block">Nostros</a></li>
+                                <li><a href="${pageContext.request.contextPath}/vistas/cars.jsp" class="py-2 d-block">Carros</a></li>
+                                <li><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="py-2 d-block">Blogs</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Customer Support</h2>
+                            <h2 class="ftco-heading-2">Servicio al cliente</h2>
                             <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                                <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                                <li><a href="#" class="py-2 d-block">How it works</a></li>
-                                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                                <li><a href="${pageContext.request.contextPath}/vistas/contacto.jsp" class="py-2 d-block">Contactanos</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Have a Questions?</h2>
+                            <h2 class="ftco-heading-2">Tienes preguntas?</h2>
                             <div class="block-23 mb-3">
                                 <ul>
-                                    <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                    <li><span class="icon icon-map-marker"></span><span class="text">Col. Escalon, Calle al mirador, San Salvador, El Salvador</span></li>
+                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+(503) 2245-8547</span></a></li>
+                                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">carstoreto@gmail.com</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -408,7 +385,7 @@
                     <div class="col-md-12 text-center">
 
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> pagina creada <i class="icon-heart color-danger" aria-hidden="true"></i> por <a href="#">Alan, Douglas y Javier</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>

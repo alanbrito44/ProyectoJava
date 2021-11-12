@@ -24,13 +24,13 @@
     ArrayList<CategoriaAutomovil> listaCate = new ArrayList<>();
 %>
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/fondo.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
             <div class="col-md-9 ftco-animate pb-5">
                 <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Cars <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-3 bread">Choose Your Car</h1>
+                <h1 class="mb-3 bread">Elige tu carro</h1>
             </div>
         </div>
     </div>
@@ -45,16 +45,20 @@
         <%
         } else if ((Integer) sesion.getAttribute("nivel") == 1) {
         %> 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 rounded ftco-animate" data-toggle="modal" data-target="#ModalAuto" data-backdrop="static" data-keyboard="false">
-            Listado de vehiculos existentes
-        </button>
-        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
-            Listado marca de vehiculos
-        </button>
-        <button type="button" class="btn btn-outline-dark py-3 px-4 mb-5 ml-2 rounded ftco-animate" data-toggle="modal" data-target="#ModalCategoria" data-backdrop="static" data-keyboard="false">
-            Listado categoria de vehiculos
-        </button>
+        <div class="row">
+            <div class="col-12 rounded ftco-animate text-center">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-dark py-3 px-4 mb-lg-5 mb-3" data-toggle="modal" data-target="#ModalAuto" data-backdrop="static" data-keyboard="false">
+                    Listado de vehiculos existentes
+                </button>
+                <button type="button" class="btn btn-outline-dark py-3 px-4 mb-lg-5 mb-3" data-toggle="modal" data-target="#ModalTabla" data-backdrop="static" data-keyboard="false">
+                    Listado marca de vehiculos
+                </button>
+                <button type="button" class="btn btn-outline-dark py-3 px-4 mb-lg-5 mb-3" data-toggle="modal" data-target="#ModalCategoria" data-backdrop="static" data-keyboard="false">
+                    Listado categoria de vehiculos
+                </button>
+            </div>
+        </div>
         <%
             }
         %> 
@@ -62,6 +66,8 @@
             <%
                 listaAuto = daoAutomovil.mostrarAutomovil();
                 for (Automovil elem : listaAuto) {
+                    
+                if (elem.getStock()>0){
             %>
             <div class="col-md-4">
                 <div class="car-wrap rounded ftco-animate">
@@ -74,11 +80,15 @@
                             <span class="cat"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></span>
                             <p class="price ml-auto">$<%=elem.getPrecio()%></p>
                         </div>
-                        <p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a></p>
+                        <p class="d-flex mb-0 d-block"> 
+                            <a class="btn btn-primary py-2 mr-1">Stock (<%=elem.getStock()%>)</a> 
+                            <a href="${pageContext.request.contextPath}/vistas/carDetails.jsp?id=<%=elem.getId_automovil()%>" class="btn btn-secondary py-2 ml-1">Detalles</a>
+                        </p>                
                     </div>
                 </div>
             </div>
             <%
+                }
                 }
             %>
         </div>
@@ -97,7 +107,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-x:auto;"><!--el estilo se agrega para que le agregue una barra de navegacion cuando se haga mas pequena la pantalla-->
                 <table class="table table-dark text-center">
 
                     <thead>
@@ -118,11 +128,11 @@
                             <td class="descripcion_marca"><%=elem.getDescripcion()%></td>
                             <td class="pais_marca"><%=elem.getPais_marca()%></td>
                             <td>
-                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEditar">
-                                    Editar
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEditar">
+                                    <i class="far fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEliminar">
-                                    Eliminar
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
                         </tr>
@@ -179,7 +189,7 @@
 
 <!-- Modal Tabla automovil -->
 <div class="modal fade" id="ModalAuto" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 80%;">
+    <div class="modal-dialog modal-xl" role="document" >
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Listado de autmoviles</h5>
@@ -187,19 +197,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-x:auto;">
                 <table class="table table-dark text-center">
 
                     <thead>
                     <th>ID</th>
                     <th>MODELO</th>
                     <th>PRECIO</th>
-                    <th>PLACA</th>
-                    <th>año</th>
-                    <th>TRANSMISION</th>
-                    <th>PUERTAS</th>
-                    <th>KILOMETRAGE</th>
-                    <th>COLOR</th>
                     <th>MARCA</th>
                     <th>CATEGORIA</th>
                     <th>IMAGEN</th>
@@ -215,13 +219,13 @@
                             <!--LE AGREGAMOS LA CLASE CON ESE NOMBRE PARA UTILIZARLO EN JQUERY Y ASI SACAR SU VALOR-->
                             <td class="id_auto"><%=elem.getId_automovil()%></td>
                             <td class="modelo_auto"><%=elem.getModelo_automovil()%></td>
-                            <td class="precio_auto"><%=elem.getPrecio()%></td>
-                            <td class="placa_auto"><%=elem.getPlaca()%></td>
-                            <td class="ano_auto"><%=elem.getAno()%></td>
-                            <td class="transmision_auto"><%=elem.getTransmision()%></td>
-                            <td class="puerta_auto"><%=elem.getPuertas()%></td>
-                            <td class="kilometrage_auto"><%=elem.getKilometrage()%></td>
-                            <td class="color_auto"><%=elem.getColor()%></td>
+                            <td class="precio_auto" ><%=elem.getPrecio()%></td>
+                            <td class="placa_auto" style="display:none;"><%=elem.getPlaca()%></td>
+                            <td class="ano_auto" style="display:none;"><%=elem.getAno()%></td>
+                            <td class="transmision_auto" style="display:none;"><%=elem.getTransmision()%></td>
+                            <td class="puerta_auto" style="display:none;"><%=elem.getPuertas()%></td>
+                            <td class="kilometrage_auto" style="display:none;"><%=elem.getKilometrage()%></td>
+                            <td class="color_auto" style="display:none;"><%=elem.getColor()%></td>
 
                             <td class="marca_auto"><%=daoMarca.getMarca(elem.getId_marca()).getNombre_marca()%></td>
 
@@ -231,11 +235,11 @@
                             <td class="stock"><%=elem.getStock()%></td>
                             <td class="descripcion" style="display:none;"><%=elem.getDescripcion()%></td>
                             <td>
-                                <button type="button" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
-                                    Editar
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
+                                    <i class="far fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEliminarA">
-                                    Eliminar
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
                         </tr>
@@ -321,15 +325,15 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" name="accion" value="agregar">Agregar</button>
-                    <button type="submit" class="btn btn-danger" name="accion" value="editar">Editar</button>
+                    <button type="submit" class="btn btn-warning" name="accion" value="editar">Editar</button>
                     <button type="submit" class="btn btn-danger" name="accion" value="eliminar">Eliminar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-                    
-                    
+
+
 <!-- Modal Tabla categoria -->
 <div class="modal fade" id="ModalCategoria" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -340,7 +344,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-x:auto;">
                 <table class="table table-dark text-center">
 
                     <thead>
@@ -359,11 +363,11 @@
                             <td class="nombre_categoria"><%=elem.getNombre_categoria()%></td>
                             <td class="descripcion_categoria"><%=elem.getDescripcion()%></td>
                             <td>
-                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEditarC">
-                                    Editar
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEditarC">
+                                    <i class="far fa-edit"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEliminarC">
-                                    Eliminar
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
                         </tr>
