@@ -29,4 +29,7 @@ YA QUE SOLO SE REQUIERE PARA CARGAR EL TEXTAREA*/
     display: none;
 }
 
-
+.imgCenter{
+    display: block;
+    margin: 0 auto;
+}

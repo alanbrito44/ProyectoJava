@@ -27,12 +27,12 @@ $("#newEntry").on("click",function(){
 
         Swal.fire({
             title: 'Estas Seguro De Eliminar Esta Entrada?',
-            text: "No PodrÃ¡s Deshacer Los Cambios!",
+            text: "No Podrás Deshacer Los Cambios!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'SÃ­, Borrarlo!'
+            confirmButtonText: 'Sí, Borrarlo!'
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $("#idBlog").val();
@@ -60,26 +60,37 @@ $("#newEntry").on("click",function(){
         $("#areaEdit").show()
         $("#areaNew").hide();
         Swal.fire({
-            title: 'Estas Seguro De Modificar Esta Entrada?',
-            text: "No PodrÃ¡s Deshacer Los Cambios!",
+            title: 'Seguro que deseas editar esta entrada?',
+            text: "No podrás deshacer los cambios!!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'SÃ­, Modificar!'
-        }).then((result) => {        
-            //YA QUE HAY VARIOS DIVS CON LA MISMA CLASE, OBTENEMOS EL DIV DONDE
-            //SE HACE CLICK PARA MODIFICAR
-            let fila = $(this).closest('.padre');
-            var img = $("#nombreImgActual").val();
-            $("#imgActual").val(img);
-            //CARGAMOS DATOS CON LA FILA
-            cargarDatosModal(fila);
+            confirmButtonText: 'Si, Editarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //YA QUE HAY VARIOS DIVS CON LA MISMA CLASE, OBTENEMOS EL DIV DONDE
+                //SE HACE CLICK PARA MODIFICAR
+                let fila = $(this).closest('.padre');
+                var img = $("#nombreImgActual").val();
+                $("#imgActual").val(img);
+                //CARGAMOS DATOS CON LA FILA
+                cargarDatosModal(fila);
 
-            //LLAMAMOS AL MODAL
-            $("#miModal").modal("show");        
-        });
+                //LLAMAMOS AL MODAL
+                $("#miModal").modal("show"); 
+    
+            }
+        })
     });
+    
+    
+    
+
+    
+    
+    
+    
     
     function cargarDatosModal(fila){
         var idBlog = fila.find('#idBlog').val();        

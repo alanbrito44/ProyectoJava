@@ -250,7 +250,10 @@ public class blogControl extends HttpServlet {
                     }
 
                     break;
-
+                case "CargarBlog":
+                    request.setAttribute("id", request.getParameter("id"));
+                    request.getRequestDispatcher(request.getServletContext().getRealPath("")).forward(request, response);
+                break;
             }
 
         }

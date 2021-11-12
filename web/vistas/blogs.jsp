@@ -78,23 +78,22 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
-                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
+                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlogDesc()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
                     <div class="text px-md-5 pt-4 padre">
                         <div class="meta mb-3">
-                            <div><a href="#"><%=elem.getFecha()%></a></div>
+                            <div><%=elem.getFecha()%></div>
                             <input type="text" id="idBlog" value="<%=elem.getIdBlog()%>" hidden>
                             <input type="text" id="nombreImgActual"  value="<%=elem.getImgPortada()%>" hidden>
-                            <div><a class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
+                            <div><%=bdao.usuarioBlog(elem.getIdBlog())%>
                                     <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                                     <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
                                     <i id="mod" class="mx-1 text-white btn btn-warning far fa-edit"></i>
-                                </a>
                             </div>
                         </div>
-                        <h3 id="titleBlog" class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
+                        <h3 id="titleBlog" class="heading mt-2"><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>"><%=elem.getTitulo()%></a></h3>
                         <p id="descBlog"><%=elem.getDescrip()%></p>
-                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         <div id="contenido"><%=elem.getContenido()%></div>
                     </div>
                 </div>
