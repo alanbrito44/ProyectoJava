@@ -5,10 +5,8 @@ $("#newEntry").on("click",function(){
  //se programarÃ¡ limpiar el formulario cuando ya se corrija el problema
  //con el textarea.
     $("#formulario")[0].reset();
-    $("#areaEdit").hide()
-    $("#areaNew").show();
     ClassicEditor
-        .create(document.querySelector('#txtNewContent'))
+        .create(document.querySelector('#txtDescripcion'))
         .catch(error => {
         console.error(error);
     });
@@ -54,7 +52,7 @@ $("#newEntry").on("click",function(){
         .catch(error => {
             console.error(error);
         });
-    };    
+    };  
     
     $('body').on('click', '#mod', function () {
         $("#ingresarBlog").hide();

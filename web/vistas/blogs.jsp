@@ -142,10 +142,6 @@
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
                         <textarea form="formulario" class="form-control" id="txtDescripcion" maxlength="250" name="txtContenido"></textarea>
                     </div>
-                    <div class="form-group" id="areaNew">
-                        <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
-                        <textarea form="formulario" class="form-control" id="txtNewContent" maxlength="250" name="txtContenido"></textarea>
-                    </div>
                     <div class="form-group">
                         <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
               <select class="form-control" name="sCategoria" id="sCategoria">
@@ -171,5 +167,8 @@
         </div>
     </div>
 </div>
+<script>
+         
+</script>
 <script src="../recursos/JS/blogScript.js"></script>
 <%@include file="../layout/footer.jsp" %>
