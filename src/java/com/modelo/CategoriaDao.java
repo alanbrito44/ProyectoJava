@@ -38,4 +38,92 @@ public class CategoriaDao extends Conexion{
         }
         return lista;
     }
+    public boolean insertarCat(String nombre) {
+        try {
+            this.conectar();
+            String sql = "INSERT INTO blog_categoria(catergoriat) VALUES (?)";
+
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setString(1, nombre);
+
+            pre.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+        return true;
+
+    }
+    
+        public boolean editarCat(String nombre, int id) {
+        try {
+            this.conectar();
+            String sql = "UPDATE blog_categoria SET catergoriat=? where id_cat=?";
+
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setString(1, nombre);
+            pre.setInt(2, id);
+
+            pre.executeUpdate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return false;
+        } finally {
+            this.desconectar();
+        }
+        return true;
+
+    }
+    public String delCat(int id) {
+        String resp = "";
+        try {
+           
+            
+            int cantB = verificarCat(id);
+            if(cantB !=0){
+                resp ="No Se Puede Eliminar, Categoria Ya Esta Asiganada a "+cantB+" Blogs";
+                       
+                return resp;
+            }else{
+                 this.conectar();
+                String sql = "delete from blog_categoria where id_cat=?";
+
+                PreparedStatement pre = this.getConexion().prepareStatement(sql);
+                pre.setInt(1, id);
+
+                pre.executeUpdate();
+                resp="Categoria Eliminada";
+            }
+        } catch (Exception e) {
+            resp= "Error: " + e.getMessage();
+            return resp;
+        } finally {
+            this.desconectar();
+        }
+        return resp;
+
+    }
+    
+        public int verificarCat(int id) {
+            int cantidadBlog=0;
+        try {
+            this.conectar();
+            String sql = "SELECT count(*) as cant_blog FROM blog_descripcion WHERE id_cat = ?";
+            PreparedStatement pre = this.getConexion().prepareStatement(sql);
+            pre.setInt(1, id);
+            ResultSet rs = pre.executeQuery();
+            while(rs.next()){
+                cantidadBlog = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            return 0;
+        } finally {
+            this.desconectar();
+        }
+        return cantidadBlog;
+
+    }
 }

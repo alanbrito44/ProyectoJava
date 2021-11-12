@@ -33,3 +33,9 @@ YA QUE SOLO SE REQUIERE PARA CARGAR EL TEXTAREA*/
     display: block;
     margin: 0 auto;
 }
+
+.nameCat{
+    
+    max-width: 600px !important;
+    margin: 0 auto;
+}

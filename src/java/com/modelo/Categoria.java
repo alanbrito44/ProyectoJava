@@ -29,7 +29,7 @@ public class Categoria {
         this.idCat = idCat;
     }
 
-    public int getIdetCat() {
+    public int getIdCat() {
         return idCat;
     }
 

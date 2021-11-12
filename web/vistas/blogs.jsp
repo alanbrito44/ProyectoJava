@@ -34,34 +34,56 @@
         <div class="row mb-2">
             <div class="col-md-12 text-center ftco-animate">
                 <button id="newEntry" type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" data-toggle="modal" data-target=".bd-example-modal-lg">Nueva Entrada</button>
-                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnDelBlog">Categorias Blogs</button>
+                <button type="button" class="btn btn-outline-dark mx-5 p-2 accionBlog" id="btnCatBlog">Categorias Blogs</button>
             </div>
         </div>
         <div class="row mt-5 mb-5" id="SelectBlogAction">
             <div class="col-md-12 text-center ftco-animate">
-                <div class="form-group ">
-                    <form action="" method="POST">
-                    <label for="txtDescripcion" class="col-form-label">Selecciona La Entada Del Blog A <span class="badge badge-danger">ELiminar</span></label>
-                    <select class="form-control" name="sCategoria" style="max-width: 500px; margin: 0 auto;">
-                        <%
-                            BlogDescripcionDao bdao = new BlogDescripcionDao();
-                            ArrayList<BlogDescripcion> listab=  new ArrayList<BlogDescripcion>();
-                            listab = bdao.mostrarBlogs();
-                            for (BlogDescripcion elem : listab) {
-                        %>
-                        <option value="<%= elem.getIdBlogDesc()%>"> <%=elem.getTitulo()%> </option>
-                        <%
-                            }
-                        %>                  
-                    </select>
-                    <small class="col-form-label mt-5"><span class="badge badge-danger">No Podrás Deshacer Los Cambios</span> Una Vez Realiazados,<br>Asegurate De Que
-                        En Verdad Deseas <span id="txtAccion">Elimnar La Entrada.</span></small><br>
-                        <button type="submit" name="btnDelBlog" class="btn btn-outline-danger" value="EliminarEntrada" id="btnSelectBlog" style="margin: 0 auto; width: 500px; margin-top: 0.5em;">Eliminar</button>
+                <div>
+                    <form id="fmCat" action="${pageContext.request.contextPath}/blogControl" method="POST">
+                        <h5>CREAR NUEVA / EDITAR CATEGORIA</h5>
+                        <div class="input-group mb-3 nameCat">
+                            <input type="text" class="form-control" placeholder="Nombre De Categoria" id="txtCodCat" name="txtCodCat" hidden>
+                            <input type="text" class="form-control" placeholder="Nombre De Categoria" id="Accion" value="" name="Accion" hidden>
+                            <input type="text" class="form-control" placeholder="Nombre De Categoria Max(20 caracteres)" id="txtNombreCat" name="txtNombreCat" maxlength="20">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-success" id="btnNewCat" >AGREGAR</button>
+                                <button type="button" class="btn btn-warning" id="btnModCat">GUARDAR</button>
+                            </div>
+                        </div>
                     </form>
+                    <div class="table-responsive">
+                    <table class="my-3 table col-sm-12">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">CÓDIGO</th>
+                                <th scope="col">NOMBRE</th>
+                                <th scope="col">ACCION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                ArrayList<Categoria> lc = new ArrayList<Categoria>();
+                                CategoriaDao cd = new CategoriaDao();
+                                lc = cd.mostrarCategorias();
+
+                                for (Categoria elem : lc) {
+                            %>
+                            <tr id="fila">
+                                <td class="tdCode"><%=elem.getIdCat()%></td>
+                                <td class="tdName"><%=elem.getNombreCat()%></td>
+                                <td class="tdAction"><button id="btnDelCat" type="button" class="btn btn-outline-danger">Eliminar</button></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>
-        
+
         <%
             }
         %> 
@@ -78,7 +100,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
-                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
+                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlogDesc()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
                     <div class="text px-md-5 pt-4 padre">
                         <div class="meta mb-3">
@@ -87,8 +109,13 @@
                             <input type="text" id="nombreImgActual"  value="<%=elem.getImgPortada()%>" hidden>
                             <div><%=bdao.usuarioBlog(elem.getIdBlog())%>
                                     <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
+                                     <% if (sesion.getAttribute("nivel") != null) {
+                                     %>
                                     <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
                                     <i id="mod" class="mx-1 text-white btn btn-warning far fa-edit"></i>
+                                    <%
+                                        }
+                                    %>
                             </div>
                         </div>
                         <h3 id="titleBlog" class="heading mt-2"><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>"><%=elem.getTitulo()%></a></h3>
@@ -150,7 +177,7 @@
                       listaCat = daoCat.mostrarCategorias();
                       for (Categoria cat: listaCat) {
                    %>
-                  <option value="<%= cat.getIdetCat()%>"> <%=cat.getNombreCat()%> </option>
+                  <option value="<%= cat.getIdCat()%>"> <%=cat.getNombreCat()%> </option>
                   <%  
                       }
                   %>                  

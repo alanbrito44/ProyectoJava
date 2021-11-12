@@ -9,6 +9,7 @@ import com.modelo.Blog;
 import com.modelo.BlogDao;
 import com.modelo.BlogDescripcion;
 import com.modelo.BlogDescripcionDao;
+import com.modelo.CategoriaDao;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -54,7 +55,8 @@ public class blogControl extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             //obtenemos el valor del boton
-            String accion = request.getParameter("Accion");            
+            String accion = request.getParameter("Accion");      
+
 
           //lo evaluamos 
           switch(accion){
@@ -253,6 +255,52 @@ public class blogControl extends HttpServlet {
                 case "CargarBlog":
                     request.setAttribute("id", request.getParameter("id"));
                     request.getRequestDispatcher(request.getServletContext().getRealPath("")).forward(request, response);
+                break;
+                case "newCat":
+                    String nombreCat = request.getParameter("txtNombreCat");
+                    CategoriaDao cat = new CategoriaDao();
+                    
+                    if(cat.insertarCat(nombreCat)){
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('Categoria Creada');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                    }else{
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('No Se Pudo Crear La Categoria');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                    }
+                break;
+                case "modCat":
+                    String nombCat = request.getParameter("txtNombreCat");
+                    int idCat = Integer.parseInt(request.getParameter("txtCodCat"));
+                    CategoriaDao cats = new CategoriaDao();
+                    
+                    if(cats.editarCat(nombCat,idCat)){
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('Categoria Editada');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                    }else{
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('No Se Pudo Editar La Categoria');");
+                            out.println("location='vistas/blogs.jsp';");
+                            out.println("</script>");
+                    }
+                break;
+                case "delCat":
+                    
+                    int idCats = Integer.parseInt(request.getParameter("txtCodCat"));
+                    CategoriaDao catsd = new CategoriaDao();
+                    String resp = catsd.delCat(idCats);
+ 
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('"+resp+"');");
+                    out.println("location='vistas/blogs.jsp';");
+                    out.println("</script>");
+                   
+                    
                 break;
             }
 
