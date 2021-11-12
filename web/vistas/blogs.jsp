@@ -78,7 +78,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
-                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlogDesc()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
+                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
                     <div class="text px-md-5 pt-4 padre">
                         <div class="meta mb-3">

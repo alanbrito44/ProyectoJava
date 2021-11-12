@@ -24,50 +24,82 @@
         </div>
     </div>
 </section>
-        <%
-           BlogDescripcionDao bdao = new BlogDescripcionDao();
-           ArrayList<BlogDescripcion> listaBlogs=  new ArrayList<BlogDescripcion>();
-           listaBlogs = bdao.mostrarBlogsId(Integer.parseInt(request.getParameter("id")));
-           
-           
-           
-           for (BlogDescripcion elem : listaBlogs) {
-         %>
+
+<%    BlogDescripcionDao bdao = new BlogDescripcionDao();
+    ArrayList<BlogDescripcion> listaBlogs = new ArrayList<>();
+    ArrayList<BlogDescripcion> listaBlogs2 = new ArrayList<>();
+%>
+
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
         <div class="row">
-            <div>
-                <p><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary">
+            <%
+                listaBlogs = bdao.mostrarBlogsId(Integer.parseInt(request.getParameter("id")));
+
+                for (BlogDescripcion elem : listaBlogs) {
+            %>
+            <div class="col-md-8 ftco-animate">
+                <h2 class="mb-3"><%=elem.getTitulo()%></h2>
+                <p>
+                    <img src="../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>" alt="" class="img-fluid">
+                </p>
+                <p><%=elem.getContenido()%></p>
+
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
+                    </div>
+                </div>
+
+                <div class="about-author d-flex p-4 bg-light">
+                    <div class="bio mr-5">
+                        <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+                    </div>
+                    <div class="desc">
+                        <h3>George Washington</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                    </div>
+                </div>
+                <p><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary mt-3">
                         <span class="icon-long-arrow-left"></span>
                         Regresar A La Lista De Blogs
                     </a>
                 </p>
-            </div>
-            <div class="col-md-12 ftco-animate">
-                <h2 class="mb-3"><%=elem.getTitulo()%></h2>
-                <p>
-                    <%=elem.getDescrip()%>
-                </p>
-                 <spam class="bg-success text-white p-1 mx-1">
-                        <%=bdao.cargarCategoria(elem.getIdCat())%>
-                </spam>
-                <p>
-                    <img class="imgCenter" src="../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>" alt="" class="img-fluid">
-                </p>
-                <div class="my-5">
-                    <%=elem.getContenido()%>
-                </div>
-                <div>
-                    <p class="text-center"><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary">
-                            <span class="icon-long-arrow-left"></span>
-                            Regresar A La Lista De Blogs
-                        </a>
-                    </p>
-                </div>
+            </div> <!-- .col-md-8 -->
+            <%
+                }
+            %>
+
+            <div class="col-md-4 sidebar ftco-animate">
+
+                <div class="sidebar-box ftco-animate">
+
+                    <h3>Blogs recientes</h3>
+                    <%
+                        listaBlogs2 = bdao.mostrarBlogRecientes();
+                        for (BlogDescripcion elem2 : listaBlogs2) {
+                    %>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem2.getImgPortada()%>');"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#"><%=elem2.getTitulo()%></a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> <%=elem2.getFecha()%></a></div>
+                                <div><a href="#"><span class="icon-person"></span> <%=bdao.usuarioBlog(elem2.getIdBlog())%></a></div>
+                            </div>
+                        </div>
+                    </div>
                     <%
                         }
                     %>
+                </div>
 
+
+                <div class="sidebar-box ftco-animate">
+                    <h3>Seccion de blogs</h3>
+                    <p>En este apartado podras encotrar diferentes blogs creados por nuestro personal, en el cual podras disfrutar de diferente contenido de tu gusto. Esperamos que sea 
+                        de tu agrado el contenido que compartimos contigo</p>
+                </div>
             </div>
 
         </div>
