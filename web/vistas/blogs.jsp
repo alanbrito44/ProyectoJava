@@ -84,7 +84,7 @@
                         <div class="meta mb-3">
                             <div><a href="#"><%=elem.getFecha()%></a></div>
                             <input type="text" id="idBlog" value="<%=elem.getIdBlog()%>" hidden>
-                            <input type="text" id="nombreImgActual" name ="nombreImgBlog" value="<%=elem.getImgPortada()%>" hidden>
+                            <input type="text" id="nombreImgActual"  value="<%=elem.getImgPortada()%>" hidden>
                             <div><a class="text-uppercase" href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%>
                                     <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                                     <i id="delete" class="mx-2 text-white btn btn-danger fas fa-trash-alt"></i>
@@ -124,6 +124,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="txtUsuario" name="txtUsuario" value="<%=sesion.getAttribute("id")%>" hidden>
                         <input type="text" class="form-control" id="codigoBlog" name="txtIdBlog" value="" hidden>
+                        <input type="text" value="" name="nombreImgActual" id="imgActual" hidden>
                     </div>
                     <div class="form-group">
                         <label for="tituloBlog" class="col-form-label">Titulo Del Blog</label>

@@ -38,12 +38,13 @@ $("#newEntry").on("click",function(){
         }).then((result) => {
             if (result.isConfirmed) {
                 var id = $("#idBlog").val();
-                $(location).attr('href', 'http://localhost:8085/ProyectoFinal/blogControl?Accion=Eliminar&actionId=' + codigo);
+                var imagen = $("#nombreImgActual").val();
+                $(location).attr('href', 'http://localhost:8080/ProyectoFinal/blogControl?Accion=Eliminar&actionId=' + codigo+'&imagen='+imagen);
             }
         })
 
     });   
-    
+
     let contenidoBlog = (texto)=> {
         ClassicEditor
         .create(document.querySelector('#txtDescripcion'))
@@ -72,7 +73,8 @@ $("#newEntry").on("click",function(){
             //YA QUE HAY VARIOS DIVS CON LA MISMA CLASE, OBTENEMOS EL DIV DONDE
             //SE HACE CLICK PARA MODIFICAR
             let fila = $(this).closest('.padre');
-
+            var img = $("#nombreImgActual").val();
+            $("#imgActual").val(img);
             //CARGAMOS DATOS CON LA FILA
             cargarDatosModal(fila);
 
