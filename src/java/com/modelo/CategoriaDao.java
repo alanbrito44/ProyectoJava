@@ -6,6 +6,7 @@
 package com.modelo;
 
 import com.conexion.Conexion;
+import static java.lang.System.out;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -76,16 +77,13 @@ public class CategoriaDao extends Conexion{
         return true;
 
     }
-    public String delCat(int id) {
-        String resp = "";
-        try {
+    public boolean delCat(int id) {
+         try {
            
             
             int cantB = verificarCat(id);
             if(cantB !=0){
-                resp ="No Se Puede Eliminar, Categoria Ya Esta Asiganada a "+cantB+" Blogs";
-                       
-                return resp;
+                return false;
             }else{
                  this.conectar();
                 String sql = "delete from blog_categoria where id_cat=?";
@@ -94,15 +92,15 @@ public class CategoriaDao extends Conexion{
                 pre.setInt(1, id);
 
                 pre.executeUpdate();
-                resp="Categoria Eliminada";
+
+                return true;
             }
         } catch (Exception e) {
-            resp= "Error: " + e.getMessage();
-            return resp;
+            out.print(e.getMessage());
+            return false;
         } finally {
             this.desconectar();
         }
-        return resp;
 
     }
     

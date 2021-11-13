@@ -23,8 +23,11 @@
     CategoriaAutomovilDAO daoCate = new CategoriaAutomovilDAO();
     ArrayList<CategoriaAutomovil> listaCate = new ArrayList<>();
 %>
-
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/fondo.jpg');" data-stellar-background-ratio="0.5">
+<script>
+    var accion ="<%=request.getAttribute("action")%>";
+    var resultado = <%=request.getAttribute("resultado")%>
+ </script>
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${pageContext.request.contextPath}/recursos/Multimedia/Imagenes/fondo.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -72,7 +75,7 @@
             <div class="col-md-4">
                 <div class="car-wrap rounded ftco-animate">
                     <div>
-                        <image class="img rounded d-flex align-items-end" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/>
+                        <image class="img rounded d-flex align-items-end" src="${pageContext.request.contextPath}/<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/>
                     </div>
                     <div class="text">
                         <h2 class="mb-0"><a href="car-single.html"><%=elem.getModelo_automovil()%></a></h2>
@@ -231,7 +234,7 @@
 
                             <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
-                            <td class="imagen_auto"><img id="ruta" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="imagen_auto"><img id="ruta" src="${pageContext.request.contextPath}/<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
                             <td class="stock"><%=elem.getStock()%></td>
                             <td class="descripcion" style="display:none;"><%=elem.getDescripcion()%></td>
                             <td>
@@ -421,8 +424,9 @@
 </div>                    
 
 <!--SCRIPT PARA JQUERY-->    
-<script src="../recursos/JS/Marca.js"></script>
-<script src="../recursos/JS/automovil.js"></script>
-<script src="../recursos/JS/CatAutomovil.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/Marca.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/automovil.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/CatAutomovil.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/carsAlerts.js"></script>
 
 <%@include file="../layout/footer.jsp" %>

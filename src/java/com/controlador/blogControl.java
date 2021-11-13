@@ -113,35 +113,32 @@ public class blogControl extends HttpServlet {
                          blogModel.setFecha(fechaActual);
                         //hago el insert del blog y su contenido
                         BlogDescripcionDao blogDescDao = new BlogDescripcionDao();
-                        
-                        if(blogDescDao.insertarBlog(blogModel)){
-                            //si se inserto mandamos alerta y redireccionamos
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('Blog Creado con exito');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                        boolean resps = blogDescDao.insertarBlog(blogModel);
+                        if(resps){
+
+                            String action = "Crear Blog";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", resps);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                         }else{
-                            //si no se inserto mandamos alerta y redireccionamos
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('No se pudo crear el blog, intenta de nuevo');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "Crear Blog";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", resps);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                         }
                     }else{
-                        //si no se carga la imagen damos aviso
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('No Se Pudo Cargar La Imagen Seleccionada, Intenta de Nuevo');");
-                        out.println("location='vistas/blogs.jsp';");
-                        out.println("</script>");
+    
+                            String action = "Subir Imagen";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", resp);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                     }
                    }else{
-                       //si no viene imagen redireecionamos con alerta
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('No Se Selecciono Ninguna Imagen');");
-                        out.println("location='vistas/blogs.jsp';");
-                        out.println("</script>");
-                   }
-                    
+                            String action = "Seleccionar Imagen";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
+                   }      
                   break;
               case "Eliminar":
                   int id = Integer.parseInt(request.getParameter("actionId"));
@@ -151,29 +148,30 @@ public class blogControl extends HttpServlet {
                       BlogDao bdao = new BlogDao();
                       if (bdao.eliminarBlog(id)) {
                           String i = request.getParameter("imagen");
-                          if (eliminarFichero(request.getServletContext().getRealPath("") + UPLOAD_DIR + i)) {
-                              out.println("<script type=\"text/javascript\">");
-                              out.println("alert('Entada Eliminada');");
-                              out.println("location='vistas/blogs.jsp';");
-                              out.println("</script>");
+                          boolean delImg= eliminarFichero(request.getServletContext().getRealPath("") + UPLOAD_DIR + i);
+                          if (delImg) {
+                            String action = "Eliminar Entrada";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", delImg);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                           } else {
-                              out.println("<script type=\"text/javascript\">");
-                              out.println("alert('Hubo Un Problema Con El Servidor, Intenta De Nuevo');");
-                              out.println("location='vistas/blogs.jsp';");
-                              out.println("</script>");
+                            String action = "Eliminar Imagen";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", delImg);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                           }
 
                       } else {
-                          out.println("<script type=\"text/javascript\">");
-                          out.println("alert('No Se Pudo Eliminar La Entrada, Intenta de Nuevo');");
-                          out.println("location='vistas/blogs.jsp';");
-                          out.println("</script>");
+                            String action = "Eliminar Blog";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                       }
                   } else {
-                      out.println("<script type=\"text/javascript\">");
-                      out.println("alert('No Se Pudo Eliminar La Entrada, Intenta de Nuevo');");
-                      out.println("location='vistas/blogs.jsp';");
-                      out.println("</script>");
+                            String action = "Eliminar Entrada";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                   }
                   
                   break;
@@ -195,12 +193,12 @@ public class blogControl extends HttpServlet {
                         if (subidaFile) {
                             boolean delImg = eliminarFichero(request.getServletContext().getRealPath("") + UPLOAD_DIR + imagenActual);
                             if (!delImg) {
-                                out.println("<script type=\"text/javascript\">");
-                                out.println("alert('Hubo un problema al procesar la solicitud intenta de nuevo');");
-                                out.println("location='vistas/blogs.jsp';");
-                                out.println("</script>");
+                                String action = "EliminarImgOld";
+                                request.setAttribute("action", action);
+                                request.setAttribute("resultado", delImg);
+                                request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
 
-                            }else {
+                            } else {
                                 BlogDao bdao = new BlogDao();
                                 if (bdao.modificarBlog(codigoBlog, codigoUsuario)) {
                                     Calendar fecha = new GregorianCalendar();
@@ -224,52 +222,49 @@ public class blogControl extends HttpServlet {
 
                                     BlogDescripcionDao bd = new BlogDescripcionDao();
                                     if (bd.modificarBlogImg(b)) {
-                                        out.println("<script type=\"text/javascript\">");
-                                        out.println("alert('Entada Editada');");
-                                        out.println("location='vistas/blogs.jsp';");
-                                        out.println("</script>");
+                                        String action = "Editar Entrada";
+                                        request.setAttribute("action",action);
+                                        request.setAttribute("resultado", true);
+                                        request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                                     }else{
                                         out.println("<script type=\"text/javascript\">");
-                                        out.println("alert('No Se Pudo Editar La Entrada, Intenta De Nuevo');");
-                                        out.println("location='vistas/blogs.jsp';");
-                                        out.println("</script>");
+                                        String action = "Editar Entrada";
+                                        request.setAttribute("action",action);
+                                        request.setAttribute("resultado", false);
+                                        request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                                     }
                                 }else{
-                                        out.println("<script type=\"text/javascript\">");
-                                        out.println("alert('Se genero un problema al intentar actualizar la información, intenta de nuevo');");
-                                        out.println("location='vistas/blogs.jsp';");
-                                        out.println("</script>");
+                                    String action = "EditarUsuarioEntrada";
+                                    request.setAttribute("action",action);
+                                    request.setAttribute("resultado", false);
+                                    request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                                 }
                             }
                         } else {
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('No Se Pudo Subir La Imagen Al Servidor, Intenta De Nuevo');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "SubirImgEdit";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                         }
                     } else {
                         out.println("llego sin imagen");
                     }
 
                     break;
-                case "CargarBlog":
-                    request.setAttribute("id", request.getParameter("id"));
-                    request.getRequestDispatcher(request.getServletContext().getRealPath("")).forward(request, response);
-                break;
                 case "newCat":
                     String nombreCat = request.getParameter("txtNombreCat");
                     CategoriaDao cat = new CategoriaDao();
                     
                     if(cat.insertarCat(nombreCat)){
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('Categoria Creada');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "CrearCat";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", true);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                     }else{
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('No Se Pudo Crear La Categoria');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "CrearCat";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                     }
                 break;
                 case "modCat":
@@ -278,27 +273,27 @@ public class blogControl extends HttpServlet {
                     CategoriaDao cats = new CategoriaDao();
                     
                     if(cats.editarCat(nombCat,idCat)){
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('Categoria Editada');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "ModCat";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", true);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                     }else{
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('No Se Pudo Editar La Categoria');");
-                            out.println("location='vistas/blogs.jsp';");
-                            out.println("</script>");
+                            String action = "ModCat";
+                            request.setAttribute("action",action);
+                            request.setAttribute("result", false);
+                            request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                     }
                 break;
                 case "delCat":
                     
                     int idCats = Integer.parseInt(request.getParameter("txtCodCat"));
                     CategoriaDao catsd = new CategoriaDao();
-                    String resp = catsd.delCat(idCats);
+                    boolean rs = catsd.delCat(idCats);
  
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('"+resp+"');");
-                    out.println("location='vistas/blogs.jsp';");
-                    out.println("</script>");
+                     String action = "DelCat";
+                     request.setAttribute("action",action);
+                     request.setAttribute("resultado", rs);
+                     request.getRequestDispatcher("vistas/blogs.jsp").forward(request, response);
                    
                     
                 break;

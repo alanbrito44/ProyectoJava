@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    Carga();
     $("div[lang='en']").attr("lang", "es");
     $("#SelectBlogAction").hide();
     $("#btnModCat").attr("disabled", true);
@@ -8,11 +8,10 @@ $(document).ready(function () {
     $("#newEntry").on("click", function () {
         $("#guardarBlog").hide();
         $("#formulario")[0].reset();
-        ClassicEditor
-                .create(document.querySelector('#txtDescripcion'))
-                .catch(error => {
-                    console.error(error);
-                });
+        editor.destroy()
+        .catch( error => {
+        console.log( error );
+    } );
     });
 
     //ESTABA PROGRAMADO PARA ELIMINAR, PERO PASO PARA 
@@ -46,7 +45,6 @@ $(document).ready(function () {
 
     let contenidoBlog = (texto) => {
         ClassicEditor
-                .create(document.querySelector('#txtDescripcion'))
                 .then(editor => {
                     editor.setData(texto);
                 })
@@ -58,8 +56,8 @@ $(document).ready(function () {
     $('body').on('click', '#mod', function () {
         $("#ingresarBlog").hide();
         $("#guardarBlog").show();
-        $("#areaEdit").show()
-        $("#areaNew").hide();
+
+        $("#txtNewContent").hide();
         Swal.fire({
             title: 'Seguro que deseas editar esta entrada?',
             text: "No podrás deshacer los cambios!!",
@@ -160,12 +158,37 @@ $(document).ready(function () {
         // Se extrae el contenido del blog
         var texto = fila.find("#contenido").html();
         // Se invoca a la funciÃ³n que carga el textarea
-        contenidoBlog(texto);
+        $("#txtDescripcion").append(texto);
 
         $("#codigoBlog").val(idBlog);
         $("#tituloBlog").val(titulo);
         $("#descripcionBlog").val(descripcion);
         $('#sCategoria').find('option:contains(' + categoria + ')').prop('selected', true);
+    }
+    
+    function Carga(){
+               ClassicEditor
+    .create( document.querySelector( '#txtDescripcion' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic','bulletedList', 'numberedList', 'blockQuote' ],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Párrafo', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Encabezado 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Encabezado 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Encabezado 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Encabezado 4', class: 'ck-heading_heading4' },
+                    { model: 'heading5', view: 'h5', title: 'Encabezado 5', class: 'ck-heading_heading5' },
+                    { model: 'heading6', view: 'h6', title: 'Encabezado 6', class: 'ck-heading_heading3' }
+                ]
+            }
+        } )
+        .then(editor => {
+        console.log(editor);
+
+    })
+    .catch(error => {
+        console.log(error);
+    })
     }
 
 });

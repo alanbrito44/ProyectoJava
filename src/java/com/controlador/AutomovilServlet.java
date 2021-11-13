@@ -101,20 +101,24 @@ public class AutomovilServlet extends HttpServlet {
 
                     auto.setImagen_auto(dbFileName);
                     daoAuto.insertarAutomovil(auto);
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Autmovil ingresado con exito');");
-                    out.println("location='vistas/cars.jsp';");
-                    out.println("</script>");
+
+                  
+                            String action = "Crear Carro";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", true);
+                            request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+                  
                 }
                 break;
                 case "eliminar": {
 
                     auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                     daoAuto.eliminarAutomobil(auto);
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Automovil eliminado con exito');");
-                    out.println("location='vistas/cars.jsp';");
-                    out.println("</script>");
+                    
+                            String action = "Eliminar Carro";
+                            request.setAttribute("action",action);
+                            request.setAttribute("resultado", true);
+                            request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
                 }
                 break;
                 case "editar": {

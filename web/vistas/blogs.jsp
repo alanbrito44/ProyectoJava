@@ -16,7 +16,12 @@
 <%@include file="../layout/navbar.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/blogStyle.css">
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/blog.jpg');" data-stellar-background-ratio="0.5">
+<script>
+    var accion = "<%=request.getAttribute("action")%>";
+    var resultado = <%=request.getAttribute("resultado")%>;
+    var result ="<%=request.getAttribute("result")%>";
+</script>
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${pageContext.request.contextPath}/recursos/Multimedia/Imagenes/blog.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -100,7 +105,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-12 text-center d-flex ftco-animate">
                 <div class="blog-entry justify-content-end mb-md-5">
-                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlogDesc()%>" class="block-20 img" style="background-image: url('../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
+                    <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlogDesc()%>" class="block-20 img" style="background-image: url('${pageContext.request.contextPath}/recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                     </a>
                     <div class="text px-md-5 pt-4 padre">
                         <div class="meta mb-3">
@@ -120,7 +125,7 @@
                         </div>
                         <h3 id="titleBlog" class="heading mt-2"><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>"><%=elem.getTitulo()%></a></h3>
                         <p id="descBlog"><%=elem.getDescrip()%></p>
-                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                        <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id=<%=elem.getIdBlog()%>" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         <div id="contenido"><%=elem.getContenido()%></div>
                     </div>
                 </div>
@@ -164,7 +169,7 @@
                         <label for="imagenBlog" class="col-form-label">Imagen Portada Blog (Solo JPG)</label>
                         <input type="file" class="form-control" id="imagenBlog" accept=".jpg" name="imgDescripcion">
                     </div>
-                    <div class="form-group" id="areaEdit">
+                    <div class="form-group" >
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
                         <textarea form="formulario" class="form-control" id="txtDescripcion" maxlength="250" name="txtContenido"></textarea>
                     </div>
@@ -194,7 +199,9 @@
     </div>
 </div>
 <script>
-         
+ 
+
 </script>
-<script src="../recursos/JS/blogScript.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/blogScript.js"></script>
+<script src="${pageContext.request.contextPath}/recursos/JS/blogsAlerts.js"></script>
 <%@include file="../layout/footer.jsp" %>
