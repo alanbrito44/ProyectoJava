@@ -65,48 +65,55 @@ public class AutomovilServlet extends HttpServlet {
 
             switch (accion) {
                 case "agregar": {
+                    if (request.getPart("txtImagen").getSize() > 0) {
+                        //partiendo los valores que vienen en el input txtImagen
+                        Part part = request.getPart("txtImagen");
+                        //llamando al metodo que extrae el nombre y que recibe como parametro el part
+                        String fileName = extractFileName(part);
 
-                    //partiendo los valores que vienen en el input txtImagen
-                    Part part = request.getPart("txtImagen");
-                    //llamando al metodo que extrae el nombre y que recibe como parametro el part
-                    String fileName = extractFileName(part);
+                        //obtiene la ruta absoluta de la aplicación web
+                        //tiene como objetivo convertir una ruta de contenido web (la ruta en la estructura de carpetas WAR expandida en el sistema 
+                        //de archivos de disco del servidor) en una ruta absoluta del sistema de archivos de disco.
+                        String applicationPath = getServletContext().getRealPath("");
+                        //aqui estamos guardardano la ruta absoluta la separamos por pleca y le agregamos la direccion que hemos puesto en UPLOAD_DIR
+                        String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+                        System.out.println("applicationPath:" + applicationPath);
 
-                    //obtiene la ruta absoluta de la aplicación web
-                    //tiene como objetivo convertir una ruta de contenido web (la ruta en la estructura de carpetas WAR expandida en el sistema 
-                    //de archivos de disco del servidor) en una ruta absoluta del sistema de archivos de disco.
-                    String applicationPath = getServletContext().getRealPath("");
-                    //aqui estamos guardardano la ruta absoluta la separamos por pleca y le agregamos la direccion que hemos puesto en UPLOAD_DIR
-                    String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
-                    System.out.println("applicationPath:" + applicationPath);
+                        //Metodo que comprueba si la ruta que especificamos existe, si no existe esta ruta entonces la creamos en el proyecto
+                        File fileUploadDirectory = new File(uploadPath);
 
-                    //Metodo que comprueba si la ruta que especificamos existe, si no existe esta ruta entonces la creamos en el proyecto
-                    File fileUploadDirectory = new File(uploadPath);
+                        if (!fileUploadDirectory.exists()) {
+                            fileUploadDirectory.mkdirs();
+                        }
 
-                    if (!fileUploadDirectory.exists()) {
-                        fileUploadDirectory.mkdirs();
+                        //variable donde guardara la direccion donde se almacenan los archivos, una vez comprobado que la direccion existe o no
+                        String savePath = uploadPath + File.separator + fileName;
+                        System.out.println("savePath: " + savePath);
+                        //guardando la ruta absoluta de la variable savePath
+                        String sRootPath = new File(savePath).getAbsolutePath();
+                        System.out.println("sRootPath: " + sRootPath);
+
+                        part.write(savePath + File.separator);
+                        File fileSaveDir1 = new File(savePath);
+
+                        //variable que guarda el nombre del archivo que subimos
+                        String dbFileName = UPLOAD_DIR + File.separator + fileName;
+                        part.write(savePath + File.separator);
+
+                        auto.setImagen_auto(dbFileName);
+                        daoAuto.insertarAutomovil(auto);
+
+                        String action = "Crear Carro";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+                    } else if (request.getPart("txtImagen").getSize() <= 0) {
+                        String action = "No carro";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+
                     }
-
-                    //variable donde guardara la direccion donde se almacenan los archivos, una vez comprobado que la direccion existe o no
-                    String savePath = uploadPath + File.separator + fileName;
-                    System.out.println("savePath: " + savePath);
-                    //guardando la ruta absoluta de la variable savePath
-                    String sRootPath = new File(savePath).getAbsolutePath();
-                    System.out.println("sRootPath: " + sRootPath);
-
-                    part.write(savePath + File.separator);
-                    File fileSaveDir1 = new File(savePath);
-
-                    //variable que guarda el nombre del archivo que subimos
-                    String dbFileName = UPLOAD_DIR + File.separator + fileName;
-                    part.write(savePath + File.separator);
-
-                    auto.setImagen_auto(dbFileName);
-                    daoAuto.insertarAutomovil(auto);
-
-                    String action = "Crear Carro";
-                    request.setAttribute("action", action);
-                    request.setAttribute("resultado", true);
-                    request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
 
                 }
                 break;

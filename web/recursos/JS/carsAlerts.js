@@ -78,6 +78,17 @@ switch (accion) {
             });
         }
         break;
+        case "No carro":
+        if (resultado) {
+            Swal.fire({
+                position: 'bottom-end',
+                icon: 'error',
+                title: 'Debe agregar una imagen de carro',
+                showConfirmButton: true,
+                timer: 2000
+            })
+        }
+        break;
 
 
 

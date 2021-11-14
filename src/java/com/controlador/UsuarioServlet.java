@@ -57,38 +57,44 @@ public class UsuarioServlet extends HttpServlet {
 
             switch (accion) {
                 case "agregar": {
+                    if (request.getPart("txtImagenUsu").getSize() > 0) {
+                        Part part = request.getPart("txtImagenUsu");
+                        String fileName = extractFileName(part);
 
-                    Part part = request.getPart("txtImagenUsu");
-                    String fileName = extractFileName(part);
+                        String applicationPath = getServletContext().getRealPath("");
+                        String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+                        System.out.println("applicationPath:" + applicationPath);
 
-                    String applicationPath = getServletContext().getRealPath("");
-                    String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
-                    System.out.println("applicationPath:" + applicationPath);
+                        File fileUploadDirectory = new File(uploadPath);
 
-                    File fileUploadDirectory = new File(uploadPath);
+                        if (!fileUploadDirectory.exists()) {
+                            fileUploadDirectory.mkdirs();
+                        }
 
-                    if (!fileUploadDirectory.exists()) {
-                        fileUploadDirectory.mkdirs();
+                        String savePath = uploadPath + File.separator + fileName;
+                        System.out.println("savePath: " + savePath);
+                        String sRootPath = new File(savePath).getAbsolutePath();
+                        System.out.println("sRootPath: " + sRootPath);
+                        part.write(savePath + File.separator);
+                        File fileSaveDir1 = new File(savePath);
+
+                        String dbFileName = UPLOAD_DIR + File.separator + fileName;
+                        part.write(savePath + File.separator);
+
+                        usu.setImagen(dbFileName);
+                        daousu.insertarUsuario(usu);
+
+                        String action = "Crear usuario";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+                    } else if (request.getPart("txtImagenUsu").getSize() <= 0) {
+                        String action = "No usuario";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
+
                     }
-
-                    String savePath = uploadPath + File.separator + fileName;
-                    System.out.println("savePath: " + savePath);
-                    String sRootPath = new File(savePath).getAbsolutePath();
-                    System.out.println("sRootPath: " + sRootPath);
-                    part.write(savePath + File.separator);
-                    File fileSaveDir1 = new File(savePath);
-
-                    String dbFileName = UPLOAD_DIR + File.separator + fileName;
-                    part.write(savePath + File.separator);
-
-                    usu.setImagen(dbFileName);
-                    daousu.insertarUsuario(usu);
-
-                    String action = "Crear usuario";
-                    request.setAttribute("action", action);
-                    request.setAttribute("resultado", true);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-
                 }
                 break;
                 case "eliminar": {

@@ -77,4 +77,15 @@ switch (accion) {
             });
         }
         break;
+    case "No usuario":
+        if (resultado) {
+            Swal.fire({
+                position: 'bottom-end',
+                icon: 'error',
+                title: 'Debe agregar una imagen de usuario',
+                showConfirmButton: true,
+                timer: 2000
+            })
+        }
+        break;
 }
