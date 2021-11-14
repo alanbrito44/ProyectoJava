@@ -8,7 +8,7 @@ $(document).ready(function () {
     $("#newEntry").on("click", function () {
         $("#guardarBlog").hide();
         $("#formulario")[0].reset();
-        quill.setText('sadadasd');
+        quill.setText("");
             
     } );
 
@@ -134,7 +134,12 @@ $(document).ready(function () {
         })
     });
 
-
+quill.on('editor-change', function(eventName) {
+  if (eventName === 'text-change') {
+   var delta =  $("#editor").find('.ql-editor').html();
+    $("#cnt").html(delta);
+  }
+});
 
 
 
@@ -144,11 +149,11 @@ $(document).ready(function () {
         var descripcion = fila.find("#descBlog").text();
         var categoria = fila.find("#categoriaBlog").text();
         // Se extrae el contenido del blog
-        var texto = fila.find("#contenido").html();
-        console.log(texto)
-        // Se invoca a la funciÃ³n que carga el textarea
+        
 
-       quill.setText(texto);
+        // Se invoca a la funciÃ³n que carga el textarea
+        var content = $("#contenido").html();
+        $("#editor").find('.ql-editor').html(content);
        
         $("#codigoBlog").val(idBlog);
         $("#tituloBlog").val(titulo);

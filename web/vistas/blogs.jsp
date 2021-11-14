@@ -177,10 +177,11 @@
                     </div>
                     <div class="form-group" >
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
-                        <div>
-                            <textarea class="form-control"  id="editor" name="txtContenido"></textarea>
+                        <div  id="editor">
+                           
                         </div>
                     </div>
+                    <textarea id="cnt" name="txtContenido" hidden></textarea>
                     <div class="form-group">
                         <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
               <select class="form-control" name="sCategoria" id="sCategoria">
