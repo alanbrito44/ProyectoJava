@@ -16,6 +16,12 @@
 <%@include file="../layout/navbar.jsp"%>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/blogStyle.css">
+<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<!-- Theme included stylesheets -->
+<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 <script>
     var accion = "<%=request.getAttribute("action")%>";
     var resultado = <%=request.getAttribute("resultado")%>;
@@ -171,7 +177,9 @@
                     </div>
                     <div class="form-group" >
                         <label for="txtDescripcion" class="col-form-label">Contenido Del Blog</label>
-                        <textarea form="formulario" class="form-control" id="txtDescripcion" maxlength="250" name="txtContenido"></textarea>
+                        <div>
+                            <textarea class="form-control"  id="editor" name="txtContenido"></textarea>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="txtDescripcion" id="categoriaBlog" class="col-form-label">Categoria Del Blog</label>
@@ -199,7 +207,9 @@
     </div>
 </div>
 <script>
- 
+  var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
 
 </script>
 <script src="${pageContext.request.contextPath}/recursos/JS/blogScript.js"></script>

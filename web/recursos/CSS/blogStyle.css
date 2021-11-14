@@ -17,11 +17,6 @@ and open the template in the editor.
     height: 110px !important;
 }
 
-.ck-editor__editable 
-{
-    min-height: 360px !important;
-    color:black !important;
-}
 
 /*PARA OCULTAR EL CONTENIDO DE BLOG EN LA PAGINA BLOG
 YA QUE SOLO SE REQUIERE PARA CARGAR EL TEXTAREA*/
@@ -39,4 +34,9 @@ YA QUE SOLO SE REQUIERE PARA CARGAR EL TEXTAREA*/
     max-width: 600px !important;
     margin: 0 auto;
 }
-
+#editor{
+    min-height: 450px!important;
+    color: black!important;
+    font-size: 1em;
+    font-family: serif!important;
+}
