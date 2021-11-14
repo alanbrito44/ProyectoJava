@@ -46,6 +46,7 @@
             %>
             <div class="col-md-8 ftco-animate">
                 <h2 class="mb-3"><%=elem.getTitulo()%></h2>
+                <p><%=elem.getDescrip()%></p>
                 <p>
                     <img src="../recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>" alt="" class="img-fluid">
                 </p>
@@ -56,28 +57,9 @@
                         <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                     </div>
                 </div>
-                <%
-                    sesion.getAttribute("id");
-                    UsuarioDAO daousu = new UsuarioDAO();
-                    ArrayList<Usuario> listaUsu = new ArrayList<>();
-                    listaUsu = daousu.mostrarUsuario();
-                    for (Usuario elem3 : listaUsu) {
-                %>
-                <div class="about-author d-flex p-4 bg-light">
-                    <div class="bio mr-5">
-                        <img src="../<%=daousu.getImagen(elem3.getId_usuario()).getImagen()%>" class="img-fluid mb-4">
-                    </div>
-                    <div class="desc">
-                        <h3><%=elem3.getNombre()%> <%=elem3.getApellido()%></h3>
-                        <p>Gracias por entrar al blog, esperamos que haya sido de tu agrado la informacion que hemos compartido contigo, si quieres ver mas contenido no dudes en
-                        ver los otros blogs, que tenemos para ti.</p>
-                        
-                    </div>
-                </div>
-                <%
-                    }
-                %>
-                <p><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary mt-3">
+                
+                <p>
+                    <a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary mt-3">
                         <span class="icon-long-arrow-left"></span>
                         Regresar A La Lista De Blogs
                     </a>

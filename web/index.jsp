@@ -47,6 +47,7 @@
         <link rel="stylesheet" href="recursos/CSS/flaticon.css">
         <link rel="stylesheet" href="recursos/CSS/icomoon.css">
         <link rel="stylesheet" href="recursos/CSS/style.css">
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         <%
@@ -92,9 +93,17 @@
         <!-- END nav -->
         <div class="hero-wrap ftco-degree-bg" style="background-image: url('recursos/Multimedia/Imagenes/bg_2.jpg');" data-stellar-background-ratio="0.5">
             <div class="overlay">
+                <%
+                    if (sesion.getAttribute("nivel") == null) {
+
+                    } else if ((Integer) sesion.getAttribute("nivel") != null) {
+                %> 
                 <button type="button" class="btn btn-outline-dark py-3 px-4 mb-lg-5 mb-3" data-toggle="modal" data-target="#modalLogin" data-backdrop="static" data-keyboard="false">
                     Crear usuario
                 </button>
+                <%
+                    }
+                %> 
             </div>
             <div class="container">
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
@@ -130,6 +139,10 @@
             UsuarioDAO daousu = new UsuarioDAO();
             ArrayList<Usuario> listaUsu = new ArrayList<>();
         %>
+        <script>
+            var accion = "<%=request.getAttribute("action")%>";
+            var resultado = <%=request.getAttribute("resultado")%>
+        </script>
 
         <section class="ftco-section ftco-no-pt bg-light">
             <div class="container">
@@ -443,10 +456,10 @@
                                     <td class="privilegio"><%=daopri.getPrivilegio(elem.getId_privilegio()).getNombre_privilegio()%></td>
                                     <td class="imagen_usu"><img id="ruta" src="<%=daousu.getImagen(elem.getId_usuario()).getImagen()%>" width="50" height="50"/></td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalLoginCrud" data-backdrop="static" data-keyboard="false" id="btnEditarU">
+                                        <button type="button" class="btn btn-warning" id="btnEditarU">
                                             <i class="far fa-edit"></i>
                                         </button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalLoginCrud" data-backdrop="static" data-keyboard="false" id="btnEliminarU">
+                                        <button type="button" class="btn btn-danger" id="btnEliminarU">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -540,6 +553,7 @@
         <script src="recursos/JS/scrollax.min.js"></script>
         <script src="recursos/JS/main.js"></script>
         <script src="recursos/JS/usuarios.js"></script>
+        <script src="recursos/JS/loginAlerts.js"></script>
 
     </body>
 </html>

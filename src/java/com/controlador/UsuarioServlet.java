@@ -84,10 +84,10 @@ public class UsuarioServlet extends HttpServlet {
                     usu.setImagen(dbFileName);
                     daousu.insertarUsuario(usu);
 
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Automovil eliminado con exito');");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+                    String action = "Crear usuario";
+                    request.setAttribute("action", action);
+                    request.setAttribute("resultado", true);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
 
                 }
                 break;
@@ -96,10 +96,10 @@ public class UsuarioServlet extends HttpServlet {
                     usu.setId_usuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
                     daousu.eliminarUsuario(usu);
 
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Automovil eliminado con exito');");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+                    String action = "Eliminar usuario";
+                    request.setAttribute("action", action);
+                    request.setAttribute("resultado", true);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
                 break;
 
@@ -109,10 +109,10 @@ public class UsuarioServlet extends HttpServlet {
                         usu.setImagen(request.getParameter("txtRutaImg"));
                         usu.setId_usuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
                         daousu.modificarUsuario(usu);
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('SIN IMAGEN');");
-                        out.println("location='index.jsp';");
-                        out.println("</script>");
+                        String action = "Editar usuario";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
                     } else if (request.getPart("txtImagenUsu").getSize() > 0) {
 
                         Part part = request.getPart("txtImagenUsu");
@@ -142,10 +142,10 @@ public class UsuarioServlet extends HttpServlet {
                         usu.setId_usuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
                         daousu.modificarUsuario(usu);
 
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('CON IMAGEN');");
-                        out.println("location='index.jsp';");
-                        out.println("</script>");;
+                        String action = "Editar usuario";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("index.jsp").forward(request, response);
 
                     }
                 }

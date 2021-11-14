@@ -9,19 +9,48 @@ $(document).ready(function () {
     //aqui le decimos que cuando precionen el boton eliminar buscara el tr mas cercano a ese boton presionado
     //y llamara a la funcion eliminar
     $('body').on('click', '#btnEditarU', function () {
-        let fila = $(this).closest('tr');
-        llenarFormulario(fila);
-        $('button[value="agregar"]').hide();
-        $('button[value="editar"]').show();
-        $('button[value="eliminar"]').hide();
+        Swal.fire({
+            title: 'Estas Seguro De editar Esta Entrada?',
+            text: "No Podrás Deshacer Los Cambios!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Editarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let fila = $(this).closest('tr');
+                llenarFormulario(fila);
+                $('button[value="agregar"]').hide();
+                $('button[value="editar"]').show();
+                $('button[value="eliminar"]').hide();
+                //LLAMAMOS AL MODAL
+                $("#modalLoginCrud").modal("show");
+            }
+        })
     });
 
     $('body').on('click', '#btnEliminarU', function () {
-        let fila = $(this).closest('tr');
-        llenarFormulario(fila);
-        $('button[value="agregar"]').hide();
-        $('button[value="editar"]').hide();
-        $('button[value="eliminar"]').show();
+        Swal.fire({
+            title: 'Estas Seguro De Eliminar Esta Entrada?',
+            text: "No Podrás Deshacer Los Cambios!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Borrarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let fila = $(this).closest('tr');
+                llenarFormulario(fila);
+                $('button[value="agregar"]').hide();
+                $('button[value="editar"]').hide();
+                $('button[value="eliminar"]').show();
+
+                //LLAMAMOS AL MODAL
+                $("#modalLoginCrud").modal("show");
+            }
+        })
     });
 
     $('#btnAgregarU').click(function () {

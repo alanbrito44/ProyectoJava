@@ -40,17 +40,25 @@
                                 </div>
                                 <div class="form-group">
                                     <input  type="password" class="form-control" placeholder="Password"
-                                           name="txtClave" id="contraseña" required>
+                                            name="txtClave" id="contraseña" required>
                                     <span class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary submit px-3" name="btnLogin" id="boton" value="btnLogin">Sign In</button>
                                 </div>
+                                <p>
+                                    <a href="${pageContext.request.contextPath}/index.jsp" class="form-control btn btn-primary submit px-3">
+                                        
+                                        Regresar a pagina principal
+                                    </a>
+                                </p>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </section>
         <script src="../recursos/JS/jquery.min.js"></script>
         <script src="../recursos/JS/popper.min.js"></script>
@@ -83,7 +91,7 @@
     if (request.getParameter("cerrar") != null) {
         //destruyendo sesion
         sesion.invalidate();
-        
+
         //redireccionamos para limpiar la url y que no quede url?cerrar=true;
         response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
     }

@@ -131,10 +131,10 @@
                             <td class="descripcion_marca"><%=elem.getDescripcion()%></td>
                             <td class="pais_marca"><%=elem.getPais_marca()%></td>
                             <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEditar">
+                                <button type="button" class="btn btn-warning" id="btnEditar">
                                     <i class="far fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAcciones" data-backdrop="static" data-keyboard="false" id="btnEliminar">
+                                <button type="button" class="btn btn-danger" id="btnEliminar">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -282,7 +282,7 @@
                     Precio
                     <input type="number" class="form-control" name="txtPrecio" required="">
                     Placa
-                    <input type="text" class="form-control" name="txtPlaca" required="" maxlength="8" placeholder="P000-000">
+                    <input type="text" class="form-control" name="txtPlaca" required="" maxlength="7" placeholder="P000-000">
                     Ano
                     <input type="number" class="form-control" name="txtAno" required="">
                     Transmision
@@ -320,7 +320,7 @@
                         %>
                     </select>
                     Imagen
-                    <input type="file" class="form-control" name="txtImagen" id="imagen">
+                    <input type="file" class="form-control" name="txtImagen" id="imagen" accept=".jpg">
                     <input type="hidden" class="form-control" name="txtRutaImg">
                     Stock 
                     <input type="number" class="form-control" name="txtStock" required="">
@@ -369,10 +369,10 @@
                             <td class="nombre_categoria"><%=elem.getNombre_categoria()%></td>
                             <td class="descripcion_categoria"><%=elem.getDescripcion()%></td>
                             <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEditarC">
+                                <button type="button" class="btn btn-warning" id="btnEditarC">
                                     <i class="far fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesc" data-backdrop="static" data-keyboard="false" id="btnEliminarC">
+                                <button type="button" class="btn btn-danger" id="btnEliminarC">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
