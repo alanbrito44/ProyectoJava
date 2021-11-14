@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Javier Amaya
  */
 public class DetalleVentasDAO extends Conexion{
-    public void insertarDetalleVentas(DetalleVentas d){
+    public boolean insertarDetalleVentas(DetalleVentas d){
         try {
             this.conectar();
             String sql = "INSERT INTO detalle_venta VALUES(?,?,?,?)";
@@ -26,11 +26,13 @@ public class DetalleVentasDAO extends Conexion{
             pre.setInt(1, d.getId_automovil());
             pre.setString(2, d.getGarantia());
             
-            pre.executeUpdate();          
+            pre.executeUpdate();     
+            return true;
             
                         
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: "+e.getMessage());
+            return false;
         } finally {
             this.desconectar();
         }

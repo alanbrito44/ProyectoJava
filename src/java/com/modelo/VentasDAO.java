@@ -39,5 +39,27 @@ public class VentasDAO extends Conexion{
        return factura;
    }
    
+   public boolean generarVenta(Ventas v){
+       try {
+           this.conectar();
+           String sql = "insert into ventas values (null,?,?,?)";
+           PreparedStatement numero = this.getConexion().prepareStatement(sql);
+           numero.setString(1, v.getFecha());
+           numero.setFloat(2, v.getMonto_total());
+           numero.setInt(3, v.getId_cliente());
+           numero.executeUpdate();
+           return true;
+           
+       } catch (Exception e) {
+           
+           out.println(e.getMessage());
+           return false;
+           
+       }
+       finally{
+       this.desconectar();
+       }
+   }
+   
 }
 

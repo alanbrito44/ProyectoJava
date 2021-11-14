@@ -133,8 +133,11 @@
                                     </tbody> 
                                     <tfoot>
                                         <tr>
+                                            <td><label>Total de Items:</label></td>
+                                            <td class="d-flex align-items-center"><input  name="totalItems" type="number" id="totalItems" size="6" value="0"  disabled="true"/></td>
                                             <td><label>Total:</label></td>
-                                            <td class="d-flex align-items-center"><input  name="total" id="total" size="6" value="0" maxlength="6" disabled="true"/></td>
+                                            <td class="d-flex align-items-center"><input  name="total" type="number" id="total" size="6" value="0"  disabled="true"/></td>
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>

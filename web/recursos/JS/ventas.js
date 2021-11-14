@@ -7,6 +7,7 @@ $(document).ready(function () {
     setearFecha();
     var clienteOn = false;
     cargarNumFactura();
+    var items = parseInt(0);
 
     //Selecciona los Clientes
     $('body').on('click', '#btnSeleccionar', function () {
@@ -55,6 +56,7 @@ Swal.fire({
 
     //trae los Vehiculos a la tabla de Facturacion
     $('body').on('click', '#btnVehiculo', function () {
+        items ++;
         let campo = $(this).closest('tr');
         llamarCarros(campo);
 
@@ -78,7 +80,9 @@ Swal.fire({
                     title: 'Carro Eliminado',
                     icon: 'success',
                 })
+                items-1;
                 calcularTotal();
+                $('totalItems').val(items);
 
             }
         })
@@ -144,14 +148,14 @@ function setearFecha() {
         var precio = fila.find('.precio_auto').text();
         var subTotal = precio * 1;
 
-
+       
         var tr = '<tr>' +
-                '<td class="codigo"><input name="" class="notControl" value="'+codigo+'"></td>' +
-                '<td class="marca"><input name="" class="notControl" value="'+marca+'"></td>' +
-                '<td class="modelo"><input name="" class="notControl" value="'+modelo+'"></td>' +
-                '<td class="garantia"><input name="" class="notControl" value="'+garantia+'"></td>' +
-                '<td class="precio" id="precio"><input id="txtPrecio" name="" class="notControl" value="'+precio+'"></td>' +
-                '<td class="cantidad"><input type="number" min="0" value="1" style="border: none; width: 120px; " id="cantidad" class="form-control" name="txtCantidad"></td>' +
+                '<td class="codigo"><input name="codigo'+items+'" class="notControl" value="'+codigo+'"></td>' +
+                '<td class="marca"><input name="marca'+items+'" class="notControl" value="'+marca+'"></td>' +
+                '<td class="modelo"><input name="modelo'+items+'" class="notControl" value="'+modelo+'"></td>' +
+                '<td class="garantia"><input name="garantia'+items+'" class="notControl" value="'+garantia+'"></td>' +
+                '<td class="precio" id="precio"><input id="txtPrecio" name="precio'+items+'" class="notControl" value="'+precio+'"></td>' +
+                '<td class="cantidad"><input type="number" min="1" name="cantidad'+items+'" value="1" style="border: none; width: 120px; " id="cantidad" class="form-control" name="txtCantidad"></td>' +
                 '<td class="subtotal" id="subTotal">' + subTotal + '</td>' +
                 '<td>' +
                 '<button type="button" class="btn btn-warning btn-sm"  id="btnBorrar">' +
@@ -161,6 +165,7 @@ function setearFecha() {
                 '</tr>';
 
         $('#facturacion').append(tr);
+        $('#totalItems').val(items);
         calcularTotal(subTotal);
 
     }
