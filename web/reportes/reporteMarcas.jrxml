@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4edc77e-133f-494b-a7ae-e844866776a5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     automovil.`id_automovil` AS automovil_id_automovil,
+     automovil.`modelo_automovil` AS automovil_modelo_automovil,
+     automovil.`precio` AS automovil_precio,
+     automovil.`stock` AS automovil_stock,
+     automovil.`garantia` AS automovil_garantia,
+     categoria_automovil.`nombre_categoria` AS categoria_automovil_nombre_categoria,
+     marca_automovil.`nombre_marca` AS marca_automovil_nombre_marca,
+     automovil.`año` AS automovil_año
+FROM
+     `categoria_automovil` categoria_automovil INNER JOIN `automovil` automovil ON categoria_automovil.`id_catAutomovil` = automovil.`id_catAutomovil`
+     INNER JOIN `marca_automovil` marca_automovil ON automovil.`id_marca` = marca_automovil.`id_marca`
+WHERE automovil.id_marca = $P{codigo}]]>
+	</queryString>
+	<field name="automovil_id_automovil" class="java.lang.Integer"/>
+	<field name="automovil_modelo_automovil" class="java.lang.String"/>
+	<field name="automovil_precio" class="java.lang.Float"/>
+	<field name="automovil_stock" class="java.lang.Integer"/>
+	<field name="automovil_garantia" class="java.lang.String"/>
+	<field name="categoria_automovil_nombre_categoria" class="java.lang.String"/>
+	<field name="marca_automovil_nombre_marca" class="java.lang.String"/>
+	<field name="automovil_año" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="233a0683-6add-4dc4-9e46-1ddbe9417a3b"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="463127ee-b6b4-43f8-bf51-e75bec25df90"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CARS TORETO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="714b07db-cc9c-4650-85d8-b8d741a2d3d9"/>
+				<text><![CDATA[REPORTE MARCAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="3594c78d-0a9c-4104-a966-a93bf60a3bcf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="0dcd5e4f-9901-4051-b76e-5a88ad8dc7c3"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="3b11133a-4562-4a9d-9042-86bc8afda8bb"/>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="43ecec76-7f64-4944-8d4e-63b4f82cbdad"/>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="548f287d-f8a0-43f6-8564-fbeada010db4"/>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="f9a883d9-0a41-4edd-8b30-ece1062fb145"/>
+				<text><![CDATA[GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="87bb3940-f579-4fc9-bde7-337252a90d1c"/>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="7810ee35-9427-43d1-a3d2-cec91e211527"/>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="57a9aca4-f3ac-4a75-9a98-add1ee240da5"/>
+				<text><![CDATA[KILOME]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="4d6aad48-72f9-47af-8295-80ea8e6e7e77"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="e97c33e3-57a5-45eb-8ac6-0b296cc6c968"/>
+				<textFieldExpression><![CDATA[$F{automovil_id_automovil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="e3eada76-032a-442a-986c-536abfcadf8b"/>
+				<textFieldExpression><![CDATA[$F{automovil_modelo_automovil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="04f166f8-2475-4bb1-b36e-1a74b52f1dfc"/>
+				<textFieldExpression><![CDATA[$F{automovil_precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="2c28ebc8-26d2-4924-809f-b8082d171e0a"/>
+				<textFieldExpression><![CDATA[$F{automovil_stock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="69" height="15" uuid="0885b825-1b11-444f-a629-977e30168968"/>
+				<textFieldExpression><![CDATA[$F{automovil_garantia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="345" y="0" width="69" height="15" uuid="0bc523cd-6a05-42c4-b79a-15ba62507519"/>
+				<textFieldExpression><![CDATA[$F{categoria_automovil_nombre_categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="414" y="0" width="69" height="15" uuid="61c06a08-d541-497d-89d6-b2066a7b5ef0"/>
+				<textFieldExpression><![CDATA[$F{marca_automovil_nombre_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="259d0776-a37a-42b0-aa05-734e2095abd1"/>
+				<textFieldExpression><![CDATA[$F{automovil_año}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b74d05e6-af20-45aa-9ccc-bcda13e09b2f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="2fc89600-a34e-442a-af73-f8b9582fa2b1"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="1d9973cd-98b9-4429-bb1c-8332d13330d8"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="e652d3d6-c693-4a36-94df-b8b60cca0788"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
