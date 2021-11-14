@@ -13,6 +13,10 @@
 <%@page import="com.modelo.CategoriaAutomovilDAO" %>
 <%@page import="com.modelo.BlogDescripcionDao"%>
 <%@page import="com.modelo.BlogDescripcion"%>
+<%@page import="com.modelo.Privilegios"%>
+<%@page import="com.modelo.PrivilegiosDAO"%>
+<%@page import="com.modelo.Usuario"%>
+<%@page import="com.modelo.UsuarioDAO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +27,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"  crossorigin="anonymous"/>
 
         <link rel="stylesheet" href="recursos/CSS/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="recursos/CSS/animate.css">
@@ -86,7 +91,11 @@
         </nav>
         <!-- END nav -->
         <div class="hero-wrap ftco-degree-bg" style="background-image: url('recursos/Multimedia/Imagenes/bg_2.jpg');" data-stellar-background-ratio="0.5">
-            <div class="overlay"></div>
+            <div class="overlay">
+                <button type="button" class="btn btn-outline-dark py-3 px-4 mb-lg-5 mb-3" data-toggle="modal" data-target="#modalLogin" data-backdrop="static" data-keyboard="false">
+                    Crear usuario
+                </button>
+            </div>
             <div class="container">
                 <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
                     <div class="col-lg-8 ftco-animate">
@@ -116,6 +125,10 @@
             ArrayList<CategoriaAutomovil> listaCate = new ArrayList<>();
             BlogDescripcionDao bdao = new BlogDescripcionDao();
             ArrayList<BlogDescripcion> listaBlogs = new ArrayList<>();
+            PrivilegiosDAO daopri = new PrivilegiosDAO();
+            ArrayList<Privilegios> listaPri = new ArrayList<>();
+            UsuarioDAO daousu = new UsuarioDAO();
+            ArrayList<Usuario> listaUsu = new ArrayList<>();
         %>
 
         <section class="ftco-section ftco-no-pt bg-light">
@@ -136,6 +149,7 @@
                             }
                         %> 
                         <h2 class="mb-2">Ultimos vehiculos ingresados</h2>
+
                     </div>
                 </div>
                 <div class="row">
@@ -278,15 +292,15 @@
                     %>
                     <div class="col-md-4 d-flex ftco-animate">
                         <div class="blog-entry justify-content-end">
-                            <a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="block-20" style="background-image: url('recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
+                            <a href="vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="block-20" style="background-image: url('recursos/Multimedia/ImagenesUpload/<%=elem.getImgPortada()%>');">
                             </a>
                             <div class="text pt-4">
                                 <div class="meta mb-3">
-                                    <div><a href="#"><%=elem.getFecha()%></a></div>
-                                    <div><a href="#"><%=bdao.usuarioBlog(elem.getIdBlog())%></a></div>
+                                    <div><a href=""><%=elem.getFecha()%></a></div>
+                                    <div><a href=""><%=bdao.usuarioBlog(elem.getIdBlog())%></a></div>
                                 </div>
-                                <h3 class="heading mt-2"><a href="#"><%=elem.getTitulo()%></a></h3>
-                                <p><a href="${pageContext.request.contextPath}/vistas/blogContent.jsp?id='<%=elem.getIdBlogDesc()%>'" class="btn btn-primary">Leer mas</a></p>
+                                <h3 class="heading mt-2"><a href="vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>"><%=elem.getTitulo()%></a></h3>
+                                <p><a href="vistas/blogContent.jsp?Accion=CargarBlog&id=<%=elem.getIdBlog()%>" class="btn btn-primary">Leer mas</a></p>
                             </div>
                         </div>
                     </div>
@@ -394,6 +408,118 @@
 
 
 
+
+        <!-- Modal Tabla categoria -->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalTabla" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Listado categoria vehiculos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="overflow-x:auto;">
+                        <table class="table table-dark text-center">
+
+                            <thead>
+                            <th>ID</th>
+                            <th>USUARIO</th>
+                            <th>NOMBRE</th>
+                            <th>APELLIDO</th>
+                            <th>PRIVILEGIOS</th>
+                            <th>IMAGEN</th>
+                            </thead>
+                            <tbody>
+                                <%
+                                    listaUsu = daousu.mostrarUsuario();
+                                    for (Usuario elem : listaUsu) {
+                                %>
+                                <tr>
+                                    <td class="id_usuario"><%=elem.getId_usuario()%></td>
+                                    <td class="usuario"><%=elem.getUsuario()%></td>
+                                    <td class="nombre"><%=elem.getNombre()%></td>
+                                    <td class="apellido"><%=elem.getApellido()%></td>
+                                    <td class="privilegio"><%=daopri.getPrivilegio(elem.getId_privilegio()).getNombre_privilegio()%></td>
+                                    <td class="imagen_usu"><img id="ruta" src="<%=daousu.getImagen(elem.getId_usuario()).getImagen()%>" width="50" height="50"/></td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalLoginCrud" data-backdrop="static" data-keyboard="false" id="btnEditarU">
+                                            <i class="far fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalLoginCrud" data-backdrop="static" data-keyboard="false" id="btnEliminarU">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginCrud" id="btnAgregarU">
+                            Agregar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal crud login-->
+        <div class="modal fade" id="modalLoginCrud" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Creacion de usuarios</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="UsuarioServlet" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+
+
+                            <input type="hidden" class="form-control" name="txtIdUsuario">
+                            Nombre de usuario
+                            <input type="text" class="form-control" name="txtUsuario" maxlength="20">
+                            Nombre
+                            <input type="text" class="form-control" name="txtNombre"  maxlength="20">
+                            Apellido
+                            <input type="text" class="form-control" name="txtApellido"  maxlength="20">
+                            Contrasena
+                            <input type="password" class="form-control" name="txtContra"  maxlength="20">
+                            Privilegios
+                            <select class="form-control" name="sPrivilegios">
+                                <%
+                                    listaPri = daopri.mostrarPrivilegis();
+                                    //FOREACH PARA GENERAR EL SELECT CON TODOS LOS DATOS QUE SE ENCUENTRAN EN EL ARRAYLIST
+                                    for (Privilegios elem : listaPri) {
+                                %>
+                                <option value="<%=elem.getId_privilegios()%>"><%=elem.getNombre_privilegio()%></option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                            Imagen
+                            <input type="file" class="form-control" name="txtImagenUsu">
+                            <input type="hidden" class="form-control" name="txtRutaImg">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="accion" value="agregar">Agregar</button>
+                            <button type="submit" class="btn btn-warning" name="accion" value="editar">Editar</button>
+                            <button type="submit" class="btn btn-danger" name="accion" value="eliminar">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>                    
+
+
         <!-- loader -->
         <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
@@ -413,6 +539,7 @@
         <script src="recursos/JS/jquery.timepicker.min.js"></script>
         <script src="recursos/JS/scrollax.min.js"></script>
         <script src="recursos/JS/main.js"></script>
+        <script src="recursos/JS/usuarios.js"></script>
 
     </body>
 </html>

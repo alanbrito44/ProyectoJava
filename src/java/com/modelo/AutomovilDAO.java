@@ -21,8 +21,8 @@ public class AutomovilDAO extends Conexion {
     public void insertarAutomovil(Automovil a) {
         try {
             this.conectar();
-            String sql = "INSERT INTO automovil (modelo_automovil,precio,placa,año,transmision,puertas,kilometrage,color,id_marca,id_catAutomovil,stock,descripcion,imagen_auto) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO automovil (modelo_automovil,precio,placa,año,transmision,puertas,kilometrage,color,id_marca,id_catAutomovil,stock,descripcion,garantia,imagen_auto) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setString(1, a.getModelo_automovil());
             pre.setDouble(2, a.getPrecio());
@@ -36,10 +36,11 @@ public class AutomovilDAO extends Conexion {
             pre.setInt(10, a.getId_catAutomovil());
             pre.setInt(11, a.getStock());
             pre.setString(12, a.getDescripcion());
-            pre.setString(13, a.getImagen_auto());
+            pre.setString(13, a.getGarantia());
+            pre.setString(14, a.getImagen_auto());
             pre.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            JOptionPane.showInputDialog(null, "Error: " + e.getMessage());
         } finally {
             this.desconectar();
         }
@@ -69,6 +70,7 @@ public class AutomovilDAO extends Conexion {
                 a.setImagen_auto(rs.getString(12));
                 a.setStock(rs.getInt(13));
                 a.setDescripcion(rs.getString(14));
+                a.setGarantia(rs.getString(15));
 
                 //agrenado los valores a la lista
                 lista.add(a);
@@ -130,7 +132,7 @@ public class AutomovilDAO extends Conexion {
         try{
             this.conectar();
             String sql = "UPDATE automovil SET modelo_automovil=?, precio=?, placa=?, año=?, transmision=?, puertas=?, kilometrage=?,"
-                          + "color=?, id_marca=?, id_catAutomovil=?, stock=?, descripcion=?, imagen_auto=? WHERE id_automovil=? ";
+                          + "color=?, id_marca=?, id_catAutomovil=?, stock=?, descripcion=?, garantia=?, imagen_auto=? WHERE id_automovil=? ";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setString(1, a.getModelo_automovil());
             pre.setDouble(2, a.getPrecio());
@@ -144,8 +146,9 @@ public class AutomovilDAO extends Conexion {
             pre.setInt(10, a.getId_catAutomovil());
             pre.setInt(11, a.getStock());
             pre.setString(12, a.getDescripcion());
-            pre.setString(13, a.getImagen_auto());
-            pre.setInt(14,a.getId_automovil());
+            pre.setString(13, a.getGarantia());
+            pre.setString(14, a.getImagen_auto());
+            pre.setInt(15,a.getId_automovil());
             //en este caso como se esta realizando un update se ocupa el executeUpdate, para ejecutar la consulta
             pre.executeUpdate();
         }catch(Exception e){
@@ -180,6 +183,7 @@ public class AutomovilDAO extends Conexion {
                 a.setImagen_auto(rs.getString(12));
                 a.setStock(rs.getInt(13));
                 a.setDescripcion(rs.getString(14));
+                a.setGarantia(rs.getString(15));
 
                 lista.add(a);
             }
@@ -215,7 +219,8 @@ public class AutomovilDAO extends Conexion {
                 a.setImagen_auto(rs.getString(12));
                 a.setStock(rs.getInt(13));
                 a.setDescripcion(rs.getString(14));
-
+                a.setGarantia(rs.getString(15));
+                
                 //agrenado los valores a la lista
                 lista.add(a);
             }
@@ -251,6 +256,7 @@ public class AutomovilDAO extends Conexion {
                 a.setImagen_auto(rs.getString(12));
                 a.setStock(rs.getInt(13));
                 a.setDescripcion(rs.getString(14));
+                a.setGarantia(rs.getString(15));
 
                 //agrenado los valores a la lista
                 lista.add(a);

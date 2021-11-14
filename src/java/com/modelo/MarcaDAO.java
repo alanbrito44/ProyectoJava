@@ -50,18 +50,20 @@ public class MarcaDAO extends Conexion{
         }
     }
     
-    public void eliminarMarca(Marca m){
+    public boolean eliminarMarca(Marca m){
         try{
             this.conectar();
             String sql = "DELETE FROM marca_automovil WHERE id_marca=?";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setInt(1, m.getId_marca());
             pre.executeUpdate();
+            return true;
         }catch(Exception e){
-            JOptionPane.showInputDialog(null, "Error: "+e.getMessage());
+            System.out.println("Error: "+e.getMessage());
         }finally{
             this.desconectar();
         }
+        return false;
     }
     
     public ArrayList<Marca> mostrarMarcas(){

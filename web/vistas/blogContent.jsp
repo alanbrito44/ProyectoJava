@@ -9,10 +9,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.modelo.BlogDescripcionDao"%>
+<%@page import="com.modelo.Privilegios"%>
+<%@page import="com.modelo.PrivilegiosDAO"%>
+<%@page import="com.modelo.Usuario"%>
+<%@page import="com.modelo.UsuarioDAO"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/blogStyle.css">
+
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/bg_3.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -50,16 +56,27 @@
                         <spam id="categoriaBlog" class="bg-success text-white p-1 mx-1"><%=bdao.cargarCategoria(elem.getIdCat())%></spam>
                     </div>
                 </div>
-
+                <%
+                    sesion.getAttribute("id");
+                    UsuarioDAO daousu = new UsuarioDAO();
+                    ArrayList<Usuario> listaUsu = new ArrayList<>();
+                    listaUsu = daousu.mostrarUsuario();
+                    for (Usuario elem3 : listaUsu) {
+                %>
                 <div class="about-author d-flex p-4 bg-light">
                     <div class="bio mr-5">
-                        <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+                        <img src="../<%=daousu.getImagen(elem3.getId_usuario()).getImagen()%>" class="img-fluid mb-4">
                     </div>
                     <div class="desc">
-                        <h3>George Washington</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                        <h3><%=elem3.getNombre()%> <%=elem3.getApellido()%></h3>
+                        <p>Gracias por entrar al blog, esperamos que haya sido de tu agrado la informacion que hemos compartido contigo, si quieres ver mas contenido no dudes en
+                        ver los otros blogs, que tenemos para ti.</p>
+                        
                     </div>
                 </div>
+                <%
+                    }
+                %>
                 <p><a href="${pageContext.request.contextPath}/vistas/blogs.jsp" class="btn btn-primary mt-3">
                         <span class="icon-long-arrow-left"></span>
                         Regresar A La Lista De Blogs

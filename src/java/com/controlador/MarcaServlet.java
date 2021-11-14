@@ -43,27 +43,24 @@ public class MarcaServlet extends HttpServlet {
 
             if (request.getParameter("btnAgregar") != null) {
                 daoMarca.insertarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo ingresado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
+                String action = "Agregar marca";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", true);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
             } else if (request.getParameter("btnEditar") != null) {
                 m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
                 daoMarca.modificarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo editado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
+                String action = "Editar marca";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", true);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
             } else if (request.getParameter("btnEliminar") != null) {
                 m.setId_marca(Integer.parseInt(request.getParameter("txtIdMarca")));
-                daoMarca.eliminarMarca(m);
-                //response.sendRedirect(request.getContextPath() + "/vistas/cars.jsp");
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Modelo elimanado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
+                boolean rs = daoMarca.eliminarMarca(m);
+                String action = "Eliminar marca";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", rs);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
             }
         }
     }

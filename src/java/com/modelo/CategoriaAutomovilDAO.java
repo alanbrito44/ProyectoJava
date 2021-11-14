@@ -49,18 +49,20 @@ public class CategoriaAutomovilDAO extends Conexion{
         }
     }
     
-    public void eliminarCategoria(CategoriaAutomovil c){
+    public boolean eliminarCategoria(CategoriaAutomovil c){
         try {
             this.conectar();
             String sql = "DELETE FROM categoria_automovil WHERE id_catAutomovil=?";
             PreparedStatement pre = this.getConexion().prepareStatement(sql);
             pre.setInt(1, c.getId_catAutomovil());
             pre.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println("Error: "+e.getMessage());
         }finally{
             this.desconectar();
         }
+        return false;
     }
     
     public ArrayList<CategoriaAutomovil> mostrarCategoriaAuto(){

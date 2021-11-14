@@ -172,11 +172,11 @@
 
                     <input type="hidden" class="form-control" name="txtIdMarca">
                     Marca
-                    <input type="text" class="form-control" name="txtMarca" required="">
+                    <input type="text" class="form-control" name="txtMarca" required="" maxlength="15">
                     Descripcion
-                    <textarea class="form-control" name="txtDescripcion" required=""></textarea>
+                    <textarea class="form-control" name="txtDescripcion" required="" maxlength="250"></textarea>
                     Pais
-                    <input type="text" class="form-control" name="txtPais" required="">
+                    <input type="text" class="form-control" name="txtPais" required="" maxlength="20">
 
                 </div>
                 <div class="modal-footer">
@@ -234,14 +234,15 @@
 
                             <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
-                            <td class="imagen_auto"><img id="ruta" src="${pageContext.request.contextPath}/<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="imagen_auto"><img id="ruta" src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
                             <td class="stock"><%=elem.getStock()%></td>
                             <td class="descripcion" style="display:none;"><%=elem.getDescripcion()%></td>
+                            <td class="garantia" style="display:none;"><%=elem.getGarantia()%></td>
                             <td>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEditarA">
+                                <button type="button" class="btn btn-warning" id="btnEditarA">
                                     <i class="far fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAccionesA" data-backdrop="static" data-keyboard="false" id="btnEliminarA">
+                                <button type="button" class="btn btn-danger" id="btnEliminarA">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -272,28 +273,30 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="${pageContext.request.contextPath}/AutomovilServlet" method="POST" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/AutomovilServlet" method="POST" enctype="multipart/form-data" id="carro">
                 <div class="modal-body">
 
                     <input type="hidden" class="form-control" name="txtIdAutomovil">
                     Modelo
-                    <input type="text" class="form-control" name="txtModelo" required="">
+                    <input type="text" class="form-control" name="txtModelo" required="" maxlength="20">
                     Precio
                     <input type="number" class="form-control" name="txtPrecio" required="">
                     Placa
-                    <input type="text" class="form-control" name="txtPlaca" required="">
+                    <input type="text" class="form-control" name="txtPlaca" required="" maxlength="8" placeholder="P000-000">
                     Ano
                     <input type="number" class="form-control" name="txtAno" required="">
                     Transmision
-                    <input type="text" class="form-control" name="txtTransmision" required="">
+                    <input type="text" class="form-control" name="txtTransmision" required="" maxlength="15">
                     Numero de puertas
                     <input type="number" class="form-control" name="txtPuerta" required="">
                     Kilometrage
                     <input type="number" class="form-control" name="txtKilometrage" required="">
                     Color
-                    <input type="text" class="form-control" name="txtColor" required="">
+                    <input type="text" class="form-control" name="txtColor" required="" maxlength="20">
+                    Garantia
+                    <input type="text" class="form-control" name="txtGarantia" required="" maxlength="15">
                     Marca
-                    <select class="form-control" name="sMarca">
+                    <select class="form-control" name="sMarca" id="mod">
                         <%
                             listaMarca = daoMarca.mostrarMarcas();
                             //FOREACH PARA GENERAR EL SELECT CON TODOS LOS DATOS QUE SE ENCUENTRAN EN EL ARRAYLIST
@@ -305,7 +308,7 @@
                         %>
                     </select>
                     Categoria
-                    <select class="form-control" name="sCategoria">
+                    <select class="form-control" name="sCategoria" id="cat">
                         <%
                             listaCate = daoCate.mostrarCategoriaAuto();
                             //FOREACH PARA GENERAR EL SELECT CON TODOS LOS DATOS QUE SE ENCUENTRAN EN EL ARRAYLIST
@@ -317,12 +320,12 @@
                         %>
                     </select>
                     Imagen
-                    <input type="file" class="form-control" name="txtImagen">
+                    <input type="file" class="form-control" name="txtImagen" id="imagen">
                     <input type="hidden" class="form-control" name="txtRutaImg">
                     Stock 
                     <input type="number" class="form-control" name="txtStock" required="">
                     Descripcion
-                    <textarea class="form-control" name="txtDescripcion" required=""></textarea>
+                    <textarea class="form-control" name="txtDescripcion" required="" maxlength="250"></textarea>
 
                 </div>
                 <div class="modal-footer">
@@ -407,9 +410,9 @@
 
                     <input type="hidden" class="form-control" name="txtIdCategotria">
                     Categoria
-                    <input type="text" class="form-control" name="txtCategoria" required="">
+                    <input type="text" class="form-control" name="txtCategoria" required="" maxlength="20">
                     Descripcion
-                    <textarea class="form-control" name="txtDescripCat" required=""></textarea>
+                    <textarea class="form-control" name="txtDescripCat" required="" maxlength="250"></textarea>
 
                 </div>
                 <div class="modal-footer">

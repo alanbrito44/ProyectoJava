@@ -33,33 +33,33 @@ public class CatAutoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             CategoriaAutomovil c = new CategoriaAutomovil();
             CategoriaAutomovilDAO daoCat = new CategoriaAutomovilDAO();
-            
+
             c.setNombre_categoria(request.getParameter("txtCategoria"));
             c.setDescripcion(request.getParameter("txtDescripCat"));
-            
+
             if (request.getParameter("btnAgregarC") != null) {
                 daoCat.insertarCategoria(c);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Categoria ingresado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
-            }else if (request.getParameter("btnEditarC") != null) {
+                String action = "Agregar categoria";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", true);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+            } else if (request.getParameter("btnEditarC") != null) {
                 c.setId_catAutomovil(Integer.parseInt(request.getParameter("txtIdCategotria")));
                 daoCat.modificarCategoria(c);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Categoria editado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
-            }else if (request.getParameter("btnEliminarC") != null) {
+                String action = "Editar categoria";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", true);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);;
+            } else if (request.getParameter("btnEliminarC") != null) {
                 c.setId_catAutomovil(Integer.parseInt(request.getParameter("txtIdCategotria")));
-                daoCat.eliminarCategoria(c);
-                out.println("<script type=\"text/javascript\">");
-                out.println("alert('Categoria eliminado con exito');");
-                out.println("location='vistas/cars.jsp';");
-                out.println("</script>");
+                boolean rs = daoCat.eliminarCategoria(c);
+                String action = "Eliminar categoria";
+                request.setAttribute("action", action);
+                request.setAttribute("resultado", rs);
+                request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
             }
         }
     }

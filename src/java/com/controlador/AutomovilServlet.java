@@ -61,6 +61,7 @@ public class AutomovilServlet extends HttpServlet {
             auto.setId_catAutomovil(Integer.parseInt(request.getParameter("sCategoria")));
             auto.setStock(Integer.parseInt(request.getParameter("txtStock")));
             auto.setDescripcion(request.getParameter("txtDescripcion"));
+            auto.setGarantia(request.getParameter("txtGarantia"));
 
             switch (accion) {
                 case "agregar": {
@@ -102,23 +103,22 @@ public class AutomovilServlet extends HttpServlet {
                     auto.setImagen_auto(dbFileName);
                     daoAuto.insertarAutomovil(auto);
 
-                  
-                            String action = "Crear Carro";
-                            request.setAttribute("action",action);
-                            request.setAttribute("resultado", true);
-                            request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
-                  
+                    String action = "Crear Carro";
+                    request.setAttribute("action", action);
+                    request.setAttribute("resultado", true);
+                    request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+
                 }
                 break;
                 case "eliminar": {
 
                     auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                     daoAuto.eliminarAutomobil(auto);
-                    
-                            String action = "Eliminar Carro";
-                            request.setAttribute("action",action);
-                            request.setAttribute("resultado", true);
-                            request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
+
+                    String action = "Eliminar Carro";
+                    request.setAttribute("action", action);
+                    request.setAttribute("resultado", true);
+                    request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
                 }
                 break;
                 case "editar": {
@@ -127,10 +127,10 @@ public class AutomovilServlet extends HttpServlet {
                         auto.setImagen_auto(request.getParameter("txtRutaImg"));
                         auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                         daoAuto.modificarAutomovil(auto);
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Automovil SIN IMAGEN modificado con exito');");
-                        out.println("location='vistas/cars.jsp';");
-                        out.println("</script>");
+                        String action = "Editar Carro";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
                     } else if (request.getPart("txtImagen").getSize() > 0) {
 
                         Part part = request.getPart("txtImagen");
@@ -159,10 +159,10 @@ public class AutomovilServlet extends HttpServlet {
                         auto.setImagen_auto(dbFileName);
                         auto.setId_automovil(Integer.parseInt(request.getParameter("txtIdAutomovil")));
                         daoAuto.modificarAutomovil(auto);
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Automovil CON IMAGEN modificado con exito');");
-                        out.println("location='vistas/cars.jsp';");
-                        out.println("</script>");
+                        String action = "Editar Carro";
+                        request.setAttribute("action", action);
+                        request.setAttribute("resultado", true);
+                        request.getRequestDispatcher("vistas/cars.jsp").forward(request, response);
 
                     }
                 }
