@@ -31,6 +31,7 @@
     }
 %>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/recursos/CSS/ventasStyle.css">
 <section class="hero-wrap hero-wrap-2 js-fullheight secc" style="background-image: url('../recursos/Multimedia/Imagenes/venta.jpeg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
@@ -58,7 +59,7 @@
                 </style>
     </div>
 </section>
-                <form action="VentasServlet" method="POST">   
+                <form action="${pageContext.request.contextPath}/VentasController" method="POST">   
                     <br><br
                     <div class="align-content-center">
                         <center>
@@ -111,8 +112,7 @@
                         </div>
                         </div>
                     </div>
-                </form>
-                <form>
+             
                     <div class="row mx-2">
                         <div class="col-md-12">
                             <div class="">     
@@ -141,7 +141,7 @@
                                 
                                 <div class="row">
                                     <div class="col-md-12 mx-5 my-2">                       
-                                        <button type="button" class="btn btn-success btn-sm" onclick="print();" name="btnGenerar" id="btnGenerar">
+                                        <button type="submit" value="crearVenta" class="btn btn-success btn-sm"  name="btnGenerar" id="btnGenerar">
                                             Generar Venta
                                         </button>
                                         <button type="button" class="btn btn-danger btn-sm mx-2" name="btnCancelar" id="btnCancelar">

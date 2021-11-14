@@ -32,6 +32,10 @@
         <servlet-name>UsuarioServlet</servlet-name>
         <servlet-class>com.controlador.UsuarioServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VentasController</servlet-name>
+        <servlet-class>com.controlador.VentasController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServelet</servlet-name>
         <url-pattern>/LoginServelet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VentasController</servlet-name>
+        <url-pattern>/VentasController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

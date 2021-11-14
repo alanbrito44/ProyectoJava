@@ -146,11 +146,11 @@ function setearFecha() {
 
 
         var tr = '<tr>' +
-                '<td class="codigo">' + codigo + '</td>' +
-                '<td class="marca">' + marca + '</td>' +
-                '<td class="modelo">' + modelo + '</td>' +
-                '<td class="garantia">' + garantia + '</td>' +
-                '<td class="precio" id="precio">' + precio + '</td>' +
+                '<td class="codigo"><input name="" class="notControl" value="'+codigo+'"></td>' +
+                '<td class="marca"><input name="" class="notControl" value="'+marca+'"></td>' +
+                '<td class="modelo"><input name="" class="notControl" value="'+modelo+'"></td>' +
+                '<td class="garantia"><input name="" class="notControl" value="'+garantia+'"></td>' +
+                '<td class="precio" id="precio"><input name="" class="notControl" value="'+precio+'"></td>' +
                 '<td class="cantidad"><input type="number" min="0" value="1" style="border: none; width: 120px; " id="cantidad" class="form-control" name="txtCantidad"></td>' +
                 '<td class="subtotal" id="subTotal">' + subTotal + '</td>' +
                 '<td>' +
