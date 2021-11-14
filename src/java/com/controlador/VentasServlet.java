@@ -52,7 +52,7 @@ public class VentasServlet extends HttpServlet {
             
             if(request.getParameter("btnGenerar")!=null){
                 daoDetalle.insertarDetalleVentas(d);
-                daoVentas.insertarVentas(v);
+                
             }   
             request.getRequestDispatcher("ventas.jsp").forward(request, response);
             

@@ -133,7 +133,7 @@ swalWithBootstrapButtons.fire({
                 '</tr>';
  
          $('#facturacion').append(tr);
-         cargarTotal();
+         calcularTotal(subTotal);
       
     }
     
@@ -172,6 +172,7 @@ swalWithBootstrapButtons.fire({
                 '</tr>';
         
         $('#facturacion').append(tr);
+      
     }
     
     $(document).ready(function(){ 
@@ -204,6 +205,17 @@ $('#total').text(sum);
             console.log($(this).text());
         });
        
+    }
+    
+    function calcularTotal(){
+      var total= 0;
+      
+      $("#venta >tbody").find("tr").each(function(){
+          total += parseFloat($(this).find("td.subtotal").eq(0).text());
+          
+      })
+      
+      $("#total").val(total);
     }
 
     
