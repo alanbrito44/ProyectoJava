@@ -29,7 +29,7 @@
     }
 %>
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('../recursos/Multimedia/Imagenes/venta.jpeg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight secc" style="background-image: url('../recursos/Multimedia/Imagenes/venta.jpeg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -38,71 +38,110 @@
                 <h1 class="mb-3 bread">Ventas</h1>
             </div>
         </div>
+                
+                <style>
+                    @media print{
+                        .btn, .bread, .accion, .secc, .footer{
+                            display: none;
+                        }
+                    }
+                </style>
     </div>
 </section>
-                <div class="row">
-                    <div class="col-md-12 mx-5 my-2">                       
-                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#mdlVentas" id="btnEditar">
-                            Clientes
-                        </button>
-                        <button type="button" class="btn btn-danger btn-sm mx-2" data-toggle="modal" data-target="#mdlVehiculos" id="btnEliminar">
-                            Vehiculos
-                        </button>                   
+                <form name="ventas" method="POST">   
+                    <br><br
+                    <div class="align-content-center">
+                        <center>
+                        <h5><b>Nombre de La Empresa:</b>           CarsToreto S.A de C.V</h5>
+                        <h5><b>Nit de La Empresa:</b>              0513-161220-103-2</h5>
+                        <h5><b>Registro de La Empresa:</b>         258925-6</h5>
+                        <h5><b>Direccion de La Empresa:</b>        San salvador</h5>
+                        </center>
+                        </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-12 mx-5 my-2">                       
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#mdlVentas" id="btnEditar">
+                                Clientes
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm mx-2" data-toggle="modal" data-target="#mdlVehiculos" id="btnEliminar">
+                                Vehiculos
+                            </button>                   
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="">     
-                            <div class="form-group mx-sm-3">
-                                <label for="inputUser" >Fecha</label>
-                                <input type="txt" class="mx-5 p-2 accionBlog" disabled="true">
+                    <div class="form-group" style="inline-box-align: ">                        
+                        <div >
+                            <div class="d-flex align-items-center align-content-center">  
+                                <div class="col-sm-12 d-flex">
+                                    <div class="form-group col-sm-6" style="display: inline-table">                                        
+                                        <label for="inputUser" >Fecha</label>
+                                        <input  type="txt" class="mx-5 p-2 factura" id="txtFecha" name="txtFecha" disabled="true" >                                       
+                                    </div>
+                                    <div class="form-group col-sm-6" style="display: inline-table">
+                                        <label for="inputPass">Factura</label>
+                                        <input type="txt" class="mx-5 p-2 accionBlog" name="txtFactura" disabled="true">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group mx-sm-3">
-                                <label for="inputPass">Factura</label>
-                               <input type="txt" class="mx-5 p-2 accionBlog" disabled="true">
+                            <div class="d-flex align-items-center align-content-center">
+                                <div class="col-sm-12 d-flex">
+                                    <div class="form-group col-sm-6" style="display: inline-table">
+                                        <label for="inputUser">Codigo Cliente</label> 
+                                        <input type="txt" class="mx-5 p-2 accionBlog" name="txtCodigo" disabled="true">
+                                    </div>
+                                    <div class="form-group col-sm-6" style="display: inline-table">
+                                        <label for="inputUser">Cliente</label> 
+                                        <input type="txt" class="mx-5 p-2 accionBlog" name="txtNombre" disabled="true">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group mx-sm-3">
-                                <label for="inputUser">Codigo Cliente</label> 
-                                <input type="txt" class="mx-5 p-2 accionBlog" name="txtCodigo" disabled="true">
-                            </div>
-                            <div class="form-group mx-sm-3">
-                                <label for="inputUser">Cliente</label> 
-                                <input type="txt" class="mx-5 p-2 accionBlog" name="txtNombre" disabled="true">
-                            </div>
-                             <div class="form-group mx-sm-3">
-                                <label for="inputUser">Monto</label>
-                                 <input type="txt" class="mx-5 p-2 accionBlog" disabled="true">
-                            </div>
-                            <div class="form-group mx-sm-3">
-                                <label for="inputUser">Garantia</label>
-                                 <input type="txt" class="mx-5 p-2 accionBlog" >
+                        </div>
+                        </div>
+                    </div>
+                </form>
+                <form>
+                    <div class="row mx-2">
+                        <div class="col-md-12">
+                            <div class="">     
+                                <table id="venta" class="table align-items-center">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>MARCA AUTO</th>
+                                            <th>MODELO</th>
+                                            <th>GARANTIA</th>
+                                            <th>PRECIO</th>
+                                            <th>CANTIDAD</th>
+                                            <th>SUB-TOTAL</th>
+                                            <th class="accion">ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facturacion" name="facturacion">
+                                    </tbody> 
+                                    <tfoot>
+                                        <tr>
+                                            <td><label>Total:</label></td>
+                                            <td class="d-flex align-items-center"><input type="Text" name="total" id="total" size="6" value="" maxlength="6" disabled="true"/></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                
+                                <div class="row">
+                                    <div class="col-md-12 mx-5 my-2">                       
+                                        <button type="button" class="btn btn-success btn-sm" onclick="print();" name="btnGenerar" id="btnGenerar">
+                                            Generar Venta
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm mx-2" name="btnCancelar" id="btnCancelar">
+                                            Cancelar Venta
+                                        </button>                   
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mx-2">
-                    <div class="col-md-12">
-                        <div class="">     
-                            <table class="table align-items-center">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>MARCA AUTO</th>
-                                        <th>MODELO</th>
-                                        <th>PRECIO</th>
-                                        <th>CANTIDAD</th>
-                                        <th>SUB-TOTAL</th>
-                                        <th>ACCIONES</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="facturacion">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </form>
        
-                <%@include file="../layout/footer.jsp" %>
+                <span class="footer">         <%@include file="../layout/footer.jsp" %></span>
                 <%!
                     VentasDAO daoVentas = new VentasDAO();
                     DetalleVentasDAO daoDetalle = new DetalleVentasDAO();
@@ -195,15 +234,13 @@
                             <th>ID</th>
                             <th>MODELO</th>
                             <th>PRECIO</th>
-                            <th>PLACA</th>
                             <th>AÑO</th>
-                            <th>TRANSMISION</th>
                             <th>PUERTAS</th>
                             <th>KILOMETRAGE</th>
                             <th>COLOR</th>
                             <th>MARCA</th>
                             <th>CATEGORIA</th>
-                            <th>IMAGEN</th>
+                            <th>GARANTIA</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
@@ -217,9 +254,7 @@
                             <td class="id_auto"><%=elem.getId_automovil()%></td>
                             <td class="modelo_auto"><%=elem.getModelo_automovil()%></td>
                             <td class="precio_auto"><%=elem.getPrecio()%></td>
-                            <td class="placa_auto"><%=elem.getPlaca()%></td>
                             <td class="ano_auto"><%=elem.getAno()%></td>
-                            <td class="transmision_auto"><%=elem.getTransmision()%></td>
                             <td class="puerta_auto"><%=elem.getPuertas()%></td>
                             <td class="kilometrage_auto"><%=elem.getKilometrage()%></td>
                             <td class="color_auto"><%=elem.getColor()%></td>
@@ -228,7 +263,7 @@
 
                             <td class="categoria_auto"><%=daoCate.getCategoria(elem.getId_catAutomovil()).getNombre_categoria()%></td>
 
-                            <td class="imagen_auto"><image src="../<%=daoAutomovil.getImagen(elem.getId_automovil()).getImagen_auto()%>" width="50" height="50"/></td>
+                            <td class="garantia"><%=elem.getGarantia()%></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" id="btnVehiculo">
                                     Seleccionar
@@ -245,4 +280,7 @@
         </div>
     </div>
 </div>
+                    
+                    
+                    
                     <script src="../recursos/JS/ventas.js"></script>
