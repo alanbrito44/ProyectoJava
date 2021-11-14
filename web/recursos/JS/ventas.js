@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 $(document).ready(function(){
+    cargarNumFactura();
+    
     //Selecciona los Clientes
    $('body').on('click', '#btnSeleccionar', function (){
        let campo = $(this).closest('tr');
@@ -23,14 +25,61 @@ $(document).ready(function(){
    
    //Borra la fila de la compra que no se desee hacer
     $('body').on('click', '#btnBorrar', function (event) {
+        const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+    swalWithBootstrapButtons.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+
         event.preventDefault();
         $(this).closest('tr').remove();
+        })
     });
    
-   //Limpia todo el Formulario
-     $('#btnCancelar').click(function(){
-       $("tbody").children().remove() 
-       $('form')[0].reset(); 
+    //Limpia todo el Formulario
+    $('#btnCancelar').click(function () {
+        Swal.fire({
+            title: '¿Deseaas Cancelar la Compra?',
+            showDenyButton: true,
+            confirmButtonText: 'Eliminar?',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire('Compra Cancelada!', '', 'error')
+                $("tbody").children().remove()
+                $('form')[0].reset();
+            } else if (result.isDenied) {
+                Swal.fire('Seguir Facturando!', '', 'success')
+            }
+        })
     });  
     
    
@@ -74,7 +123,7 @@ $(document).ready(function(){
          '<td class="modelo">'+modelo+'</td>'+
          '<td class="garantia">'+garantia+'</td>'+
          '<td class="precio" id="precio">'+precio+'</td>'+
-         '<td class="cantidad"><input type="number" min="0" value="1" style=" width: 120px;" id="cantidad" class="form-control" name="txtCantidad"></td>'+                
+         '<td class="cantidad"><input type="number" min="0" value="1" style="border: none; width: 120px; " id="cantidad" class="form-control" name="txtCantidad"></td>'+                
          '<td class="subtotal" id="subTotal">'+subTotal+'</td>'+
          '<td>'+
               '<button type="button" class="btn btn-warning btn-sm"  id="btnBorrar">'+
@@ -84,6 +133,7 @@ $(document).ready(function(){
                 '</tr>';
  
          $('#facturacion').append(tr);
+         cargarTotal();
       
     }
     
@@ -142,6 +192,19 @@ $(document).ready(function(){
     }); 
     
 $('#total').text(sum);  
+
+    function cargarNumFactura() {
+        var factura = $('#factnumber').text();
+        factura++;
+        $('#factura').val(factura);
+    }
+    
+    function cargarTotal(){
+        $('td.subtotal').each(function (){
+            console.log($(this).text());
+        });
+       
+    }
 
     
 });

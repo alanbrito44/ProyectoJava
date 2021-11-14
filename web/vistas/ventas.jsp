@@ -21,7 +21,9 @@
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/navbar.jsp" %>
 
-<%    
+<%  
+    VentasDAO daoVentas = new VentasDAO();
+    
     if (sesion.getAttribute("nivel") == null) {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }else if ((Integer) sesion.getAttribute("nivel") != 1){
@@ -44,11 +46,19 @@
                         .btn, .bread, .accion, .secc, .footer{
                             display: none;
                         }
+                        input{
+                            border: none;
+                            background: fff;
+                        }
+                        td, input{
+                            border: none;
+                            background: fff;                            
+                        }
                     }
                 </style>
     </div>
 </section>
-                <form name="ventas" method="POST">   
+                <form action="VentasServlet" method="POST">   
                     <br><br
                     <div class="align-content-center">
                         <center>
@@ -79,15 +89,18 @@
                                     </div>
                                     <div class="form-group col-sm-6" style="display: inline-table">
                                         <label for="inputPass">Factura</label>
-                                        <input type="txt" class="mx-5 p-2 accionBlog" name="txtFactura" disabled="true">
+                                        <p class="d-none" id="factnumber"><%=daoVentas.generarFactura()%></p>
+                                        <input value="" id="factura" type="txt" class="mx-5 p-2 accionBlog" name="txtFactura" disabled="true">
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center align-content-center">
                                 <div class="col-sm-12 d-flex">
                                     <div class="form-group col-sm-6" style="display: inline-table">
-                                        <label for="inputUser">Codigo Cliente</label> 
+                                        
+                                        <label for="inputUser">Codigo Cliente</label>
                                         <input type="txt" class="mx-5 p-2 accionBlog" name="txtCodigo" disabled="true">
+                                        
                                     </div>
                                     <div class="form-group col-sm-6" style="display: inline-table">
                                         <label for="inputUser">Cliente</label> 
@@ -121,7 +134,7 @@
                                     <tfoot>
                                         <tr>
                                             <td><label>Total:</label></td>
-                                            <td class="d-flex align-items-center"><input type="Text" name="total" id="total" size="6" value="" maxlength="6" disabled="true"/></td>
+                                            <td class="d-flex align-items-center"><input  name="total" id="total" size="6" value="" maxlength="6" disabled="true"/></td>
                                         </tr>
                                     </tfoot>
                                 </table>
