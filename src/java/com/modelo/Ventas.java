@@ -14,24 +14,24 @@ public class Ventas {
     private int id_venta;
     private String fecha;
     private float monto_total;
-    private int id_detalle;
+    private int id_cliente;
 
     public Ventas() {
     }
 
-    public Ventas(int id_venta, String fecha, float monto_total, int id_detalle) {
+    public Ventas(int id_venta, String fecha, float monto_total, int id_cliente) {
         this.id_venta = id_venta;
         this.fecha = fecha;
         this.monto_total = monto_total;
-        this.id_detalle = id_detalle;
+        this.id_cliente = id_cliente;
     }
 
-    public int getId_detalle() {
-        return id_detalle;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId_detalle(int id_detalle) {
-        this.id_detalle = id_detalle;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public int getId_venta() {
