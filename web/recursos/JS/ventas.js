@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
+    setearFecha();
     var clienteOn = false;
     cargarNumFactura();
 
@@ -108,7 +109,7 @@ Swal.fire({
 
 
     //Genera la Fecha Automatica
-    window.onload = function () {
+function setearFecha() {
         var fecha = new Date(); //Fecha actual
         var mes = fecha.getMonth() + 1; //obteniendo mes
         var dia = fecha.getDate(); //obteniendo dia
@@ -117,7 +118,8 @@ Swal.fire({
             dia = '0' + dia; //agrega cero si el menor de 10
         if (mes < 10)
             mes = '0' + mes //agrega cero si el menor de 10
-        document.getElementById('txtFecha').value = dia + "-" + mes + "-" + ano;
+
+        $("#txtFecha").val(dia + "-" + mes + "-" + ano);
     }
 
     // Cuando se Cambia la Cantidad se Cambia el SubTotal   
