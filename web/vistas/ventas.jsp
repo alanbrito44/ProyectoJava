@@ -71,7 +71,7 @@
                     <br><br>
                     <div class="row">
                         <div class="col-md-12 mx-5 my-2">                       
-                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#mdlVentas" id="btnEditar">
+                            <button type="button" class="btn btn-success btn-sm" id="btnEditar">
                                 Clientes
                             </button>
                             <button type="button" class="btn btn-danger btn-sm mx-2" data-toggle="modal" data-target="#mdlVehiculos" id="btnEliminar">
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="form-group col-sm-6" style="display: inline-table">
                                         <label for="inputUser">Cliente</label> 
-                                        <input type="txt" class="mx-5 p-2 accionBlog" name="txtNombre" disabled="true">
+                                        <input  type="txt" class="mx-5 p-2 accionBlog" name="txtNombre" disabled="true">
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
                                     <tfoot>
                                         <tr>
                                             <td><label>Total:</label></td>
-                                            <td class="d-flex align-items-center"><input  name="total" id="total" size="6" value="" maxlength="6" disabled="true"/></td>
+                                            <td class="d-flex align-items-center"><input  name="total" id="total" size="6" value="0" maxlength="6" disabled="true"/></td>
                                         </tr>
                                     </tfoot>
                                 </table>
