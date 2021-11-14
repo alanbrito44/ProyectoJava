@@ -126,7 +126,7 @@ function setearFecha() {
     $('body').on('change', '#cantidad', function () {
         let fila = $(this).closest('tr');
 
-        var precio = fila.find('#precio').text();
+        var precio = fila.find('#txtPrecio').val();
         var cantidad = fila.find('#cantidad').val();
         var subTotal = precio * cantidad;
         fila.find('#subTotal').text(subTotal);
@@ -150,7 +150,7 @@ function setearFecha() {
                 '<td class="marca"><input name="" class="notControl" value="'+marca+'"></td>' +
                 '<td class="modelo"><input name="" class="notControl" value="'+modelo+'"></td>' +
                 '<td class="garantia"><input name="" class="notControl" value="'+garantia+'"></td>' +
-                '<td class="precio" id="precio"><input name="" class="notControl" value="'+precio+'"></td>' +
+                '<td class="precio" id="precio"><input id="txtPrecio" name="" class="notControl" value="'+precio+'"></td>' +
                 '<td class="cantidad"><input type="number" min="0" value="1" style="border: none; width: 120px; " id="cantidad" class="form-control" name="txtCantidad"></td>' +
                 '<td class="subtotal" id="subTotal">' + subTotal + '</td>' +
                 '<td>' +
