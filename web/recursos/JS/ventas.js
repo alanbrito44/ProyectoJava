@@ -87,7 +87,7 @@ Swal.fire({
     });
 
     //Limpia todo el Formulario
-    $('#btnCancelar').click(function () {
+    $('#btnCancelar').click(function () {   
         Swal.fire({
             title: '¿Deseaas Cancelar la Compra?',
             showDenyButton: true,
@@ -96,8 +96,10 @@ Swal.fire({
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 Swal.fire('Compra Cancelada!', '', 'error')
-                $("tbody").children().remove()
+                $("#venta > tbody").children().remove()
                 $('form')[0].reset();
+                calcularTotal();
+                clienteOn=false;
             } else if (result.isDenied) {
                 Swal.fire('Seguir Facturando!', '', 'success')
             }
